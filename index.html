@@ -648,7 +648,106 @@ body {
   line-height: 1.7;
   margin-top: 16px;
 }
+/* PROGRAMMA CONVEGNO HOME */
+.conv-outer {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
+.conv-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #f0a500;
+  text-align: center;
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.conv-table {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.conv-row {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.conv-row:last-child {
+  border-bottom: none;
+}
+
+.conv-row.tipo-registrazione,
+.conv-row.tipo-chiusura,
+.conv-row.tipo-moderazione {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.conv-row.tipo-tavola-rotonda-i,
+.conv-row.tipo-tavola-rotonda-ii {
+  background: rgba(240, 165, 0, 0.1);
+}
+
+.conv-row.tipo-intervento,
+.conv-row.tipo-intervista {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.conv-ora {
+  padding: 12px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #f0a500;
+  border-right: 2px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.conv-detail {
+  padding: 12px 16px;
+}
+
+.conv-sessione {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 2px;
+}
+
+.conv-titolo {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.conv-relatore {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.conv-ruolo {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+}
+
+@media(max-width:600px) {
+  .conv-row {
+    grid-template-columns: 60px 1fr;
+  }
+}
+    
 /* HOTEL CARDS */
 .hotel-card {
   background: #fff;
@@ -825,6 +924,15 @@ footer {
         <div class="time">Venerdì · Ore 14:30</div>
       </div>
       <img src="./save%20the%20date.png" alt="" class="save-date-img">
+      <!-- PROGRAMMA CONVEGNO -->
+      <div class="conv-outer">
+        <h3 class="conv-title">📋 Programma del Convegno</h3>
+        <div id="conv-loading" class="loading" style="display:none">
+          <div class="spinner" style="border-top-color:#f0a500"></div>
+          <div style="color:rgba(255,255,255,0.6)">Caricamento programma...</div>
+        </div>
+        <div id="conv-content"></div>
+      </div>
     </div>
   </section>
 
@@ -1266,6 +1374,7 @@ footer {
       SHEET_DAY1_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQljS8QNjErNTU22R5ounyBCqMxqKC2zzWyRF0u3oSZjD-Q3f3A7f71a-XyejpSJLtj2AKPxXeonDVF/pub?gid=0&single=true&output=csv',
       SHEET_DAY2_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQljS8QNjErNTU22R5ounyBCqMxqKC2zzWyRF0u3oSZjD-Q3f3A7f71a-XyejpSJLtj2AKPxXeonDVF/pub?gid=454945590&single=true&output=csv',
       SHEET_HOTEL_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQljS8QNjErNTU22R5ounyBCqMxqKC2zzWyRF0u3oSZjD-Q3f3A7f71a-XyejpSJLtj2AKPxXeonDVF/pub?gid=TUO_GID_HOTEL&single=true&output=csv',
+      SHEET_CONVEGNO_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQljS8QNjErNTU22R5ounyBCqMxqKC2zzWyRF0u3oSZjD-Q3f3A7f71a-XyejpSJLtj2AKPxXeonDVF/pub?gid=1930481779&single=true&output=csv',
       FORM_URL: 'https://script.google.com/macros/s/AKfycbx8dUrP6tEmCKlRbS-1l01mB6bNmlnSKuNYoCBYNUeK55khwuybvE5CipqPzOnGmQxR-Q/exec',
       PREZZI: {
         hotel_victoria: 180,
