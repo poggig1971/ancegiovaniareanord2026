@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="it">
 
 <head>
@@ -15,698 +16,635 @@
       box-sizing: border-box;
     }
 
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background: #1e3a5f;
-      color: #fff;
-    }
-
-    /* TOP BAR */
-    .topbar {
-      background: #17305a;
-      padding: 6px 30px;
-      font-size: 13px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .topbar a {
-      color: #fff;
-      text-decoration: none;
-    }
-
-    .topbar a:hover {
-      text-decoration: underline;
-    }
-
-    /* HEADER */
-    .header {
-      background: #fff;
-      padding: 12px 30px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 3px solid #f0a500;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .logos-row {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .logo-item {
-      display: flex;
-      align-items: center;
-    }
-
-    .logo-ance {
-      font-size: 20px;
-      font-weight: 700;
-      color: #1e3a5f;
-      letter-spacing: -1px;
-      line-height: 1;
-    }
-
-    .logo-ance span.giovani {
-      display: block;
-      font-size: 7px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: #f0a500;
-      text-transform: uppercase;
-    }
-
-    .logo-divider {
-      width: 2px;
-      height: 30px;
-      background: #f0a500;
-      margin: 0 7px;
-    }
-
-    .logo-region {
-      font-size: 10px;
-      font-weight: 700;
-      color: #1e3a5f;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      line-height: 1.3;
-    }
-
-    .logo-sep {
-      width: 1px;
-      height: 36px;
-      background: #ddd;
-    }
-
-    .header-btns {
-      display: flex;
-      gap: 10px;
-    }
-
-    .btn-orange {
-      background: #f0a500;
-      color: #fff;
-      border: none;
-      padding: 10px 22px;
-      font-size: 13px;
-      font-weight: 700;
-      border-radius: 4px;
-      cursor: pointer;
-      text-decoration: none;
-      letter-spacing: 0.5px;
-      transition: background 0.2s;
-      display: inline-block;
-    }
-
-    .btn-orange:hover {
-      background: #d4920a;
-    }
-
-    /* NAV */
-    .nav-tabs {
-      background: #17305a;
-      display: flex;
-      justify-content: center;
-      border-bottom: 3px solid #f0a500;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-    }
-
-    .nav-tab {
-      padding: 14px 36px;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.6);
-      border: none;
-      background: none;
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-      margin-bottom: -3px;
-      transition: all 0.2s;
-    }
-
-    .nav-tab.active,
-    .nav-tab:hover {
-      color: #f0a500;
-      border-bottom-color: #f0a500;
-    }
-
-    /* SECTIONS */
-    .section {
-      display: none;
-    }
-
-    .section.active {
-      display: block;
-    }
-
-    /* HOME */
-    .hero {
-      background: #1e3a5f;
-      min-height: calc(100vh - 110px);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 20px 20px 50px;
-      gap: 12px;
-    }
-
-    .hero-card {
-      background: rgba(23, 48, 90, 0.9);
-      border: 2px solid rgba(255, 255, 255, 0.15);
-      border-radius: 12px;
-      padding: 32px 50px;
-      text-align: center;
-      max-width: 680px;
-      width: 100%;
-    }
-
-    .hero-card h1 {
-      font-size: clamp(16px, 3vw, 24px);
-      font-weight: 900;
-      color: #f0a500;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      line-height: 1.3;
-      margin-bottom: 8px;
-    }
-
-    .hero-card .date {
-      font-size: clamp(14px, 2.5vw, 20px);
-      font-weight: 800;
-      color: #f0a500;
-      margin-bottom: 6px;
-    }
-
-    .hero-card .time {
-      font-size: 14px;
-      font-weight: 600;
-      color: #f0a500;
-      font-style: italic;
-      letter-spacing: 2px;
-    }
-
-    .save-date-img {
-      max-width: 800px;
-      width: 100%;
-      border-radius: 8px;
-      border: 3px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
-    }
-
-    /* PROGRAMMA */
-    .prog-outer {
-      background: #f5f7fa;
-      padding: 20px 20px 20px;
-      min-height: 70vh;
-    }
-
-    .prog-inner {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .day-switcher {
-      display: flex;
-      gap: 0;
-      margin-bottom: 36px;
-      border-radius: 6px;
-      overflow: hidden;
-      border: 2px solid #1e3a5f;
-    }
-
-    .day-btn {
-      flex: 1;
-      padding: 14px;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      border: none;
-      background: #fff;
-      color: #1e3a5f;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .day-btn.active {
-      background: #1e3a5f;
-      color: #f0a500;
-    }
-
-    .day-content {
-      display: none;
-    }
-
-    .day-content.active {
-      display: block;
-    }
-
-    .section-divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-
-    .section-divider h2 {
-      font-size: 20px;
-      font-weight: 800;
-      color: #1e3a5f;
-      white-space: nowrap;
-    }
-
-    .section-divider .line {
-      flex: 1;
-      height: 2px;
-      background: linear-gradient(to right, #1e3a5f, transparent);
-    }
-
-    .prog-block {
-      margin-bottom: 28px;
-    }
-
-    .prog-block-title {
-      background: #1e3a5f;
-      color: #fff;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      padding: 10px 18px;
-      border-radius: 4px 4px 0 0;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .prog-rows {
-      background: #fff;
-      border-radius: 0 0 6px 6px;
-      overflow: hidden;
-      border: 1px solid #dde3ec;
-      border-top: none;
-    }
-
-    .prog-row {
-      display: grid;
-      grid-template-columns: 120px 1fr;
-      border-bottom: 1px solid #eef0f4;
-      align-items: stretch;
-    }
-
-    .prog-row:last-child {
-      border-bottom: none;
-    }
-
-    .prog-time {
-      background: #f8fafc;
-      padding: 16px;
-      font-size: 12px;
-      font-weight: 700;
-      color: #1e3a5f;
-      border-right: 2px solid #eef0f4;
-      display: flex;
-      align-items: center;
-      line-height: 1.4;
-    }
-
-    .prog-content {
-      padding: 14px 20px;
-    }
-
-    .prog-content .title {
-      font-size: 14px;
-      font-weight: 700;
-      color: #1a1a2e;
-      margin-bottom: 5px;
-    }
-
-    .prog-content .location a {
-      color: #1e3a5f;
-      text-decoration: none;
-      font-size: 12px;
-      font-weight: 600;
-      line-height: 1.6;
-      display: block;
-    }
-
-    .prog-content .location a:hover {
-      color: #f0a500;
-    }
-
-    .prog-content .note {
-      font-size: 11px;
-      color: #888;
-      margin-top: 4px;
-      font-style: italic;
-    }
-
-    .prog-badge {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 2px;
-      margin-left: 6px;
-      vertical-align: middle;
-    }
-
-    .badge-p {
-      background: rgba(30, 58, 95, 0.1);
-      color: #1e3a5f;
-    }
-
-    .badge-c {
-      background: rgba(240, 165, 0, 0.15);
-      color: #8a5e00;
-    }
-
-    .badge-s {
-      background: rgba(40, 140, 40, 0.1);
-      color: #1a6b1a;
-    }
-
-    /* Loading spinner */
-    .loading {
-      text-align: center;
-      padding: 40px;
-      color: #1e3a5f;
-    }
-
-    .spinner {
-      width: 36px;
-      height: 36px;
-      border: 4px solid #dde3ec;
-      border-top-color: #1e3a5f;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 12px;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    .error-msg {
-      background: #fff3cd;
-      color: #856404;
-      border: 1px solid #ffc107;
-      border-radius: 6px;
-      padding: 16px 20px;
-      margin: 20px 0;
-      font-size: 13px;
-    }
-
-    /* ISCRIZIONI */
-    .iscr-outer {
-      background: #f5f7fa;
-      padding: 20px 20px 60px;
-      min-height: 70vh;
-    }
-
-    .iscr-inner {
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .iscr-title {
-      font-size: 24px;
-      font-weight: 800;
-      color: #1e3a5f;
-      margin-bottom: 8px;
-    }
-
-    .iscr-sub {
-      font-size: 14px;
-      color: #555;
-      margin-bottom: 32px;
-      line-height: 1.6;
-    }
-
-    .form-card {
-      background: #fff;
-      border-radius: 8px;
-      border: 1px solid #dde3ec;
-      padding: 30px;
-      margin-bottom: 24px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-    }
-
-    .form-card h3 {
-      font-size: 15px;
-      font-weight: 800;
-      color: #1e3a5f;
-      margin-bottom: 18px;
-      padding-bottom: 10px;
-      border-bottom: 2px solid #f0a500;
-    }
-
-    .form-group {
-      margin-bottom: 18px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 12px;
-      font-weight: 700;
-      color: #1e3a5f;
-      margin-bottom: 6px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-
-    .form-group label .req {
-      color: #c0181e;
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%;
-      padding: 10px 14px;
-      border: 1.5px solid #dde3ec;
-      border-radius: 4px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 13px;
-      color: #1a1a2e;
-      transition: border-color 0.2s;
-      background: #fafbfc;
-    }
-
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: #1e3a5f;
-      background: #fff;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .radio-group,
-    .check-group {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .radio-item,
-    .check-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      cursor: pointer;
-    }
-
-    .radio-item input,
-    .check-item input {
-      margin-top: 2px;
-      accent-color: #1e3a5f;
-      width: 16px;
-      height: 16px;
-      flex-shrink: 0;
-    }
-
-    .radio-item .label-text,
-    .check-item .label-text {
-      font-size: 13px;
-      color: #333;
-      font-weight: 500;
-      line-height: 1.4;
-    }
-
-    .radio-item .label-text small,
-    .check-item .label-text small {
-      display: block;
-      color: #888;
-      font-size: 11px;
-      font-weight: 400;
-    }
-
-    .price-tag {
-      display: inline-block;
-      background: #f0a500;
-      color: #fff;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 2px;
-      margin-left: 6px;
-    }
-
-    .free-tag {
-      display: inline-block;
-      background: #2c782c;
-      color: #fff;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 2px;
-      margin-left: 6px;
-    }
-
-    /* Conditional sections */
-    .cond-section {
-      display: none;
-    }
-
-    .cond-section.visible {
-      display: block;
-    }
-
-    .gratuito-notice {
-      background: #e8f5e9;
-      border: 1px solid #a5d6a7;
-      border-radius: 6px;
-      padding: 14px 18px;
-      margin-bottom: 20px;
-      font-size: 13px;
-      color: #1b5e20;
-      font-weight: 600;
-    }
-
-    .pagante-notice {
-      background: #fff8e1;
-      border: 1px solid #ffe082;
-      border-radius: 6px;
-      padding: 14px 18px;
-      margin-bottom: 20px;
-      font-size: 13px;
-      color: #5d4037;
-      font-weight: 600;
-    }
-
-    .prezzo-totale {
-      background: #1e3a5f;
-      color: #fff;
-      border-radius: 6px;
-      padding: 20px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 24px;
-    }
-
-    .prezzo-totale .label {
-      font-size: 13px;
-      font-weight: 600;
-      opacity: 0.8;
-    }
-
-    .prezzo-totale .amount {
-      font-size: 28px;
-      font-weight: 900;
-      color: #f0a500;
-    }
-
-    .btn-submit {
-      width: 100%;
-      background: #1e3a5f;
-      color: #fff;
-      border: none;
-      padding: 16px;
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 20px;
-      transition: background 0.2s;
-    }
-
-    .btn-submit:hover {
-      background: #f0a500;
-    }
-
-    .info-box {
-      background: #e8f0fb;
-      border-left: 4px solid #1e3a5f;
-      padding: 14px 18px;
-      border-radius: 0 6px 6px 0;
-      font-size: 12px;
-      color: #1e3a5f;
-      line-height: 1.7;
-      margin-top: 16px;
-    }
-
-    /* FOOTER */
-    footer {
-      background: #12263f;
-      color: rgba(255, 255, 255, 0.5);
-      text-align: center;
-      padding: 30px 20px;
-      font-size: 12px;
-      line-height: 2;
-    }
-
-    @media(max-width:600px) {
-      .header {
-        flex-direction: column;
-      }
-
-      .logos-row {
-        justify-content: center;
-      }
-
-      .prog-row {
-        grid-template-columns: 80px 1fr;
-      }
-
-      .hero-card {
-        padding: 24px 16px;
-      }
-
-      .form-row {
-        grid-template-columns: 1fr;
-      }
-
-      .nav-tab {
-        padding: 12px 16px;
-        font-size: 11px;
-      }
-    }
-  </style>
-</head>
-
-<body>
+```
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: #1e3a5f;
+  color: #fff;
+}
+
+/* TOP BAR */
+.topbar {
+  background: #17305a;
+  padding: 6px 30px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.topbar a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.topbar a:hover {
+  text-decoration: underline;
+}
+
+/* HEADER */
+.header {
+  background: #2a4a73;
+  padding: 12px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 3px solid #f0a500;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.logos-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.logo-item {
+  display: flex;
+  align-items: center;
+}
+
+.logo-ance {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.logo-ance span.giovani {
+  display: block;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #f0a500;
+  text-transform: uppercase;
+}
+
+.logo-divider {
+  width: 2px;
+  height: 30px;
+  background: #f0a500;
+  margin: 0 7px;
+}
+
+.logo-region {
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.3;
+}
+
+.logo-sep {
+  width: 1px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* NAV */
+.nav-tabs {
+  background: #17305a;
+  display: flex;
+  justify-content: center;
+  border-bottom: 3px solid #f0a500;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.nav-tab {
+  padding: 14px 36px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -3px;
+  transition: all 0.2s;
+}
+
+.nav-tab.active,
+.nav-tab:hover {
+  color: #f0a500;
+  border-bottom-color: #f0a500;
+}
+
+/* SECTIONS */
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+/* HOME */
+.hero {
+  background: #1e3a5f;
+  min-height: calc(100vh - 110px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px 20px 50px;
+  gap: 12px;
+}
+
+.hero-card {
+  background: rgba(23, 48, 90, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 32px 50px;
+  text-align: center;
+  max-width: 680px;
+  width: 100%;
+}
+
+.hero-card h1 {
+  font-size: clamp(16px, 3vw, 24px);
+  font-weight: 900;
+  color: #f0a500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.hero-card .date {
+  font-size: clamp(14px, 2.5vw, 20px);
+  font-weight: 800;
+  color: #f0a500;
+  margin-bottom: 6px;
+}
+
+.hero-card .time {
+  font-size: 14px;
+  font-weight: 600;
+  color: #f0a500;
+  font-style: italic;
+  letter-spacing: 2px;
+}
+
+.save-date-img {
+  max-width: 800px;
+  width: 100%;
+  border-radius: 8px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* PROGRAMMA */
+.prog-outer {
+  background: #f5f7fa;
+  padding: 20px 20px 20px;
+  min-height: 70vh;
+}
+
+.prog-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.day-switcher {
+  display: flex;
+  gap: 0;
+  margin-bottom: 36px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 2px solid #1e3a5f;
+}
+
+.day-btn {
+  flex: 1;
+  padding: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: none;
+  background: #fff;
+  color: #1e3a5f;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.day-btn.active {
+  background: #1e3a5f;
+  color: #f0a500;
+}
+
+.day-content {
+  display: none;
+}
+
+.day-content.active {
+  display: block;
+}
+
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.section-divider h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1e3a5f;
+  white-space: nowrap;
+}
+
+.section-divider .line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(to right, #1e3a5f, transparent);
+}
+
+.prog-block {
+  margin-bottom: 28px;
+}
+
+.prog-block-title {
+  background: #1e3a5f;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 10px 18px;
+  border-radius: 4px 4px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.prog-rows {
+  background: #fff;
+  border-radius: 0 0 6px 6px;
+  overflow: hidden;
+  border: 1px solid #dde3ec;
+  border-top: none;
+}
+
+.prog-row {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  border-bottom: 1px solid #eef0f4;
+  align-items: stretch;
+}
+
+.prog-row:last-child {
+  border-bottom: none;
+}
+
+.prog-time {
+  background: #f8fafc;
+  padding: 16px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #1e3a5f;
+  border-right: 2px solid #eef0f4;
+  display: flex;
+  align-items: center;
+  line-height: 1.4;
+}
+
+.prog-content {
+  padding: 14px 20px;
+}
+
+.prog-content .title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 5px;
+}
+
+.prog-content .location a {
+  color: #1e3a5f;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.6;
+  display: block;
+}
+
+.prog-content .location a:hover {
+  color: #f0a500;
+}
+
+.prog-content .note {
+  font-size: 11px;
+  color: #888;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.prog-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 2px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.badge-p {
+  background: rgba(30, 58, 95, 0.1);
+  color: #1e3a5f;
+}
+
+.badge-c {
+  background: rgba(240, 165, 0, 0.15);
+  color: #8a5e00;
+}
+
+.badge-s {
+  background: rgba(40, 140, 40, 0.1);
+  color: #1a6b1a;
+}
+
+/* Loading spinner */
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #1e3a5f;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 4px solid #dde3ec;
+  border-top-color: #1e3a5f;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 12px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-msg {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffc107;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 13px;
+}
+
+/* ISCRIZIONI */
+.iscr-outer {
+  background: #f5f7fa;
+  padding: 20px 20px 60px;
+  min-height: 70vh;
+}
+
+.iscr-inner {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.iscr-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #1e3a5f;
+  margin-bottom: 8px;
+}
+
+.iscr-sub {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.form-card {
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #dde3ec;
+  padding: 30px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.form-card h3 {
+  font-size: 15px;
+  font-weight: 800;
+  color: #1e3a5f;
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f0a500;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #1e3a5f;
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.form-group label .req {
+  color: #c0181e;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #dde3ec;
+  border-radius: 4px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  color: #1a1a2e;
+  transition: border-color 0.2s;
+  background: #fafbfc;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #1e3a5f;
+  background: #fff;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.radio-group,
+.check-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.radio-item,
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.radio-item input,
+.check-item input {
+  margin-top: 2px;
+  accent-color: #1e3a5f;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.radio-item .label-text,
+.check-item .label-text {
+  font-size: 13px;
+  color: #333;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.radio-item .label-text small,
+.check-item .label-text small {
+  display: block;
+  color: #888;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.price-tag {
+  display: inline-block;
+  background: #f0a500;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 2px;
+  margin-left: 6px;
+}
+
+.free-tag {
+  display: inline-block;
+  background: #2c782c;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 2px;
+  margin-left: 6px;
+}
+
+/* Conditional sections */
+.cond-section {
+  display: none;
+}
+
+.cond-section.visible {
+  display: block;
+}
+
+.gratuito-notice {
+  background: #e8f5e9;
+  border: 1px solid #a5d6a7;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: #1b5e20;
+  font-weight: 600;
+}
+
+.pagante-notice {
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: #5d4037;
+  font-weight: 600;
+}
+
+.prezzo-totale {
+  background: #1e3a5f;
+  color: #fff;
+  border-radius: 6px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.prezzo-totale .label {
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.prezzo-totale .amount {
+  font-size: 28px;
+  font-weight: 900;
+  color: #f0a500;
+}
+
+.btn-submit {
+  width: 100%;
+  background: #1e3a5f;
+  color: #fff;
+  border: none;
+  padding: 16px;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background 0.2s;
+}
+
+.btn-submit:hover {
+  background: #f0a500;
+}
+
+.info-box {
+  background: #e8f0fb;
+  border-left: 4px solid #1e3a5f;
+  padding: 14px 18px;
+  border-radius: 0 6px 6px 0;
+  font-size: 12px;
+  color: #1e3a5f;
+  line-height: 1.7;
+  margin-top: 16px;
+}
 
 /* HOTEL CARDS */
 .hotel-card {
@@ -715,7 +653,7 @@
   border: 1px solid #dde3ec;
   padding: 20px 24px;
   margin-bottom: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
 .hotel-card h3 {
@@ -766,8 +704,51 @@
   color: #fff;
 }
 
+/* FOOTER */
+footer {
+  background: #12263f;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  padding: 30px 20px;
+  font-size: 12px;
+  line-height: 2;
+}
+
+@media(max-width:600px) {
+  .header {
+    flex-direction: column;
+  }
+
+  .logos-row {
+    justify-content: center;
+  }
+
+  .prog-row {
+    grid-template-columns: 80px 1fr;
+  }
+
+  .hero-card {
+    padding: 24px 16px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-tab {
+    padding: 12px 16px;
+    font-size: 11px;
+  }
+}
+```
+
+  </style>
+</head>
+
+<body>
 
   <!-- TOP BAR -->
+
   <div class="topbar">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
       <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
@@ -777,6 +758,7 @@
   </div>
 
   <!-- HEADER -->
+
   <header class="header">
     <div class="logos-row">
       <div class="logo-item">
@@ -819,92 +801,125 @@
         <div class="logo-region">VENETO</div>
       </div>
     </div>
-     
   </header>
 
   <!-- NAV -->
+
   <nav class="nav-tabs">
     <button class="nav-tab active" onclick="showSection('home')">Home</button>
     <button class="nav-tab" onclick="showSection('programma')">Programma</button>
     <button class="nav-tab" onclick="showSection('hotel')">Hotel</button>
     <button class="nav-tab" onclick="showSection('iscrizioni')">Iscrizioni</button>
-    
   </nav>
 
   <!-- ═══════════ HOME ═══════════ -->
+
   <section class="section active" id="sec-home">
     <div class="hero">
       <div class="hero-card">
         <h1>XVI Convegno Interregionale</h1>
         <div class="date">18 Settembre 2026</div>
         <div class="time">Venerdì · Ore 14:30</div>
-      
-    </div>
-      <img
-        <img src="./save%20the%20date.png" alt="" class="save-date-img">
-        
+      </div>
+      <img src="./save%20the%20date.png" alt="" class="save-date-img">
     </div>
   </section>
 
   <!-- ═══════════ PROGRAMMA ═══════════ -->
+
   <section class="section" id="sec-programma">
     <div class="prog-outer">
       <div style="text-align:center; padding: 10px 20px 0;">
         <div class="hero-card" style="display:inline-block; margin-bottom:10px;">
           <h1>XVI Convegno Interregionale</h1>
           <div class="date">Settembre 2026</div>
-          
         </div>
       </div>
       <div class="prog-inner">
 
-        <div class="day-switcher">
-          <button class="day-btn active" onclick="switchDay(0)">📅 Giovedì 17 Settembre</button>
-          <button class="day-btn" onclick="switchDay(1)">📅 Venerdì 18 Settembre</button>
-        </div>
+```
+    <div class="day-switcher">
+      <button class="day-btn active" onclick="switchDay(0)">📅 Giovedì 17 Settembre</button>
+      <button class="day-btn" onclick="switchDay(1)">📅 Venerdì 18 Settembre</button>
+    </div>
 
-        <!-- GIORNO 1 -->
-        <div class="day-content active" id="day-0">
-          <div id="prog-day1-loading" class="loading">
-            <div class="spinner"></div>
-            <div>Caricamento programma in corso...</div>
-          </div>
-          <div id="prog-day1-content" style="display:none"></div>
-          <div id="prog-day1-error" style="display:none" class="error-msg">
-            ⚠️ Impossibile caricare il programma. <a href="#" onclick="loadDay1()">Riprova</a> o controlla la
-            connessione.
-          </div>
-        </div>
+    <!-- GIORNO 1 -->
+    <div class="day-content active" id="day-0">
+      <div id="prog-day1-loading" class="loading">
+        <div class="spinner"></div>
+        <div>Caricamento programma in corso...</div>
+      </div>
+      <div id="prog-day1-content" style="display:none"></div>
+      <div id="prog-day1-error" style="display:none" class="error-msg">
+        ⚠️ Impossibile caricare il programma. <a href="#" onclick="loadDay1()">Riprova</a> o controlla la
+        connessione.
+      </div>
+    </div>
 
-        <!-- GIORNO 2 -->
-        <div class="day-content" id="day-1">
-          <div id="prog-day2-loading" class="loading" style="display:none">
-            <div class="spinner"></div>
-            <div>Caricamento programma in corso...</div>
-          </div>
-          <div id="prog-day2-content" style="display:none"></div>
-          <div id="prog-day2-error" style="display:none" class="error-msg">
-            ⚠️ Impossibile caricare il programma. <a href="#" onclick="loadDay2()">Riprova</a>
-          </div>
-        </div>
+    <!-- GIORNO 2 -->
+    <div class="day-content" id="day-1">
+      <div id="prog-day2-loading" class="loading" style="display:none">
+        <div class="spinner"></div>
+        <div>Caricamento programma in corso...</div>
+      </div>
+      <div id="prog-day2-content" style="display:none"></div>
+      <div id="prog-day2-error" style="display:none" class="error-msg">
+        ⚠️ Impossibile caricare il programma. <a href="#" onclick="loadDay2()">Riprova</a>
+      </div>
+    </div>
 
+    <div class="info-box">
+      📝 Il programma è aggiornato in tempo reale dalla segreteria organizzativa.<br>
+      Per informazioni: <a href="mailto:info@ancepiemonte.it">info@ancepiemonte.it</a>
+    </div>
+  </div>
+</div>
+```
+
+  </section>
+
+  <!-- ═══════════ HOTEL ═══════════ -->
+
+  <section class="section" id="sec-hotel">
+    <div class="prog-outer">
+      <div style="text-align:center; padding: 10px 20px 0;">
+        <div class="hero-card" style="display:inline-block; margin-bottom:10px;">
+          <h1>XVI Convegno Interregionale</h1>
+          <div class="date">18 Settembre 2026</div>
+          <div class="time">Venerdì · Ore 14:30</div>
+        </div>
+      </div>
+      <div class="prog-inner">
+        <div class="section-divider">
+          <h2>🏨 Hotel Convenzionati</h2>
+          <div class="line"></div>
+        </div>
+        <div id="hotel-loading" class="loading">
+          <div class="spinner"></div>
+          <div>Caricamento hotel...</div>
+        </div>
+        <div id="hotel-content" style="display:none"></div>
+        <div id="hotel-error" style="display:none" class="error-msg">
+          ⚠️ Impossibile caricare gli hotel. <a href="#" onclick="loadHotel()">Riprova</a>
+        </div>
         <div class="info-box">
-          📝 Il programma è aggiornato in tempo reale dalla segreteria organizzativa.<br>
-          Per informazioni: <a href="mailto:info@ancepiemonte.it">info@ancepiemonte.it</a>
+          📝 Tariffe convenzionate riservate ai partecipanti al Convegno.<br>
+          Per informazioni: <a href="mailto:convegno@ancegiovaniareanord2026.it">convegno@ancegiovaniareanord2026.it</a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ═══════════ ISCRIZIONI ═══════════ -->
+
   <section class="section" id="sec-iscrizioni">
     <div class="iscr-outer">
-      <div style="text-align:center; padding: 30px 20px 0;">
-        <div class="hero-card" style="display:inline-block; margin-bottom:20px;">
+      <div style="text-align:center; padding: 10px 20px 0;">
+        <div class="hero-card" style="display:inline-block; margin-bottom:10px;">
           <h1>XVI Convegno Interregionale</h1>
           <div class="date">Settembre 2026</div>
-           
         </div>
+      </div>
       <div class="iscr-inner">
         <h2 class="iscr-title">Modulo di Iscrizione</h2>
         <p class="iscr-sub">
@@ -912,321 +927,325 @@
           I campi contrassegnati con <span style="color:#c0181e">*</span> sono obbligatori.
         </p>
 
-        <form id="iscr-form" onsubmit="submitForm(event)">
+```
+    <form id="iscr-form" onsubmit="submitForm(event)">
 
-          <!-- DATI PERSONALI -->
-          <div class="form-card">
-            <h3>👤 Dati Personali</h3>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Nome <span class="req">*</span></label>
-                <input type="text" id="nome" required placeholder="Mario">
-              </div>
-              <div class="form-group">
-                <label>Cognome <span class="req">*</span></label>
-                <input type="text" id="cognome" required placeholder="Rossi">
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Email <span class="req">*</span></label>
-                <input type="email" id="email" required placeholder="mario.rossi@impresa.it">
-              </div>
-              <div class="form-group">
-                <label>Cellulare <span class="req">*</span></label>
-                <input type="tel" id="cellulare" required placeholder="+39 333 1234567">
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Impresa / Ente <span class="req">*</span></label>
-                <input type="text" id="impresa" required placeholder="Rossi Costruzioni Srl">
-              </div>
-              <div class="form-group">
-                <label>Associazione Territoriale <span class="req">*</span></label>
-                <select id="territoriale" required>
-                  <option value="">— Seleziona —</option>
-                  <optgroup label="Friuli-Venezia Giulia">
-                    <option>ANCE Alto Adriatico</option>
-                    <option>ANCE Udine</option>
-                  </optgroup>
-                  <optgroup label="Liguria">
-                    <option>ANCE Genova</option>
-                    <option>ANCE Imperia</option>
-                    <option>ANCE La Spezia</option>
-                    <option>ANCE Savona</option>
-                  </optgroup>
-                  <optgroup label="Lombardia">
-                    <option>ANCE Bergamo</option>
-                    <option>ANCE Brescia</option>
-                    <option>ANCE Como</option>
-                    <option>ANCE Cremona</option>
-                    <option>ANCE Lecco Sondrio</option>
-                    <option>ANCE Mantova</option>
-                    <option>ANCE Milano, Lodi, Monza e Brianza</option>
-                    <option>ANCE Pavia</option>
-                    <option>ANCE Varese</option>
-                  </optgroup>
-                  <optgroup label="Piemonte e Valle d'Aosta">
-                    <option>ANCE Alessandria</option>
-                    <option>ANCE Aosta</option>
-                    <option>ANCE Asti</option>
-                    <option>ANCE Biella</option>
-                    <option>ANCE Cuneo</option>
-                    <option>ANCE Novara Vercelli</option>
-                    <option>ANCE Torino</option>
-                    <option>ANCE Verbania</option>
-                  </optgroup>
-                  <optgroup label="Veneto">
-                    <option>ANCE Belluno</option>
-                    <option>ANCE Padova</option>
-                    <option>ANCE Rovigo</option>
-                    <option>ANCE Treviso</option>
-                    <option>ANCE Venezia</option>
-                    <option>ANCE Verona</option>
-                    <option>ANCE Vicenza</option>
-                  </optgroup>
-                </select>
-              </div>
-            </div>
+      <!-- DATI PERSONALI -->
+      <div class="form-card">
+        <h3>👤 Dati Personali</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nome <span class="req">*</span></label>
+            <input type="text" id="nome" required placeholder="Mario">
           </div>
-
-          <!-- TIPOLOGIA PARTECIPANTE -->
-          <div class="form-card">
-            <h3>🏷️ Tipologia Partecipante</h3>
-            <div class="form-group">
-              <label>Sei membro del Consiglio Nazionale ANCE Giovani? <span class="req">*</span></label>
-              <div class="radio-group">
-                <label class="radio-item">
-                  <input type="radio" name="consiglio" value="si" onchange="updateTipo()">
-                  <div class="label-text">
-                    Sì, sono Consigliere Nazionale
-                    <small>Hotel, cena e tutte le attività sono a carico dell'organizzazione</small>
-                  </div>
-                  <span class="free-tag">GRATUITO</span>
-                </label>
-                <label class="radio-item">
-                  <input type="radio" name="consiglio" value="no" onchange="updateTipo()">
-                  <div class="label-text">
-                    No, partecipo come ospite / delegato regionale
-                    <small>Hotel, cena e attività sono a pagamento</small>
-                  </div>
-                  <span class="price-tag">A PAGAMENTO</span>
-                </label>
-              </div>
-            </div>
-
-            <!-- SE CONSIGLIERE -->
-            <div class="cond-section" id="sec-gratuito">
-              <div class="gratuito-notice">
-                ✅ In quanto Consigliere Nazionale, la tua partecipazione è completamente gratuita.<br>
-                Compila solo le preferenze logistiche qui sotto.
-              </div>
-            </div>
-
-            <!-- SE NON CONSIGLIERE -->
-            <div class="cond-section" id="sec-pagante">
-              <div class="pagante-notice">
-                💳 Seleziona le attività a cui desideri partecipare. I costi verranno riepilogati prima dell'invio.
-              </div>
-            </div>
+          <div class="form-group">
+            <label>Cognome <span class="req">*</span></label>
+            <input type="text" id="cognome" required placeholder="Rossi">
           </div>
-
-          <!-- HOTEL (condizionale) -->
-          <div class="form-card cond-section" id="sec-hotel">
-            <h3>🏨 Sistemazione in Hotel <span id="hotel-badge"></span></h3>
-            <div class="form-group">
-              <label>Preferenza Hotel <span class="req">*</span></label>
-              <div class="radio-group">
-                <label class="radio-item">
-                  <input type="radio" name="hotel" value="victoria" onchange="updatePrezzo()">
-                  <div class="label-text">
-                    Hotel Victoria ★★★★
-                    <small>📍 Via N. Costa 4, 10123 Torino</small>
-                  </div>
-                  <span id="hotel-price-tag" class="price-tag">€ 180/notte</span>
-                </label>
-                <label class="radio-item">
-                  <input type="radio" name="hotel" value="sitea" onchange="updatePrezzo()">
-                  <div class="label-text">
-                    Grand Hotel Sitea ★★★★★
-                    <small>📍 Via Carlo Alberto 35, 10123 Torino</small>
-                  </div>
-                  <span id="hotel-price-tag2" class="price-tag">€ 220/notte</span>
-                </label>
-                <label class="radio-item">
-                  <input type="radio" name="hotel" value="nessuno" onchange="updatePrezzo()">
-                  <div class="label-text">
-                    Provvedo autonomamente
-                    <small>Non ho bisogno di prenotazione hotel</small>
-                  </div>
-                </label>
-              </div>
-            </div>
-            <div class="form-group" id="hotel-notti-group" style="display:none">
-              <label>Numero di notti</label>
-              <select id="hotel-notti" onchange="updatePrezzo()">
-                <option value="1">1 notte (17 settembre)</option>
-                <option value="2">2 notti (17–18 settembre)</option>
-              </select>
-            </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email <span class="req">*</span></label>
+            <input type="email" id="email" required placeholder="mario.rossi@impresa.it">
           </div>
-
-          <!-- GIOVEDÌ 17 SETTEMBRE -->
-          <div class="form-card cond-section" id="sec-giovedi">
-            <h3>📅 Giovedì 17 Settembre</h3>
-
-            <div class="form-group">
-              <label>Transfer arrivo</label>
-              <div class="check-group">
-                <label class="check-item">
-                  <input type="checkbox" id="transfer-aero" onchange="updatePrezzo()">
-                  <div class="label-text">
-                    Navetta da Aeroporto TRN agli hotels
-                    <small>Ore 13:00 · Gratuito per tutti</small>
-                  </div>
-                  <span class="free-tag">GRATUITO</span>
-                </label>
-                <label class="check-item">
-                  <input type="checkbox" id="transfer-pn" onchange="updatePrezzo()">
-                  <div class="label-text">
-                    Navetta da Porta Nuova agli hotels
-                    <small>Ore 13:00 · Gratuito per tutti</small>
-                  </div>
-                  <span class="free-tag">GRATUITO</span>
-                </label>
-              </div>
-            </div>
-
-            <div class="form-group" id="sec-cena17-wrap">
-              <label>Cena di Giovedì – Ristorante Arcadia <span class="req" id="cena17-req"></span></label>
-              <div class="radio-group">
-                <label class="radio-item">
-                  <input type="radio" name="cena17" value="si" onchange="updatePrezzo()">
-                  <div class="label-text">
-                    Sì, partecipo alla cena
-                    <small>📍 Galleria Subalpina, 16, Torino · 20:15–23:00</small>
-                  </div>
-                  <span id="cena17-tag" class="price-tag">€ 80/persona</span>
-                </label>
-                <label class="radio-item">
-                  <input type="radio" name="cena17" value="no" onchange="updatePrezzo()">
-                  <div class="label-text">Non partecipo alla cena di giovedì</div>
-                </label>
-              </div>
-            </div>
+          <div class="form-group">
+            <label>Cellulare <span class="req">*</span></label>
+            <input type="tel" id="cellulare" required placeholder="+39 333 1234567">
           </div>
-
-          <!-- VENERDÌ 18 SETTEMBRE -->
-          <div class="form-card cond-section" id="sec-venerdi">
-            <h3>📅 Venerdì 18 Settembre</h3>
-
-            <div class="form-group">
-              <label>Convegno principale (ore 14:30–17:00)</label>
-              <div class="check-group">
-                <label class="check-item">
-                  <input type="checkbox" id="convegno" checked disabled>
-                  <div class="label-text">
-                    Partecipo al XVI Convegno Interregionale
-                    <small>📍 NH Collection Torino Piazza Carlina · Gratuito e obbligatorio</small>
-                  </div>
-                  <span class="free-tag">INCLUSO</span>
-                </label>
-              </div>
-            </div>
-
-            <div class="form-group" id="sec-cena18-wrap">
-              <label>Cena di Venerdì <span class="req" id="cena18-req"></span></label>
-              <div class="radio-group">
-                <label class="radio-item">
-                  <input type="radio" name="cena18" value="si" onchange="updatePrezzo()">
-                  <div class="label-text">
-                    Sì, partecipo all'aperitivo e cena
-                    <small>📍 NH Collection Torino · 20:00–23:00</small>
-                  </div>
-                  <span id="cena18-tag" class="price-tag">€ 90/persona</span>
-                </label>
-                <label class="radio-item">
-                  <input type="radio" name="cena18" value="no" onchange="updatePrezzo()">
-                  <div class="label-text">Non partecipo alla cena di venerdì</div>
-                </label>
-              </div>
-            </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Impresa / Ente <span class="req">*</span></label>
+            <input type="text" id="impresa" required placeholder="Rossi Costruzioni Srl">
           </div>
-
-          <!-- NOTE -->
-          <div class="form-card cond-section" id="sec-note">
-            <h3>📝 Note e Richieste Speciali</h3>
-            <div class="form-group">
-              <label>Esigenze alimentari / allergie</label>
-              <div class="check-group">
-                <label class="check-item"><input type="checkbox" id="veg">
-                  <div class="label-text">Vegetariano</div>
-                </label>
-                <label class="check-item"><input type="checkbox" id="vegan">
-                  <div class="label-text">Vegano</div>
-                </label>
-                <label class="check-item"><input type="checkbox" id="gluten">
-                  <div class="label-text">Senza glutine (celiachia)</div>
-                </label>
-                <label class="check-item"><input type="checkbox" id="lactose">
-                  <div class="label-text">Senza lattosio</div>
-                </label>
-                <label class="check-item"><input type="checkbox" id="halal">
-                  <div class="label-text">Halal</div>
-                </label>
-              </div>
-            </div>
-            <div class="form-group">
-              <label>Altre note o richieste</label>
-              <textarea id="note" rows="3" placeholder="Inserisci eventuali note per la segreteria..."></textarea>
-            </div>
+          <div class="form-group">
+            <label>Associazione Territoriale <span class="req">*</span></label>
+            <select id="territoriale" required>
+              <option value="">— Seleziona —</option>
+              <optgroup label="Friuli-Venezia Giulia">
+                <option>ANCE Alto Adriatico</option>
+                <option>ANCE Udine</option>
+              </optgroup>
+              <optgroup label="Liguria">
+                <option>ANCE Genova</option>
+                <option>ANCE Imperia</option>
+                <option>ANCE La Spezia</option>
+                <option>ANCE Savona</option>
+              </optgroup>
+              <optgroup label="Lombardia">
+                <option>ANCE Bergamo</option>
+                <option>ANCE Brescia</option>
+                <option>ANCE Como</option>
+                <option>ANCE Cremona</option>
+                <option>ANCE Lecco Sondrio</option>
+                <option>ANCE Mantova</option>
+                <option>ANCE Milano, Lodi, Monza e Brianza</option>
+                <option>ANCE Pavia</option>
+                <option>ANCE Varese</option>
+              </optgroup>
+              <optgroup label="Piemonte e Valle d'Aosta">
+                <option>ANCE Alessandria</option>
+                <option>ANCE Aosta</option>
+                <option>ANCE Asti</option>
+                <option>ANCE Biella</option>
+                <option>ANCE Cuneo</option>
+                <option>ANCE Novara Vercelli</option>
+                <option>ANCE Torino</option>
+                <option>ANCE Verbania</option>
+              </optgroup>
+              <optgroup label="Veneto">
+                <option>ANCE Belluno</option>
+                <option>ANCE Padova</option>
+                <option>ANCE Rovigo</option>
+                <option>ANCE Treviso</option>
+                <option>ANCE Venezia</option>
+                <option>ANCE Verona</option>
+                <option>ANCE Vicenza</option>
+              </optgroup>
+            </select>
           </div>
-
-          <!-- RIEPILOGO PREZZO (solo paganti) -->
-          <div class="cond-section" id="sec-prezzo">
-            <div class="prezzo-totale">
-              <div>
-                <div class="label">Totale stimato da saldare</div>
-                <div style="font-size:11px;opacity:0.6;margin-top:4px;">La segreteria invierà le istruzioni di pagamento
-                  per email</div>
-              </div>
-              <div class="amount" id="prezzo-amount">€ 0</div>
-            </div>
-          </div>
-
-          <div class="form-card cond-section" id="sec-privacy" style="background:#f8fafc">
-            <div class="form-group">
-              <label class="check-item" style="align-items:flex-start">
-                <input type="checkbox" id="privacy" required style="margin-top:3px">
-                <div class="label-text" style="font-size:12px;color:#555">
-                  Ho letto e accetto l'<a href="#" style="color:#1e3a5f">Informativa sulla Privacy</a> ai sensi del GDPR
-                  (Reg. UE 2016/679) <span class="req">*</span>
-                </div>
-              </label>
-            </div>
-            <button type="submit" class="btn-submit" id="btn-submit" disabled>
-              INVIA ISCRIZIONE
-            </button>
-          </div>
-
-        </form>
-
-        <div id="form-success" style="display:none; text-align:center; padding:60px 20px;">
-          <div style="font-size:60px;margin-bottom:16px">✅</div>
-          <h3 style="color:#1e3a5f;font-size:22px;font-weight:800;margin-bottom:12px">Iscrizione inviata!</h3>
-          <p style="color:#555;font-size:14px;line-height:1.7">
-            Grazie per la tua iscrizione.<br>
-            Riceverai una email di conferma a breve.<br>
-            Per informazioni: <a href="mailto:convegno@ancegiovaniareanord2026.it"
-              style="color:#1e3a5f;font-weight:700">convegno@ancegiovaniareanord2026.it</a>
-          </p>
         </div>
       </div>
+
+      <!-- TIPOLOGIA PARTECIPANTE -->
+      <div class="form-card">
+        <h3>🏷️ Tipologia Partecipante</h3>
+        <div class="form-group">
+          <label>Sei membro del Consiglio Nazionale ANCE Giovani? <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-item">
+              <input type="radio" name="consiglio" value="si" onchange="updateTipo()">
+              <div class="label-text">
+                Sì, sono Consigliere Nazionale
+                <small>Hotel, cena e tutte le attività sono a carico dell'organizzazione</small>
+              </div>
+              <span class="free-tag">GRATUITO</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="consiglio" value="no" onchange="updateTipo()">
+              <div class="label-text">
+                No, partecipo come ospite / delegato regionale
+                <small>Hotel, cena e attività sono a pagamento</small>
+              </div>
+              <span class="price-tag">A PAGAMENTO</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- SE CONSIGLIERE -->
+        <div class="cond-section" id="sec-gratuito">
+          <div class="gratuito-notice">
+            ✅ In quanto Consigliere Nazionale, la tua partecipazione è completamente gratuita.<br>
+            Compila solo le preferenze logistiche qui sotto.
+          </div>
+        </div>
+
+        <!-- SE NON CONSIGLIERE -->
+        <div class="cond-section" id="sec-pagante">
+          <div class="pagante-notice">
+            💳 Seleziona le attività a cui desideri partecipare. I costi verranno riepilogati prima dell'invio.
+          </div>
+        </div>
+      </div>
+
+      <!-- HOTEL (condizionale) -->
+      <div class="form-card cond-section" id="sec-hotel-form">
+        <h3>🏨 Sistemazione in Hotel <span id="hotel-badge"></span></h3>
+        <div class="form-group">
+          <label>Preferenza Hotel <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-item">
+              <input type="radio" name="hotel" value="victoria" onchange="updatePrezzo()">
+              <div class="label-text">
+                Hotel Victoria ★★★★
+                <small>📍 Via N. Costa 4, 10123 Torino</small>
+              </div>
+              <span id="hotel-price-tag" class="price-tag">€ 180/notte</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="hotel" value="sitea" onchange="updatePrezzo()">
+              <div class="label-text">
+                Grand Hotel Sitea ★★★★★
+                <small>📍 Via Carlo Alberto 35, 10123 Torino</small>
+              </div>
+              <span id="hotel-price-tag2" class="price-tag">€ 220/notte</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="hotel" value="nessuno" onchange="updatePrezzo()">
+              <div class="label-text">
+                Provvedo autonomamente
+                <small>Non ho bisogno di prenotazione hotel</small>
+              </div>
+            </label>
+          </div>
+        </div>
+        <div class="form-group" id="hotel-notti-group" style="display:none">
+          <label>Numero di notti</label>
+          <select id="hotel-notti" onchange="updatePrezzo()">
+            <option value="1">1 notte (17 settembre)</option>
+            <option value="2">2 notti (17–18 settembre)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- GIOVEDÌ 17 SETTEMBRE -->
+      <div class="form-card cond-section" id="sec-giovedi">
+        <h3>📅 Giovedì 17 Settembre</h3>
+
+        <div class="form-group">
+          <label>Transfer arrivo</label>
+          <div class="check-group">
+            <label class="check-item">
+              <input type="checkbox" id="transfer-aero" onchange="updatePrezzo()">
+              <div class="label-text">
+                Navetta da Aeroporto TRN agli hotels
+                <small>Ore 13:00 · Gratuito per tutti</small>
+              </div>
+              <span class="free-tag">GRATUITO</span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" id="transfer-pn" onchange="updatePrezzo()">
+              <div class="label-text">
+                Navetta da Porta Nuova agli hotels
+                <small>Ore 13:00 · Gratuito per tutti</small>
+              </div>
+              <span class="free-tag">GRATUITO</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group" id="sec-cena17-wrap">
+          <label>Cena di Giovedì – Ristorante Arcadia <span class="req" id="cena17-req"></span></label>
+          <div class="radio-group">
+            <label class="radio-item">
+              <input type="radio" name="cena17" value="si" onchange="updatePrezzo()">
+              <div class="label-text">
+                Sì, partecipo alla cena
+                <small>📍 Galleria Subalpina, 16, Torino · 20:15–23:00</small>
+              </div>
+              <span id="cena17-tag" class="price-tag">€ 80/persona</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="cena17" value="no" onchange="updatePrezzo()">
+              <div class="label-text">Non partecipo alla cena di giovedì</div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- VENERDÌ 18 SETTEMBRE -->
+      <div class="form-card cond-section" id="sec-venerdi">
+        <h3>📅 Venerdì 18 Settembre</h3>
+
+        <div class="form-group">
+          <label>Convegno principale (ore 14:30–17:00)</label>
+          <div class="check-group">
+            <label class="check-item">
+              <input type="checkbox" id="convegno" checked disabled>
+              <div class="label-text">
+                Partecipo al XVI Convegno Interregionale
+                <small>📍 NH Collection Torino Piazza Carlina · Gratuito e obbligatorio</small>
+              </div>
+              <span class="free-tag">INCLUSO</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group" id="sec-cena18-wrap">
+          <label>Cena di Venerdì <span class="req" id="cena18-req"></span></label>
+          <div class="radio-group">
+            <label class="radio-item">
+              <input type="radio" name="cena18" value="si" onchange="updatePrezzo()">
+              <div class="label-text">
+                Sì, partecipo all'aperitivo e cena
+                <small>📍 NH Collection Torino · 20:00–23:00</small>
+              </div>
+              <span id="cena18-tag" class="price-tag">€ 90/persona</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="cena18" value="no" onchange="updatePrezzo()">
+              <div class="label-text">Non partecipo alla cena di venerdì</div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- NOTE -->
+      <div class="form-card cond-section" id="sec-note">
+        <h3>📝 Note e Richieste Speciali</h3>
+        <div class="form-group">
+          <label>Esigenze alimentari / allergie</label>
+          <div class="check-group">
+            <label class="check-item"><input type="checkbox" id="veg">
+              <div class="label-text">Vegetariano</div>
+            </label>
+            <label class="check-item"><input type="checkbox" id="vegan">
+              <div class="label-text">Vegano</div>
+            </label>
+            <label class="check-item"><input type="checkbox" id="gluten">
+              <div class="label-text">Senza glutine (celiachia)</div>
+            </label>
+            <label class="check-item"><input type="checkbox" id="lactose">
+              <div class="label-text">Senza lattosio</div>
+            </label>
+            <label class="check-item"><input type="checkbox" id="halal">
+              <div class="label-text">Halal</div>
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Altre note o richieste</label>
+          <textarea id="note" rows="3" placeholder="Inserisci eventuali note per la segreteria..."></textarea>
+        </div>
+      </div>
+
+      <!-- RIEPILOGO PREZZO (solo paganti) -->
+      <div class="cond-section" id="sec-prezzo">
+        <div class="prezzo-totale">
+          <div>
+            <div class="label">Totale stimato da saldare</div>
+            <div style="font-size:11px;opacity:0.6;margin-top:4px;">La segreteria invierà le istruzioni di pagamento
+              per email</div>
+          </div>
+          <div class="amount" id="prezzo-amount">€ 0</div>
+        </div>
+      </div>
+
+      <div class="form-card cond-section" id="sec-privacy" style="background:#f8fafc">
+        <div class="form-group">
+          <label class="check-item" style="align-items:flex-start">
+            <input type="checkbox" id="privacy" required style="margin-top:3px">
+            <div class="label-text" style="font-size:12px;color:#555">
+              Ho letto e accetto l'<a href="#" style="color:#1e3a5f">Informativa sulla Privacy</a> ai sensi del GDPR
+              (Reg. UE 2016/679) <span class="req">*</span>
+            </div>
+          </label>
+        </div>
+        <button type="submit" class="btn-submit" id="btn-submit" disabled>
+          INVIA ISCRIZIONE
+        </button>
+      </div>
+
+    </form>
+
+    <div id="form-success" style="display:none; text-align:center; padding:60px 20px;">
+      <div style="font-size:60px;margin-bottom:16px">✅</div>
+      <h3 style="color:#1e3a5f;font-size:22px;font-weight:800;margin-bottom:12px">Iscrizione inviata!</h3>
+      <p style="color:#555;font-size:14px;line-height:1.7">
+        Grazie per la tua iscrizione.<br>
+        Riceverai una email di conferma a breve.<br>
+        Per informazioni: <a href="mailto:convegno@ancegiovaniareanord2026.it"
+          style="color:#1e3a5f;font-weight:700">convegno@ancegiovaniareanord2026.it</a>
+      </p>
     </div>
+  </div>
+</div>
+```
+
   </section>
 
   <!-- FOOTER -->
+
   <footer>
     <p style="font-size:14px;font-weight:700;color:white;margin-bottom:6px">XVI Convegno Interregionale Giovani ANCE –
       Area Nord 2026</p>
@@ -1241,17 +1260,10 @@
     // CONFIGURAZIONE – MODIFICA SOLO QUESTI VALORI
     // ═══════════════════════════════════════════════
     const CONFIG = {
-      // Incolla qui l'URL del tuo Google Sheet pubblicato come CSV
-      // Istruzioni: File > Condividi > Pubblica sul Web > Scegli il foglio > CSV > Copia link
-      SHEET_DAY2_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQljS8QNjErNTU22R5ounyBCqMxqKC2zzWyRF0u3oSZjD-Q3f3A7f71a-XyejpSJLtj2AKPxXeonDVF/pub?gid=454945590&single=true&output=csv',
       SHEET_DAY1_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQljS8QNjErNTU22R5ounyBCqMxqKC2zzWyRF0u3oSZjD-Q3f3A7f71a-XyejpSJLtj2AKPxXeonDVF/pub?gid=0&single=true&output=csv',
+      SHEET_DAY2_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQljS8QNjErNTU22R5ounyBCqMxqKC2zzWyRF0u3oSZjD-Q3f3A7f71a-XyejpSJLtj2AKPxXeonDVF/pub?gid=454945590&single=true&output=csv',
       SHEET_HOTEL_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQljS8QNjErNTU22R5ounyBCqMxqKC2zzWyRF0u3oSZjD-Q3f3A7f71a-XyejpSJLtj2AKPxXeonDVF/pub?gid=TUO_GID_HOTEL&single=true&output=csv',
-
-
-      // URL Google Form per invio iscrizioni (App Script Web App)
       FORM_URL: 'https://script.google.com/macros/s/AKfycbx8dUrP6tEmCKlRbS-1l01mB6bNmlnSKuNYoCBYNUeK55khwuybvE5CipqPzOnGmQxR-Q/exec',
-
-      // Prezzi (modifica se necessario)
       PREZZI: {
         hotel_victoria: 180,
         hotel_sitea: 220,
@@ -1268,11 +1280,10 @@
       document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
       document.getElementById('sec-' + name).classList.add('active');
       const map = { home: 0, programma: 1, hotel: 2, iscrizioni: 3 };
-
-      
       if (map[name] !== undefined) document.querySelectorAll('.nav-tab')[map[name]].classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (name === 'programma') loadDay1();
+      if (name === 'hotel') loadHotel();
     }
 
     function switchDay(idx) {
@@ -1282,12 +1293,34 @@
     }
 
     // ═══════════════════════════════════════════════
+    // PARSER CSV ROBUSTO
+    // ═══════════════════════════════════════════════
+    function parseCSV(csv) {
+      const lines = csv.split('\n').filter(l => l.trim());
+      return lines.slice(1).map(line => {
+        const cols = [];
+        let current = '';
+        let inQuotes = false;
+        for (let i = 0; i < line.length; i++) {
+          const ch = line[i];
+          if (ch === '"') {
+            inQuotes = !inQuotes;
+          } else if (ch === ',' && !inQuotes) {
+            cols.push(current.trim());
+            current = '';
+          } else {
+            current += ch;
+          }
+        }
+        cols.push(current.trim());
+        return cols;
+      }).filter(r => r[0]);
+    }
+
+    // ═══════════════════════════════════════════════
     // CARICAMENTO PROGRAMMA DA GOOGLE SHEETS
     // ═══════════════════════════════════════════════
-
-    // Colonne attese nel Google Sheet:
-    // A=Orario | B=Titolo | C=Luogo | D=MapLink | E=Note | F=Badge | G=Blocco
-    // Blocco: MATTINA / POMERIGGIO / SERA (raggruppa le righe)
+    // Colonne: A=Orario | B=Titolo | C=Luogo | D=Link | E=Note | F=Badge | G=Blocco
 
     let day1Loaded = false;
     let day2Loaded = false;
@@ -1298,7 +1331,6 @@
       document.getElementById('prog-day1-content').style.display = 'none';
       document.getElementById('prog-day1-error').style.display = 'none';
 
-      // Se non configurato, usa dati di esempio
       if (CONFIG.SHEET_DAY1_URL.includes('YOUR_SHEET_ID')) {
         renderProg('prog-day1-content', 'prog-day1-loading', 'prog-day1-error', getDemoDay1());
         day1Loaded = true;
@@ -1340,28 +1372,6 @@
         document.getElementById('prog-day2-error').style.display = 'block';
       }
     }
-    function parseCSV(csv) {
-      const lines = csv.split('\n').filter(l => l.trim());
-      return lines.slice(1).map(line => {
-        const cols = [];
-        let current = '';
-        let inQuotes = false;
-        for (let i = 0; i < line.length; i++) {
-          const ch = line[i];
-          if (ch === '"') {
-            inQuotes = !inQuotes;
-          } else if (ch === ',' && !inQuotes) {
-            cols.push(current.trim());
-            current = '';
-          } else {
-            current += ch;
-          }
-        }
-        cols.push(current.trim());
-        return cols;
-      }).filter(r => r[0]);
-    }
-
 
     const BLOCK_ICONS = { 'MATTINA': '🌅', 'POMERIGGIO': '☀️', 'SERA': '🌙' };
     const BLOCK_LABELS = { 'MATTINA': 'Mattina', 'POMERIGGIO': 'Pomeriggio', 'SERA': 'Sera' };
@@ -1369,7 +1379,6 @@
     function renderProg(contentId, loadingId, errorId, rows) {
       document.getElementById(loadingId).style.display = 'none';
 
-      // Raggruppa per blocco (col G)
       const blocks = {};
       const blockOrder = [];
       rows.forEach(r => {
@@ -1412,14 +1421,81 @@
     }
 
     function getBadgeHtml(badge) {
-      const b = badge.toLowerCase();
-      if (b.includes('person') || b.includes('p)') || /\d+p/.test(b)) {
+      if (!badge) return '';
+      const b = badge.toUpperCase().trim();
+      // Non mostrare nomi dei blocchi come badge
+      if (['MATTINA', 'POMERIGGIO', 'SERA', 'ALTRO'].includes(b)) return '';
+
+      if (b.includes('PERSON') || /\d+\s*P/i.test(b)) {
         return `<span class="prog-badge badge-p">${badge}</span>`;
       }
-      if (b.includes('convegno') || b.includes('incluso')) {
+      if (b.includes('CONVEGNO') || b.includes('INCLUSO')) {
         return `<span class="prog-badge badge-c">${badge}</span>`;
       }
       return `<span class="prog-badge badge-p">${badge}</span>`;
+    }
+
+    // ═══════════════════════════════════════════════
+    // CARICAMENTO HOTEL DA GOOGLE SHEETS
+    // ═══════════════════════════════════════════════
+    // Colonne: A=Nome | B=Stelle | C=Indirizzo | D=Note | E=LinkDrive | F=LinkMaps
+
+    let hotelLoaded = false;
+
+    async function loadHotel() {
+      if (hotelLoaded) return;
+      document.getElementById('hotel-loading').style.display = 'block';
+      document.getElementById('hotel-content').style.display = 'none';
+      document.getElementById('hotel-error').style.display = 'none';
+
+      if (CONFIG.SHEET_HOTEL_URL.includes('TUO_GID_HOTEL')) {
+        // Dati demo hotel
+        renderHotel([
+          ['Hotel Victoria', '4', 'Via N. Costa 4, 10123 Torino', 'Tariffa convenzionata €180/notte', '', 'https://maps.google.com/?q=Hotel+Victoria+Torino'],
+          ['Grand Hotel Sitea', '5', 'Via Carlo Alberto 35, 10123 Torino', 'Tariffa convenzionata €220/notte', '', 'https://maps.google.com/?q=Grand+Hotel+Sitea+Torino'],
+        ]);
+        hotelLoaded = true;
+        return;
+      }
+
+      try {
+        const r = await fetch(CONFIG.SHEET_HOTEL_URL);
+        const csv = await r.text();
+        const rows = parseCSV(csv);
+        renderHotel(rows);
+        hotelLoaded = true;
+      } catch (e) {
+        document.getElementById('hotel-loading').style.display = 'none';
+        document.getElementById('hotel-error').style.display = 'block';
+      }
+    }
+
+    function renderHotel(rows) {
+      document.getElementById('hotel-loading').style.display = 'none';
+      let html = '';
+
+      rows.forEach(r => {
+        const [nome, stelle, indirizzo, note, linkDrive, linkMaps] = r;
+        const stelleHtml = stelle ? `<div class="hotel-stars">${'★'.repeat(parseInt(stelle) || 0)}</div>` : '';
+        const noteHtml = note ? `<div class="hotel-note">${note}</div>` : '';
+
+        let linksHtml = '<div class="hotel-links">';
+        if (linkMaps) linksHtml += `<a href="${linkMaps}" target="_blank" class="hotel-link">📍 Mappa</a>`;
+        if (linkDrive) linksHtml += `<a href="${linkDrive}" target="_blank" class="hotel-link">📄 Dettagli</a>`;
+        linksHtml += '</div>';
+
+        html += `<div class="hotel-card">
+          <h3>${nome}</h3>
+          ${stelleHtml}
+          <div class="hotel-address">📍 ${indirizzo}</div>
+          ${noteHtml}
+          ${linksHtml}
+        </div>`;
+      });
+
+      const el = document.getElementById('hotel-content');
+      el.innerHTML = html;
+      el.style.display = 'block';
     }
 
     // ═══════════════════════════════════════════════
@@ -1444,38 +1520,6 @@
         ['20:30–23:00', 'Cena', 'NH Collection Torino Piazza Carlina', 'https://maps.google.com/?q=NH+Collection+Torino+Piazza+Carlina', '', '100 persone', 'SERA'],
       ];
     }
-    <!-- ═══════════ HOTEL ═══════════ -->
-    <section class="section" id="sec-hotel">
-      <div class="prog-outer">
-        <div style="text-align:center; padding: 10px 20px 0;">
-          <div class="hero-card" style="display:inline-block; margin-bottom:10px;">
-            <h1>XVI Convegno Interregionale</h1>
-            <div class="date">18 Settembre 2026</div>
-            <div class="time">Venerdì · Ore 14:30</div>
-          </div>
-        </div>
-        <div class="prog-inner">
-          <div class="section-divider">
-            <h2>🏨 Hotel Convenzionati</h2>
-            <div class="line"></div>
-          </div>
-          <div id="hotel-loading" class="loading">
-            <div class="spinner"></div>
-            <div>Caricamento hotel...</div>
-          </div>
-          <div id="hotel-content" style="display:none"></div>
-          <div id="hotel-error" style="display:none" class="error-msg">
-            ⚠️ Impossibile caricare gli hotel. <a href="#" onclick="loadHotel()">Riprova</a>
-          </div>
-          <div class="info-box">
-            📝 Tariffe convenzionate riservate ai partecipanti al Convegno.<br>
-            Per informazioni: <a href="mailto:convegno@ancegiovaniareanord2026.it">convegno@ancegiovaniareanord2026.it</a>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-
 
     // ═══════════════════════════════════════════════
     // FORM ISCRIZIONI – LOGICA CONDIZIONALE
@@ -1486,19 +1530,16 @@
 
       const isConsigliere = val === 'si';
 
-      // Mostra/nascondi notice
       toggle('sec-gratuito', isConsigliere);
       toggle('sec-pagante', !isConsigliere);
 
-      // Sezioni comuni a tutti
-      toggle('sec-hotel', true);
+      toggle('sec-hotel-form', true);
       toggle('sec-giovedi', true);
       toggle('sec-venerdi', true);
       toggle('sec-note', true);
       toggle('sec-privacy', true);
 
       if (isConsigliere) {
-        // Consigliere: tutto gratuito
         document.getElementById('hotel-badge').innerHTML = '<span class="free-tag">GRATUITO</span>';
         document.getElementById('hotel-price-tag').className = 'free-tag';
         document.getElementById('hotel-price-tag').textContent = 'GRATUITO';
@@ -1510,7 +1551,6 @@
         document.getElementById('cena18-tag').textContent = 'GRATUITO';
         toggle('sec-prezzo', false);
       } else {
-        // Non consigliere: a pagamento
         document.getElementById('hotel-badge').innerHTML = '<span class="price-tag">A PAGAMENTO</span>';
         document.getElementById('hotel-price-tag').className = 'price-tag';
         document.getElementById('hotel-price-tag').textContent = '€ 180/notte';
@@ -1523,7 +1563,6 @@
         toggle('sec-prezzo', true);
       }
 
-      // Mostra/nascondi scelta hotel notti
       document.querySelectorAll('input[name="hotel"]').forEach(r => {
         r.addEventListener('change', () => {
           const showNotti = r.value !== 'nessuno';
@@ -1594,7 +1633,6 @@
         timestamp: new Date().toISOString()
       };
 
-      // Se Google Apps Script non configurato, mostra solo il successo di test
       if (CONFIG.FORM_URL.includes('YOUR_APPS_SCRIPT_ID')) {
         setTimeout(() => {
           document.getElementById('iscr-form').style.display = 'none';
@@ -1625,7 +1663,7 @@
       if (consiglio) document.getElementById('btn-submit').disabled = !this.checked;
     });
 
-    // Carica programma giorno 1 all'avvio (per velocità)
+    // Carica programma giorno 1 all'avvio
     loadDay1();
   </script>
 
