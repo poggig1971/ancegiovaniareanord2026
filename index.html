@@ -1633,17 +1633,19 @@ footer {
       document.getElementById('hotel-error').style.display = 'none';
 
       try {
-        const r = await fetch(CONFIG.SHEET_HOTEL_URL);
+        const url = CONFIG.SHEET_HOTEL_URL + '&t=' + Date.now();
+        const r = await fetch(url);
+        if (!r.ok) throw new Error('HTTP ' + r.status);
         const csv = await r.text();
         const rows = parseCSV(csv);
         renderHotel(rows);
         hotelLoaded = true;
       } catch (e) {
+        console.error('Errore caricamento hotel:', e);
         document.getElementById('hotel-loading').style.display = 'none';
         document.getElementById('hotel-error').style.display = 'block';
       }
     }
-
     function renderHotel(rows) {
       document.getElementById('hotel-loading').style.display = 'none';
 
