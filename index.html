@@ -1632,16 +1632,6 @@ footer {
       document.getElementById('hotel-content').style.display = 'none';
       document.getElementById('hotel-error').style.display = 'none';
 
-      if (CONFIG.SHEET_HOTEL_URL.includes('TUO_GID_HOTEL')) {
-        // Dati demo hotel
-        renderHotel([
-          ['Hotel Victoria', '4', 'Via N. Costa 4, 10123 Torino', 'Tariffa convenzionata €180/notte', '', 'https://maps.google.com/?q=Hotel+Victoria+Torino'],
-          ['Grand Hotel Sitea', '5', 'Via Carlo Alberto 35, 10123 Torino', 'Tariffa convenzionata €220/notte', '', 'https://maps.google.com/?q=Grand+Hotel+Sitea+Torino'],
-        ]);
-        hotelLoaded = true;
-        return;
-      }
-
       try {
         const r = await fetch(CONFIG.SHEET_HOTEL_URL);
         const csv = await r.text();
