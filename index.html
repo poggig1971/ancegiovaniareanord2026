@@ -751,53 +751,110 @@ body {
 }
     
 /* HOTEL CARDS */
+/* HOTEL CARDS */
 .hotel-card {
   background: #fff;
   border-radius: 8px;
   border: 1px solid #dde3ec;
-  padding: 20px 24px;
-  margin-bottom: 16px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
-.hotel-card h3 {
-  font-size: 16px;
+.hotel-info {
+  flex: 1;
+  min-width: 200px;
+}
+
+.hotel-nome {
+  font-size: 15px;
   font-weight: 800;
   color: #1e3a5f;
-  margin-bottom: 4px;
+  display: inline;
 }
 
-.hotel-stars {
+.hotel-stelle {
   color: #f0a500;
-  font-size: 14px;
-  margin-bottom: 8px;
+  font-size: 13px;
+  margin-left: 6px;
 }
 
-.hotel-address {
-  font-size: 13px;
+.hotel-indirizzo {
+  font-size: 12px;
+  color: #777;
+  margin-top: 2px;
+}
+
+.hotel-dettagli {
+  font-size: 12px;
   color: #555;
-  margin-bottom: 8px;
+  margin-top: 4px;
+  line-height: 1.6;
+}
+
+.hotel-dettagli span {
+  display: inline;
+  margin-right: 10px;
+  white-space: nowrap;
+}
+
+.hotel-prezzo {
+  font-size: 20px;
+  font-weight: 900;
+  color: #1e3a5f;
+  white-space: nowrap;
+}
+
+.hotel-prezzo small {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: #888;
+}
+
+.hotel-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 3px;
+  margin-top: 4px;
+}
+
+.hotel-tag.associazione {
+  background: #e8f5e9;
+  color: #1b5e20;
+}
+
+.hotel-tag.partecipante {
+  background: #fff8e1;
+  color: #5d4037;
 }
 
 .hotel-note {
-  font-size: 12px;
-  color: #888;
+  font-size: 11px;
+  color: #999;
   font-style: italic;
-  margin-bottom: 12px;
+  margin-top: 4px;
 }
 
 .hotel-links {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
+  margin-top: 6px;
 }
 
 .hotel-link {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   color: #1e3a5f;
   text-decoration: none;
-  padding: 6px 14px;
+  padding: 4px 12px;
   border: 1.5px solid #1e3a5f;
   border-radius: 4px;
   transition: all 0.2s;
@@ -806,6 +863,20 @@ body {
 .hotel-link:hover {
   background: #1e3a5f;
   color: #fff;
+}
+
+.hotel-group-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e3a5f;
+  margin: 24px 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #f0a500;
+}
+
+.hotel-group-title:first-child {
+  margin-top: 0;
 }
 
 /* FOOTER */
@@ -1586,25 +1657,70 @@ footer {
 
     function renderHotel(rows) {
       document.getElementById('hotel-loading').style.display = 'none';
+
+      if (!rows || rows.length === 0) {
+        document.getElementById('hotel-content').innerHTML = '<div style="text-align:center;color:#888;padding:40px;">Nessun hotel disponibile al momento</div>';
+        document.getElementById('hotel-content').style.display = 'block';
+        return;
+      }
+
+      // Raggruppa per hotel (colonna A)
+      const groups = {};
+      const groupOrder = [];
+      rows.forEach(r => {
+        const nome = (r[0] || '').trim();
+        if (!nome) return;
+        if (!groups[nome]) { groups[nome] = []; groupOrder.push(nome); }
+        groups[nome].push(r);
+      });
+
       let html = '';
 
-      rows.forEach(r => {
-        const [nome, stelle, indirizzo, note, linkDrive, linkMaps] = r;
-        const stelleHtml = stelle ? `<div class="hotel-stars">${'★'.repeat(parseInt(stelle) || 0)}</div>` : '';
-        const noteHtml = note ? `<div class="hotel-note">${note}</div>` : '';
+      groupOrder.forEach(nome => {
+        const righe = groups[nome];
+        const prima = righe[0];
+        const stelle = parseInt(prima[1]) || 0;
+        const stelleStr = '★'.repeat(stelle);
+        const indirizzo = prima[2] || '';
 
-        let linksHtml = '<div class="hotel-links">';
-        if (linkMaps) linksHtml += `<a href="${linkMaps}" target="_blank" class="hotel-link">📍 Mappa</a>`;
-        if (linkDrive) linksHtml += `<a href="${linkDrive}" target="_blank" class="hotel-link">📄 Dettagli</a>`;
-        linksHtml += '</div>';
+        html += `<div class="hotel-group-title">${nome} <span class="hotel-stelle">${stelleStr}</span></div>`;
+        html += `<div style="font-size:12px;color:#777;margin:-8px 0 12px;">📍 ${indirizzo}</div>`;
 
-        html += `<div class="hotel-card">
-          <h3>${nome}</h3>
-          ${stelleHtml}
-          <div class="hotel-address">📍 ${indirizzo}</div>
-          ${noteHtml}
-          ${linksHtml}
-        </div>`;
+        righe.forEach(r => {
+          const [, , , camere, prezzo, notti, tassa, totale, opzione, cancellazione, note, linkDoc] = r;
+
+          // Determina se a carico associazione o partecipante
+          const linkDocStr = (linkDoc || '').toUpperCase();
+          let tagHtml = '';
+          if (linkDocStr.includes('ASSOCIAZIONE')) {
+            tagHtml = '<span class="hotel-tag associazione">A CARICO ASSOCIAZIONE</span>';
+          } else if (linkDocStr.includes('PARTECIPANTE')) {
+            tagHtml = '<span class="hotel-tag partecipante">A CARICO PARTECIPANTE</span>';
+          }
+
+          const noteHtml = note ? `<div class="hotel-note">${note}</div>` : '';
+          const cancHtml = cancellazione ? `<span>🔄 ${cancellazione}</span>` : '';
+          const opzHtml = opzione ? `<span>📋 ${opzione}</span>` : '';
+
+          html += `<div class="hotel-card">
+            <div class="hotel-info">
+              <div class="hotel-dettagli">
+                <span>🛏️ <strong>${camere || ''}</strong></span>
+                <span>🌙 ${notti || ''} notti</span>
+                <span>💰 ${prezzo || ''}/notte</span>
+                <span>🏷️ Tassa: ${tassa || ''}/notte</span>
+                ${cancHtml}
+                ${opzHtml}
+              </div>
+              ${noteHtml}
+              ${tagHtml}
+            </div>
+            <div class="hotel-prezzo">
+              ${totale || ''}
+              <small>totale 2 notti + tassa</small>
+            </div>
+          </div>`;
+        });
       });
 
       const el = document.getElementById('hotel-content');
