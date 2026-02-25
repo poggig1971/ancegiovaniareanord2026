@@ -1775,8 +1775,61 @@ footer {
       if (consiglio) document.getElementById('btn-submit').disabled = !this.checked;
     });
 
+    // ═══════════════════════════════════════════════
+    // PROGRAMMA CONVEGNO (Home)
+    // ═══════════════════════════════════════════════
+    // Colonne: A=Ora | B=Sessione | C=Titolo | D=Relatore | E=Ruolo
+
+    async function loadConvegno() {
+      document.getElementById('conv-loading').style.display = 'block';
+      document.getElementById('conv-content').innerHTML = '';
+
+      try {
+        const r = await fetch(CONFIG.SHEET_CONVEGNO_URL);
+        const csv = await r.text();
+        const rows = parseCSV(csv);
+        renderConvegno(rows);
+      } catch (e) {
+        document.getElementById('conv-loading').style.display = 'none';
+        document.getElementById('conv-content').innerHTML = '<div style="text-align:center;color:rgba(255,255,255,0.4);font-size:12px;padding:20px;">Programma in fase di definizione</div>';
+      }
+    }
+
+    function renderConvegno(rows) {
+      document.getElementById('conv-loading').style.display = 'none';
+
+      if (!rows || rows.length === 0) {
+        document.getElementById('conv-content').innerHTML = '<div style="text-align:center;color:rgba(255,255,255,0.4);font-size:12px;padding:20px;">Programma in fase di definizione</div>';
+        return;
+      }
+
+      let html = '<div class="conv-table">';
+
+      rows.forEach(r => {
+        const [ora, sessione, titolo, relatore, ruolo] = r;
+        const tipoClass = 'tipo-' + (sessione || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+
+        const relatoreHtml = relatore ? `<div class="conv-relatore">${relatore}</div>` : '';
+        const ruoloHtml = ruolo ? `<div class="conv-ruolo">${ruolo}</div>` : '';
+
+        html += `<div class="conv-row ${tipoClass}">
+          <div class="conv-ora">${ora || ''}</div>
+          <div class="conv-detail">
+            <div class="conv-sessione">${sessione || ''}</div>
+            <div class="conv-titolo">${titolo || ''}</div>
+            ${relatoreHtml}
+            ${ruoloHtml}
+          </div>
+        </div>`;
+      });
+
+      html += '</div>';
+      document.getElementById('conv-content').innerHTML = html;
+    }
+    
     // Carica programma giorno 1 all'avvio
     loadDay1();
+    loadConvegno();
   </script>
 
 </body>
