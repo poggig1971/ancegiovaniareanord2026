@@ -1029,7 +1029,6 @@ footer {
   </nav>
 
   <!-- ═══════════ HOME ═══════════ -->
-
   <section class="section active" id="sec-home">
   <div class="hero">
 
@@ -1039,33 +1038,27 @@ footer {
       <div class="time">Venerdì · Ore 14:30</div>
     </div>
 
-    <div class="home-layout">
+    <img src="./save%20the%20date.png" alt="" class="save-date-img">
 
-      <!-- COLONNA SX: FLYER -->
-      <div class="home-flyer">
-        <img src="./flyer.jpg" alt="Flyer XVI Convegno">
+    <!-- PROGRAMMA CONVEGNO -->
+    <div class="conv-outer">
+      <h3 class="conv-title">📋 Articolazione del Convegno</h3>
+      <div id="conv-loading" class="loading" style="display:none">
+        <div class="spinner" style="border-top-color:#f0a500"></div>
+        <div style="color:rgba(255,255,255,0.6)">Caricamento programma...</div>
       </div>
-
-      <!-- COLONNA DX: PROGRAMMA CONVEGNO -->
-      <div class="conv-outer" style="padding:0; max-width:none;">
-        <h3 class="conv-title">📋 PROGRAMMA</h3>
-        <div id="conv-loading" class="loading" style="display:none">
-          <div class="spinner" style="border-top-color:#f0a500"></div>
-          <div style="color:rgba(255,255,255,0.6)">Caricamento programma...</div>
-        </div>
-        <div id="conv-content"></div>
-      </div>
-
+      <div id="conv-content"></div>
     </div>
 
     <!-- SPONSOR -->
-    <div class="home-sponsor">
-      <img src="./sponsor.jpg" alt="Sponsor XVI Convegno">
+    <div class="conv-outer" style="padding:0 20px;">
+      <img src="./sponsor.jpg" alt="Sponsor XVI Convegno" style="width:100%; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.3);">
     </div>
 
   </div>
 </section>
 
+  
   <!-- ═══════════ PROGRAMMA ═══════════ -->
 
   <section class="section" id="sec-programma">
