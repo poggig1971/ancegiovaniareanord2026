@@ -1607,8 +1607,11 @@ footer {
         const indirizzo = prima[2] || '';
 
         html += `<div class="hotel-group-title">${nome} <span class="hotel-stelle">${stelleStr}</span></div>`;
-        html += `<div style="font-size:12px;color:#777;margin:-8px 0 12px;">📍 ${indirizzo}</div>`;
-
+        const contatto = righe[0][12] || '';
+        const linkMaps = righe[0][13] || '';
+        const indirizzoHtml = linkMaps ? `<a href="${linkMaps}" target="_blank" style="color:#1e3a5f;text-decoration:none;font-weight:600">📍 ${indirizzo}</a>` : `📍 ${indirizzo}`;
+        const contattoHtml = contatto ? ` · <span style="color:#555">${contatto}</span>` : '';
+        html += `<div style="font-size:12px;color:#777;margin:-8px 0 12px;">${indirizzoHtml}${contattoHtml}</div>`;
         righe.forEach(r => {
           const [, , , camere, prezzo, notti, tassa, totale, opzione, cancellazione, note, linkDoc] = r;
 
