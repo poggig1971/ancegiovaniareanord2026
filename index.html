@@ -1714,55 +1714,15 @@ footer {
     // ═══════════════════════════════════════════════
     // FORM ISCRIZIONI – LOGICA CONDIZIONALE
     // ═══════════════════════════════════════════════
-    function updateTipo() {
-      const val = document.querySelector('input[name="consiglio"]:checked')?.value;
-      if (!val) return;
-
-      const isConsigliere = val === 'si';
-
-      toggle('sec-gratuito', isConsigliere);
-      toggle('sec-pagante', !isConsigliere);
-
-      toggle('sec-hotel-form', true);
-      toggle('sec-giovedi', true);
-      toggle('sec-venerdi', true);
-      toggle('sec-note', true);
-      toggle('sec-privacy', true);
-
-      if (isConsigliere) {
-        document.getElementById('hotel-badge').innerHTML = '<span class="free-tag">GRATUITO</span>';
-        document.getElementById('hotel-price-tag').className = 'free-tag';
-        document.getElementById('hotel-price-tag').textContent = 'GRATUITO';
-        document.getElementById('hotel-price-tag2').className = 'free-tag';
-        document.getElementById('hotel-price-tag2').textContent = 'GRATUITO';
-        document.getElementById('cena17-tag').className = 'free-tag';
-        document.getElementById('cena17-tag').textContent = 'GRATUITO';
-        document.getElementById('cena18-tag').className = 'free-tag';
-        document.getElementById('cena18-tag').textContent = 'GRATUITO';
-        toggle('sec-prezzo', false);
-      } else {
-        document.getElementById('hotel-badge').innerHTML = '<span class="price-tag">A PAGAMENTO</span>';
-        document.getElementById('hotel-price-tag').className = 'price-tag';
-        document.getElementById('hotel-price-tag').textContent = '€ 180/notte';
-        document.getElementById('hotel-price-tag2').className = 'price-tag';
-        document.getElementById('hotel-price-tag2').textContent = '€ 220/notte';
-        document.getElementById('cena17-tag').className = 'price-tag';
-        document.getElementById('cena17-tag').textContent = '€ 100/persona';
-        document.getElementById('cena18-tag').className = 'price-tag';
-        document.getElementById('cena18-tag').textContent = '€ 100/persona';
-        toggle('sec-prezzo', true);
-      }
-
-      document.querySelectorAll('input[name="hotel"]').forEach(r => {
-        r.addEventListener('change', () => {
-          const showNotti = r.value !== 'nessuno';
-          document.getElementById('hotel-notti-group').style.display = showNotti ? 'block' : 'none';
-          updatePrezzo();
-        });
-      });
-
-      document.getElementById('btn-submit').disabled = false;
-      updatePrezzo();
+    function updateTipo(){
+      const v=document.querySelector('input[name="consiglio"]:checked')?.value;if(!v)return;
+      const isC=v==='si';
+      toggle('sec-arrivo',true);toggle('sec-giovedi',true);toggle('sec-venerdi',true);toggle('sec-note',true);toggle('sec-privacy',true);
+      toggle('sec-consiglio-ristretto',isC);
+      if(!isC)document.getElementById('consiglio-ristretto').checked=false;
+      document.getElementById('cena17-price').style.display=isC?'none':'inline-block';
+      document.getElementById('cena18-price').style.display=isC?'none':'inline-block';
+      document.getElementById('btn-submit').disabled=!document.getElementById('privacy').checked;
     }
 
     function toggle(id, show) {
