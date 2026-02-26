@@ -1146,6 +1146,8 @@ footer {
 
 <!-- ═══════════ ISCRIZIONI ═══════════ -->
 
+  <!-- ═══════════ ISCRIZIONI ═══════════ -->
+
   <section class="section" id="sec-iscrizioni">
     <div class="iscr-outer">
       <div style="text-align:center; padding: 10px 20px 0;">
@@ -1604,17 +1606,7 @@ footer {
     }
 
     
-    // ═══════════════════════════════════════════════
-    // ABILITA SUBMIT SOLO CON PRIVACY
-    // ═══════════════════════════════════════════════
-    document.getElementById('privacy').addEventListener('change', function () {
-      const consiglio =
-        document.querySelector('input[name="consiglio"]:checked');
-    
-      if (consiglio) {
-        document.getElementById('btn-submit').disabled = !this.checked;
-      }
-    });
+     
     // ═══════════════════════════════════════════════
     // PROGRAMMA CONVEGNO (Home)
     // ═══════════════════════════════════════════════
