@@ -1,1025 +1,143 @@
 <!DOCTYPE html>
-
 <html lang="it">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>XVI Convegno Interregionale Giovani ANCE – Area Nord 2026</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #1e3a5f;
+      color: #fff;
+      padding-top: 50px;
     }
 
-body {
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Helvetica,
-    Arial,
-    sans-serif;
-
-  background: #1e3a5f;
-  color: #fff;
-  padding-top: 50px;
-}
-
-/* TOP BAR */
-.topbar {
-  background: #17305a;
-  padding: 6px 30px;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.topbar a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.topbar a:hover {
-  text-decoration: underline;
-}
-
-/* HEADER */
-.header {
-  background: #2a4a73;
-  padding: 12px 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 3px solid #f0a500;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.logos-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.logo-item {
-  display: flex;
-  align-items: center;
-}
-
-.logo-ance {
-   
-  font-size: 18px;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: -1px;
-  line-height: 1;
-}
-
-.logo-ance span.giovani {
-   
-  display: block;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: #f0a500;
-  text-transform: uppercase;
-  text-align: right; 
-}
-
-.logo-divider {
-  width: 2px;
-  height: 30px;
-  background: #f0a500;
-  margin: 0 7px;
-}
-
-.logo-region {
-   
-  font-size: 10px;
-  font-weight: 700;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  line-height: 1.3;
-}
-
-.logo-sep {
-  width: 1px;
-  height: 36px;
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* NAV */
-.nav-tabs {
-  background: #17305a;
-  display: flex;
-  justify-content: center;
-  border-bottom: 3px solid #f0a500;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-}
-
-.nav-tab {
-  padding: 14px 36px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
-  border: none;
-  background: none;
-  cursor: pointer;
-  border-bottom: 3px solid transparent;
-  margin-bottom: -3px;
-  transition: all 0.2s;
-}
-
-.nav-tab.active,
-.nav-tab:hover {
-  color: #f0a500;
-  border-bottom-color: #f0a500;
-}
-
-/* SECTIONS */
-.section {
-  display: none;
-}
-
-.section.active {
-  display: block;
-}
-
-/* HOME */
-.hero {
-  background: #1e3a5f;
-  min-height: calc(100vh - 110px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 20px 20px 50px;
-  gap: 12px;
-}
-
-.hero-card {
-  background: rgba(23, 48, 90, 0.9);
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
-  padding: 32px 50px;
-  text-align: center;
-  max-width: 680px;
-  width: 100%;
-}
-
-.hero-card h1 {
-  font-size: clamp(16px, 3vw, 24px);
-  font-weight: 900;
-  color: #f0a500;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  line-height: 1.3;
-  margin-bottom: 8px;
-}
-
-.hero-card .date {
-  font-size: clamp(14px, 2.5vw, 20px);
-  font-weight: 800;
-  color: #f0a500;
-  margin-bottom: 6px;
-}
-
-.hero-card .time {
-  font-size: 14px;
-  font-weight: 600;
-  color: #f0a500;
-  font-style: italic;
-  letter-spacing: 2px;
-}
-
-.save-date-img {
-  max-width: 800px;
-  width: 100%;
-  border-radius: 8px;
-  border: 3px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
-}
-
-/* PROGRAMMA */
-.prog-outer {
-  background: #f5f7fa;
-  padding: 20px 20px 20px;
-  min-height: 70vh;
-}
-
-.prog-inner {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.day-switcher {
-  display: flex;
-  gap: 0;
-  margin-bottom: 36px;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 2px solid #1e3a5f;
-}
-
-.day-btn {
-  flex: 1;
-  padding: 14px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  border: none;
-  background: #fff;
-  color: #1e3a5f;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.day-btn.active {
-  background: #1e3a5f;
-  color: #f0a500;
-}
-
-.day-content {
-  display: none;
-}
-
-.day-content.active {
-  display: block;
-}
-
-.section-divider {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 24px;
-}
-
-.section-divider h2 {
-  font-size: 20px;
-  font-weight: 800;
-  color: #1e3a5f;
-  white-space: nowrap;
-}
-
-.section-divider .line {
-  flex: 1;
-  height: 2px;
-  background: linear-gradient(to right, #1e3a5f, transparent);
-}
-
-.prog-block {
-  margin-bottom: 28px;
-}
-
-.prog-block-title {
-  background: #1e3a5f;
-  color: #fff;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  padding: 10px 18px;
-  border-radius: 4px 4px 0 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.prog-rows {
-  background: #fff;
-  border-radius: 0 0 6px 6px;
-  overflow: hidden;
-  border: 1px solid #dde3ec;
-  border-top: none;
-}
-
-.prog-row {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  border-bottom: 1px solid #eef0f4;
-  align-items: stretch;
-}
-
-.prog-row:last-child {
-  border-bottom: none;
-}
-
-.prog-time {
-  background: #f8fafc;
-  padding: 16px;
-  font-size: 12px;
-  font-weight: 700;
-  color: #1e3a5f;
-  border-right: 2px solid #eef0f4;
-  display: flex;
-  align-items: center;
-  line-height: 1.4;
-}
-
-.prog-content {
-  padding: 14px 20px;
-}
-
-.prog-content .title {
-  font-size: 14px;
-  font-weight: 700;
-  color: #1a1a2e;
-  margin-bottom: 5px;
-}
-
-.prog-content .location a {
-  color: #1e3a5f;
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 1.6;
-  display: block;
-}
-
-.prog-content .location a:hover {
-  color: #f0a500;
-}
-
-.prog-content .note {
-  font-size: 11px;
-  color: #888;
-  margin-top: 4px;
-  font-style: italic;
-}
-
-.prog-badge {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 2px;
-  margin-left: 6px;
-  vertical-align: middle;
-}
-
-.badge-p {
-  background: rgba(30, 58, 95, 0.1);
-  color: #1e3a5f;
-}
-
-.badge-c {
-  background: rgba(240, 165, 0, 0.15);
-  color: #8a5e00;
-}
-
-.badge-s {
-  background: rgba(40, 140, 40, 0.1);
-  color: #1a6b1a;
-}
-
-/* Loading spinner */
-.loading {
-  text-align: center;
-  padding: 40px;
-  color: #1e3a5f;
-}
-
-.spinner {
-  width: 36px;
-  height: 36px;
-  border: 4px solid #dde3ec;
-  border-top-color: #1e3a5f;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-  margin: 0 auto 12px;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.error-msg {
-  background: #fff3cd;
-  color: #856404;
-  border: 1px solid #ffc107;
-  border-radius: 6px;
-  padding: 16px 20px;
-  margin: 20px 0;
-  font-size: 13px;
-}
-
-/* ISCRIZIONI */
-.iscr-outer {
-  background: #f5f7fa;
-  padding: 20px 20px 60px;
-  min-height: 70vh;
-}
-
-.iscr-inner {
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-.iscr-title {
-  font-size: 24px;
-  font-weight: 800;
-  color: #1e3a5f;
-  margin-bottom: 8px;
-}
-
-.iscr-sub {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 32px;
-  line-height: 1.6;
-}
-
-.form-card {
-  background: #fff;
-  border-radius: 8px;
-  border: 1px solid #dde3ec;
-  padding: 30px;
-  margin-bottom: 24px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-}
-
-.form-card h3 {
-  font-size: 15px;
-  font-weight: 800;
-  color: #1e3a5f;
-  margin-bottom: 18px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #f0a500;
-}
-
-.form-group {
-  margin-bottom: 18px;
-}
-
-.form-group label {
-  display: block;
-  font-size: 12px;
-  font-weight: 700;
-  color: #1e3a5f;
-  margin-bottom: 6px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
-
-.form-group label .req {
-  color: #c0181e;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  width: 100%;
-  padding: 10px 14px;
-  border: 1.5px solid #dde3ec;
-  border-radius: 4px;
-  
-  font-size: 13px;
-  color: #1a1a2e;
-  transition: border-color 0.2s;
-  background: #fafbfc;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: #1e3a5f;
-  background: #fff;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-.radio-group,
-.check-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.radio-item,
-.check-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  cursor: pointer;
-}
-
-.radio-item input,
-.check-item input {
-  margin-top: 2px;
-  accent-color: #1e3a5f;
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-}
-
-.radio-item .label-text,
-.check-item .label-text {
-  font-size: 13px;
-  color: #333;
-  font-weight: 500;
-  line-height: 1.4;
-}
-
-.radio-item .label-text small,
-.check-item .label-text small {
-  display: block;
-  color: #888;
-  font-size: 11px;
-  font-weight: 400;
-}
-
-.price-tag {
-  display: inline-block;
-  background: #f0a500;
-  color: #fff;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 2px;
-  margin-left: 6px;
-}
-
-.free-tag {
-  display: inline-block;
-  background: #2c782c;
-  color: #fff;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 2px;
-  margin-left: 6px;
-}
-
-/* Conditional sections */
-.cond-section {
-  display: none;
-}
-
-.cond-section.visible {
-  display: block;
-}
-
-.gratuito-notice {
-  background: #e8f5e9;
-  border: 1px solid #a5d6a7;
-  border-radius: 6px;
-  padding: 14px 18px;
-  margin-bottom: 20px;
-  font-size: 13px;
-  color: #1b5e20;
-  font-weight: 600;
-}
-
-.pagante-notice {
-  background: #fff8e1;
-  border: 1px solid #ffe082;
-  border-radius: 6px;
-  padding: 14px 18px;
-  margin-bottom: 20px;
-  font-size: 13px;
-  color: #5d4037;
-  font-weight: 600;
-}
-
-.prezzo-totale {
-  background: #1e3a5f;
-  color: #fff;
-  border-radius: 6px;
-  padding: 20px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 24px;
-}
-
-.prezzo-totale .label {
-  font-size: 13px;
-  font-weight: 600;
-  opacity: 0.8;
-}
-
-.prezzo-totale .amount {
-  font-size: 28px;
-  font-weight: 900;
-  color: #f0a500;
-}
-
-.btn-submit {
-  width: 100%;
-  background: #1e3a5f;
-  color: #fff;
-  border: none;
-  padding: 16px;
-  font-size: 15px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: background 0.2s;
-}
-
-.btn-submit:hover {
-  background: #f0a500;
-}
-
-.info-box {
-  background: #e8f0fb;
-  border-left: 4px solid #1e3a5f;
-  padding: 14px 18px;
-  border-radius: 0 6px 6px 0;
-  font-size: 12px;
-  color: #1e3a5f;
-  line-height: 1.7;
-  margin-top: 16px;
-}
-/* PROGRAMMA CONVEGNO HOME */
-.conv-outer {
-  max-width: 800px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.conv-title {
-   
-  font-size: 18px;
-  font-weight: 700;
-  color: #f0a500;
-  text-align: center;
-  margin-bottom: 16px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-.conv-table {
-  width: 100%;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 2px solid rgba(255, 255, 255, 0.15);
-}
-
-.conv-row {
-  display: grid;
-  grid-template-columns: 85px 1fr;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.conv-row:last-child {
-  border-bottom: none;
-}
-
-.conv-row.tipo-registrazione,
-.conv-row.tipo-chiusura,
-.conv-row.tipo-moderazione {
-  background: rgba(255, 255, 255, 0.03);
-}
-
-.conv-row.tipo-tavola-rotonda-i,
-.conv-row.tipo-tavola-rotonda-ii {
-  background: rgba(240, 165, 0, 0.1);
-}
-
-.conv-row.tipo-intervento,
-.conv-row.tipo-intervista {
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.conv-ora {
-  padding: 12px 10px;
-  font-size: 16px;
-  font-weight: 700;
-  color: #f0a500;
-  border-right: 2px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.conv-detail {
-  padding: 12px 16px;
-}
-
-.conv-sessione {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.4);
-  margin-bottom: 2px;
-}
-
-.conv-titolo {
-  font-size: 16px;
-  font-weight: 700;
-  color: #fff;
-  display: inline;
-}
-
-.conv-relatore {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.7);
-  display: inline;
-}
-
-.conv-ruolo {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.4);
-  font-style: italic;
-  display: inline;
-}
-
-@media(max-width:600px) {
-  .conv-row {
-    grid-template-columns: 60px 1fr;
-  }
-}
-    
-/* HOTEL CARDS */
-/* HOTEL CARDS */
-.hotel-card {
-  background: #fff;
-  border-radius: 8px;
-  border: 1px solid #dde3ec;
-  padding: 16px 20px;
-  margin-bottom: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.hotel-info {
-  flex: 1;
-  min-width: 200px;
-}
-
-.hotel-nome {
-  font-size: 15px;
-  font-weight: 800;
-  color: #1e3a5f;
-  display: inline;
-}
-
-.hotel-stelle {
-  color: #f0a500;
-  font-size: 13px;
-  margin-left: 6px;
-}
-
-.hotel-indirizzo {
-  font-size: 12px;
-  color: #777;
-  margin-top: 2px;
-}
-
-.hotel-dettagli {
-  font-size: 12px;
-  color: #555;
-  margin-top: 4px;
-  line-height: 1.6;
-}
-
-.hotel-dettagli span {
-  display: inline;
-  margin-right: 10px;
-  white-space: nowrap;
-}
-
-.hotel-prezzo {
-  font-size: 20px;
-  font-weight: 900;
-  color: #1e3a5f;
-  white-space: nowrap;
-}
-
-.hotel-prezzo small {
-  display: block;
-  font-size: 11px;
-  font-weight: 600;
-  color: #888;
-}
-
-.hotel-tag {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 3px;
-  margin-top: 4px;
-}
-
-.hotel-tag.associazione {
-  background: #e8f5e9;
-  color: #1b5e20;
-}
-
-.hotel-tag.partecipante {
-  background: #fff8e1;
-  color: #5d4037;
-}
-
-.hotel-note {
-  font-size: 11px;
-  color: #999;
-  font-style: italic;
-  margin-top: 4px;
-}
-
-.hotel-links {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 6px;
-}
-
-.hotel-link {
-  font-size: 11px;
-  font-weight: 700;
-  color: #1e3a5f;
-  text-decoration: none;
-  padding: 4px 12px;
-  border: 1.5px solid #1e3a5f;
-  border-radius: 4px;
-  transition: all 0.2s;
-}
-
-.hotel-link:hover {
-  background: #1e3a5f;
-  color: #fff;
-}
-
-.hotel-group-title {
-  
-  font-size: 16px;
-  font-weight: 700;
-  color: #1e3a5f;
-  margin: 24px 0 12px;
-  padding-bottom: 6px;
-  border-bottom: 2px solid #f0a500;
-}
-
-.hotel-group-title:first-child {
-  margin-top: 0;
-}
-
-/* FOOTER */
-footer {
-  background: #12263f;
-  color: rgba(255, 255, 255, 0.5);
-  text-align: center;
-  padding: 30px 20px;
-  font-size: 12px;
-  line-height: 2;
-}
-
-@media(max-width:600px) {
-  .header {
-    flex-direction: column;
-  }
-
-  .logos-row {
-    justify-content: center;
-  }
-
-  .prog-row {
-    grid-template-columns: 80px 1fr;
-  }
-
-  .hero-card {
-    padding: 24px 16px;
-  }
-
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-
-  .nav-tab {
-    padding: 12px 16px;
-    font-size: 11px;
-  }
-}
-
-    /* HOME LAYOUT */
-.home-layout {
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 24px;
-  max-width: 1100px;
-  width: 100%;
-  align-items: start;
-}
-
-.home-flyer img {
-  width: 100%;
-  border-radius: 8px;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.4);
-}
-
-.home-sponsor {
-  max-width: 1100px;
-  width: 100%;
-}
-
-.home-sponsor img {
-  width: 100%;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-}
-
-@media(max-width:768px) {
-  .home-layout {
-    grid-template-columns: 1fr;
-  }
-}
-
+    .topbar { background: #17305a; padding: 6px 30px; font-size: 13px; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .topbar a { color: #fff; text-decoration: none; }
+    .topbar a:hover { text-decoration: underline; }
+
+    .header { background: #2a4a73; padding: 12px 30px; display: flex; align-items: center; justify-content: center; border-bottom: 3px solid #f0a500; flex-wrap: wrap; gap: 12px; }
+    .logos-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .logo-item { display: flex; align-items: center; }
+    .logo-ance { font-size: 18px; font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1; }
+    .logo-ance span.giovani { display: block; font-size: 8px; font-weight: 700; letter-spacing: 1px; color: #f0a500; text-transform: uppercase; text-align: left; }
+    .logo-divider { width: 2px; height: 30px; background: #f0a500; margin: 0 7px; }
+    .logo-region { font-size: 10px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.3; }
+    .logo-sep { width: 1px; height: 36px; background: rgba(255,255,255,0.2); }
+
+    .nav-tabs { background: #17305a; display: flex; justify-content: center; border-bottom: 3px solid #f0a500; position: fixed; top: 0; left: 0; right: 0; z-index: 50; }
+    .nav-tab { padding: 14px 36px; font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.6); border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -3px; transition: all 0.2s; }
+    .nav-tab.active, .nav-tab:hover { color: #f0a500; border-bottom-color: #f0a500; }
+
+    .section { display: none; }
+    .section.active { display: block; }
+
+    .hero { background: #1e3a5f; min-height: calc(100vh - 110px); display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 20px 20px 50px; gap: 12px; }
+    .hero-card { background: rgba(23,48,90,0.9); border: 2px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 32px 50px; text-align: center; max-width: 680px; width: 100%; }
+    .hero-card h1 { font-size: clamp(16px,3vw,24px); font-weight: 900; color: #f0a500; letter-spacing: 1px; text-transform: uppercase; line-height: 1.3; margin-bottom: 8px; }
+    .hero-card .date { font-size: clamp(14px,2.5vw,20px); font-weight: 800; color: #f0a500; margin-bottom: 6px; }
+    .hero-card .time { font-size: 14px; font-weight: 600; color: #f0a500; font-style: italic; letter-spacing: 2px; }
+    .save-date-img { max-width: 800px; width: 100%; border-radius: 8px; border: 3px solid rgba(255,255,255,0.2); box-shadow: 0 8px 40px rgba(0,0,0,0.4); }
+
+    .conv-outer { max-width: 800px; width: 100%; margin: 0 auto; padding: 0 20px; }
+    .conv-title { font-size: 18px; font-weight: 700; color: #f0a500; text-align: center; margin-bottom: 16px; letter-spacing: 1px; text-transform: uppercase; }
+    .conv-table { width: 100%; border-radius: 8px; overflow: hidden; border: 2px solid rgba(255,255,255,0.15); }
+    .conv-row { display: grid; grid-template-columns: 85px 1fr; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .conv-row:last-child { border-bottom: none; }
+    .conv-row.tipo-registrazione, .conv-row.tipo-chiusura, .conv-row.tipo-moderazione { background: rgba(255,255,255,0.03); }
+    .conv-row.tipo-tavola-rotonda-i, .conv-row.tipo-tavola-rotonda-ii { background: rgba(240,165,0,0.1); }
+    .conv-row.tipo-intervento, .conv-row.tipo-intervista { background: rgba(255,255,255,0.06); }
+    .conv-ora { padding: 12px 10px; font-size: 16px; font-weight: 700; color: #f0a500; border-right: 2px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; }
+    .conv-detail { padding: 12px 16px; }
+    .conv-sessione { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 2px; }
+    .conv-titolo { font-size: 16px; font-weight: 700; color: #fff; display: inline; }
+    .conv-relatore { font-size: 14px; color: rgba(255,255,255,0.7); display: inline; }
+    .conv-ruolo { font-size: 13px; color: rgba(255,255,255,0.4); font-style: italic; display: inline; }
+
+    .prog-outer { background: #f5f7fa; padding: 20px; min-height: 70vh; }
+    .prog-inner { max-width: 900px; margin: 0 auto; }
+    .day-switcher { display: flex; margin-bottom: 36px; border-radius: 6px; overflow: hidden; border: 2px solid #1e3a5f; }
+    .day-btn { flex: 1; padding: 14px; font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; border: none; background: #fff; color: #1e3a5f; cursor: pointer; transition: all 0.2s; }
+    .day-btn.active { background: #1e3a5f; color: #f0a500; }
+    .day-content { display: none; }
+    .day-content.active { display: block; }
+    .section-divider { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+    .section-divider h2 { font-size: 20px; font-weight: 800; color: #1e3a5f; white-space: nowrap; }
+    .section-divider .line { flex: 1; height: 2px; background: linear-gradient(to right, #1e3a5f, transparent); }
+    .prog-block { margin-bottom: 28px; }
+    .prog-block-title { background: #1e3a5f; color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; padding: 10px 18px; border-radius: 4px 4px 0 0; display: flex; align-items: center; gap: 8px; }
+    .prog-rows { background: #fff; border-radius: 0 0 6px 6px; overflow: hidden; border: 1px solid #dde3ec; border-top: none; }
+    .prog-row { display: grid; grid-template-columns: 120px 1fr; border-bottom: 1px solid #eef0f4; align-items: stretch; }
+    .prog-row:last-child { border-bottom: none; }
+    .prog-time { background: #f8fafc; padding: 16px; font-size: 12px; font-weight: 700; color: #1e3a5f; border-right: 2px solid #eef0f4; display: flex; align-items: center; line-height: 1.4; }
+    .prog-content { padding: 14px 20px; }
+    .prog-content .title { font-size: 14px; font-weight: 700; color: #1a1a2e; margin-bottom: 5px; }
+    .prog-content .location a { color: #1e3a5f; text-decoration: none; font-size: 12px; font-weight: 600; line-height: 1.6; display: block; }
+    .prog-content .location a:hover { color: #f0a500; }
+    .prog-content .note { font-size: 11px; color: #888; margin-top: 4px; font-style: italic; }
+    .prog-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 2px; margin-left: 6px; vertical-align: middle; }
+    .badge-p { background: rgba(30,58,95,0.1); color: #1e3a5f; }
+    .badge-c { background: rgba(240,165,0,0.15); color: #8a5e00; }
+
+    .loading { text-align: center; padding: 40px; color: #1e3a5f; }
+    .spinner { width: 36px; height: 36px; border: 4px solid #dde3ec; border-top-color: #1e3a5f; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .error-msg { background: #fff3cd; color: #856404; border: 1px solid #ffc107; border-radius: 6px; padding: 16px 20px; margin: 20px 0; font-size: 13px; }
+    .info-box { background: #e8f0fb; border-left: 4px solid #1e3a5f; padding: 14px 18px; border-radius: 0 6px 6px 0; font-size: 12px; color: #1e3a5f; line-height: 1.7; margin-top: 16px; }
+
+    .hotel-card { background: #fff; border-radius: 8px; border: 1px solid #dde3ec; padding: 16px 20px; margin-bottom: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .hotel-info { flex: 1; min-width: 200px; }
+    .hotel-stelle { color: #f0a500; font-size: 13px; margin-left: 6px; }
+    .hotel-dettagli { font-size: 12px; color: #555; margin-top: 4px; line-height: 1.6; }
+    .hotel-dettagli span { display: inline; margin-right: 10px; white-space: nowrap; }
+    .hotel-prezzo { font-size: 20px; font-weight: 900; color: #1e3a5f; white-space: nowrap; }
+    .hotel-prezzo small { display: block; font-size: 11px; font-weight: 600; color: #888; }
+    .hotel-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 3px; margin-top: 4px; }
+    .hotel-tag.associazione { background: #e8f5e9; color: #1b5e20; }
+    .hotel-tag.partecipante { background: #fff8e1; color: #5d4037; }
+    .hotel-note { font-size: 11px; color: #999; font-style: italic; margin-top: 4px; }
+    .hotel-group-title { font-size: 16px; font-weight: 700; color: #1e3a5f; margin: 24px 0 12px; padding-bottom: 6px; border-bottom: 2px solid #f0a500; }
+    .hotel-group-title:first-child { margin-top: 0; }
+
+    .iscr-outer { background: #f5f7fa; padding: 20px 20px 60px; min-height: 70vh; }
+
+    footer { background: #12263f; color: rgba(255,255,255,0.5); text-align: center; padding: 30px 20px; font-size: 12px; line-height: 2; }
+
+    @media(max-width:600px) {
+      .header { flex-direction: column; }
+      .logos-row { justify-content: center; }
+      .prog-row { grid-template-columns: 80px 1fr; }
+      .hero-card { padding: 24px 16px; }
+      .nav-tab { padding: 12px 16px; font-size: 11px; }
+      .conv-row { grid-template-columns: 60px 1fr; }
+    }
   </style>
 </head>
-
 <body>
-
-  <!-- TOP BAR -->
 
   <div class="topbar">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-      <polyline points="22,6 12,13 2,6" />
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+      <polyline points="22,6 12,13 2,6"/>
     </svg>
     &nbsp;<a href="mailto:info@ancepiemonte.it">Contattaci</a>
   </div>
 
-  <!-- HEADER -->
-
   <header class="header">
     <div class="logos-row">
-      <div class="logo-item">
-        <div>
-          <div class="logo-ance">ANCE<span class="giovani">GIOVANI</span></div>
-        </div>
-        <div class="logo-divider"></div>
-        <div class="logo-region">FRIULI<br>VENEZIA GIULIA</div>
-      </div>
+      <div class="logo-item"><div><div class="logo-ance">ANCE<span class="giovani">GIOVANI</span></div></div><div class="logo-divider"></div><div class="logo-region">FRIULI<br>VENEZIA GIULIA</div></div>
       <div class="logo-sep"></div>
-      <div class="logo-item">
-        <div>
-          <div class="logo-ance">ANCE<span class="giovani">GIOVANI</span></div>
-        </div>
-        <div class="logo-divider"></div>
-        <div class="logo-region">LIGURIA</div>
-      </div>
+      <div class="logo-item"><div><div class="logo-ance">ANCE<span class="giovani">GIOVANI</span></div></div><div class="logo-divider"></div><div class="logo-region">LIGURIA</div></div>
       <div class="logo-sep"></div>
-      <div class="logo-item">
-        <div>
-          <div class="logo-ance">ANCE<span class="giovani">GIOVANI</span></div>
-        </div>
-        <div class="logo-divider"></div>
-        <div class="logo-region">LOMBARDIA</div>
-      </div>
+      <div class="logo-item"><div><div class="logo-ance">ANCE<span class="giovani">GIOVANI</span></div></div><div class="logo-divider"></div><div class="logo-region">LOMBARDIA</div></div>
       <div class="logo-sep"></div>
-      <div class="logo-item">
-        <div>
-          <div class="logo-ance">ANCE<span class="giovani">GIOVANI</span></div>
-        </div>
-        <div class="logo-divider"></div>
-        <div class="logo-region">PIEMONTE<br>VALLE D'AOSTA</div>
-      </div>
+      <div class="logo-item"><div><div class="logo-ance">ANCE<span class="giovani">GIOVANI</span></div></div><div class="logo-divider"></div><div class="logo-region">PIEMONTE<br>VALLE D'AOSTA</div></div>
       <div class="logo-sep"></div>
-      <div class="logo-item">
-        <div>
-          <div class="logo-ance">ANCE<span class="giovani">GIOVANI</span></div>
-        </div>
-        <div class="logo-divider"></div>
-        <div class="logo-region">VENETO</div>
-      </div>
+      <div class="logo-item"><div><div class="logo-ance">ANCE<span class="giovani">GIOVANI</span></div></div><div class="logo-divider"></div><div class="logo-region">VENETO</div></div>
     </div>
   </header>
-
-  <!-- NAV -->
 
   <nav class="nav-tabs">
     <button class="nav-tab active" onclick="showSection('home')">Home</button>
@@ -1028,39 +146,30 @@ footer {
     <button class="nav-tab" onclick="showSection('iscrizioni')">Iscrizioni</button>
   </nav>
 
-  <!-- ═══════════ HOME ═══════════ -->
+  <!-- HOME -->
   <section class="section active" id="sec-home">
-  <div class="hero">
-
-    <div class="hero-card">
-      <h1>XVI Convegno Interregionale</h1>
-      <div class="date">18 Settembre 2026</div>
-      <div class="time">Venerdì · Ore 14:30</div>
-    </div>
-
-    <img src="./save%20the%20date.png" alt="" class="save-date-img">
-
-    <!-- PROGRAMMA CONVEGNO -->
-    <div class="conv-outer">
-      <h3 class="conv-title">📋 Articolazione del Convegno</h3>
-      <div id="conv-loading" class="loading" style="display:none">
-        <div class="spinner" style="border-top-color:#f0a500"></div>
-        <div style="color:rgba(255,255,255,0.6)">Caricamento programma...</div>
+    <div class="hero">
+      <div class="hero-card">
+        <h1>XVI Convegno Interregionale</h1>
+        <div class="date">18 Settembre 2026</div>
+        <div class="time">Venerdì · Ore 14:30</div>
       </div>
-      <div id="conv-content"></div>
+      <img src="./save%20the%20date.png" alt="" class="save-date-img">
+      <div class="conv-outer">
+        <h3 class="conv-title">📋 Articolazione del Convegno</h3>
+        <div id="conv-loading" class="loading" style="display:none">
+          <div class="spinner" style="border-top-color:#f0a500"></div>
+          <div style="color:rgba(255,255,255,0.6)">Caricamento programma...</div>
+        </div>
+        <div id="conv-content"></div>
+      </div>
+      <div class="conv-outer" style="padding:0 20px;">
+        <img src="./sponsor.jpg" alt="Sponsor XVI Convegno" style="width:100%; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.3);">
+      </div>
     </div>
+  </section>
 
-    <!-- SPONSOR -->
-    <div class="conv-outer" style="padding:0 20px;">
-      <img src="./sponsor.jpg" alt="Sponsor XVI Convegno" style="width:100%; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.3);">
-    </div>
-
-  </div>
-</section>
-
-  
-  <!-- ═══════════ PROGRAMMA ═══════════ -->
-
+  <!-- AGENDA -->
   <section class="section" id="sec-programma">
     <div class="prog-outer">
       <div style="text-align:center; padding: 10px 20px 0;">
@@ -1070,50 +179,29 @@ footer {
         </div>
       </div>
       <div class="prog-inner">
-
-
-    <div class="day-switcher">
-      <button class="day-btn active" onclick="switchDay(0)">📅 Giovedì 17 Settembre</button>
-      <button class="day-btn" onclick="switchDay(1)">📅 Venerdì 18 Settembre</button>
-    </div>
-
-    <!-- GIORNO 1 -->
-    <div class="day-content active" id="day-0">
-      <div id="prog-day1-loading" class="loading">
-        <div class="spinner"></div>
-        <div>Caricamento programma in corso...</div>
-      </div>
-      <div id="prog-day1-content" style="display:none"></div>
-      <div id="prog-day1-error" style="display:none" class="error-msg">
-        ⚠️ Impossibile caricare il programma. <a href="#" onclick="loadDay1()">Riprova</a> o controlla la
-        connessione.
-      </div>
-    </div>
-
-    <!-- GIORNO 2 -->
-    <div class="day-content" id="day-1">
-      <div id="prog-day2-loading" class="loading" style="display:none">
-        <div class="spinner"></div>
-        <div>Caricamento programma in corso...</div>
-      </div>
-      <div id="prog-day2-content" style="display:none"></div>
-      <div id="prog-day2-error" style="display:none" class="error-msg">
-        ⚠️ Impossibile caricare il programma. <a href="#" onclick="loadDay2()">Riprova</a>
+        <div class="day-switcher">
+          <button class="day-btn active" onclick="switchDay(0)">📅 Giovedì 17 Settembre</button>
+          <button class="day-btn" onclick="switchDay(1)">📅 Venerdì 18 Settembre</button>
+        </div>
+        <div class="day-content active" id="day-0">
+          <div id="prog-day1-loading" class="loading"><div class="spinner"></div><div>Caricamento programma in corso...</div></div>
+          <div id="prog-day1-content" style="display:none"></div>
+          <div id="prog-day1-error" style="display:none" class="error-msg">⚠️ Impossibile caricare il programma. <a href="#" onclick="loadDay1()">Riprova</a></div>
+        </div>
+        <div class="day-content" id="day-1">
+          <div id="prog-day2-loading" class="loading" style="display:none"><div class="spinner"></div><div>Caricamento programma in corso...</div></div>
+          <div id="prog-day2-content" style="display:none"></div>
+          <div id="prog-day2-error" style="display:none" class="error-msg">⚠️ Impossibile caricare il programma. <a href="#" onclick="loadDay2()">Riprova</a></div>
+        </div>
+        <div class="info-box">
+          📝 Il programma è aggiornato in tempo reale dalla segreteria organizzativa.<br>
+          Per informazioni: <a href="mailto:info@ancepiemonte.it">info@ancepiemonte.it</a>
+        </div>
       </div>
     </div>
-
-    <div class="info-box">
-      📝 Il programma è aggiornato in tempo reale dalla segreteria organizzativa.<br>
-      Per informazioni: <a href="mailto:info@ancepiemonte.it">info@ancepiemonte.it</a>
-    </div>
-  </div>
-</div>
-
-
   </section>
 
-  <!-- ═══════════ HOTEL ═══════════ -->
-
+  <!-- HOTEL -->
   <section class="section" id="sec-hotel">
     <div class="prog-outer">
       <div style="text-align:center; padding: 10px 20px 0;">
@@ -1124,18 +212,10 @@ footer {
         </div>
       </div>
       <div class="prog-inner">
-        <div class="section-divider">
-          <h2>🏨 Hotel Convenzionati</h2>
-          <div class="line"></div>
-        </div>
-        <div id="hotel-loading" class="loading">
-          <div class="spinner"></div>
-          <div>Caricamento hotel...</div>
-        </div>
+        <div class="section-divider"><h2>🏨 Hotel Convenzionati</h2><div class="line"></div></div>
+        <div id="hotel-loading" class="loading"><div class="spinner"></div><div>Caricamento hotel...</div></div>
         <div id="hotel-content" style="display:none"></div>
-        <div id="hotel-error" style="display:none" class="error-msg">
-          ⚠️ Impossibile caricare gli hotel. <a href="#" onclick="loadHotel()">Riprova</a>
-        </div>
+        <div id="hotel-error" style="display:none" class="error-msg">⚠️ Impossibile caricare gli hotel. <a href="#" onclick="loadHotel()">Riprova</a></div>
         <div class="info-box">
           📝 Tariffe convenzionate riservate ai partecipanti al Convegno.<br>
           Per informazioni: <a href="mailto:info@ancepiemonte.it">info@ancepiemonte.it</a>
@@ -1144,8 +224,7 @@ footer {
     </div>
   </section>
 
-<!-- ═══════════ ISCRIZIONI ═══════════ -->
-
+  <!-- ISCRIZIONI -->
   <section class="section" id="sec-iscrizioni">
     <div class="iscr-outer">
       <div style="text-align:center; padding: 10px 20px 0;">
@@ -1170,37 +249,24 @@ footer {
   </section>
 
   <!-- FOOTER -->
-
   <footer>
-    <p style="font-size:14px;font-weight:700;color:white;margin-bottom:6px">XVI Convegno Interregionale Giovani ANCE –
-      Area Nord 2026</p>
+    <p style="font-size:14px;font-weight:700;color:white;margin-bottom:6px">XVI Convegno Interregionale Giovani ANCE – Area Nord 2026</p>
     <p>Liguria · Lombardia · Piemonte e Valle d'Aosta · Veneto · Friuli-Venezia Giulia</p>
-    <p style="margin-top:10px"><a href="#" style="color:rgba(255,255,255,0.4)">Privacy Policy</a> &nbsp;·&nbsp; <a
-        href="mailto:info@ancepiemonte.it" style="color:rgba(255,255,255,0.4)">Contatti</a></p>
+    <p style="margin-top:10px">
+      <a href="#" style="color:rgba(255,255,255,0.4)">Privacy Policy</a> &nbsp;·&nbsp;
+      <a href="mailto:info@ancepiemonte.it" style="color:rgba(255,255,255,0.4)">Contatti</a>
+    </p>
     <p style="margin-top:8px;font-size:11px;opacity:0.3">© 2026 ANCE Giovani Area Nord</p>
   </footer>
 
   <script>
-    // ═══════════════════════════════════════════════
-    // CONFIGURAZIONE – MODIFICA SOLO QUESTI VALORI
-    // ═══════════════════════════════════════════════
     const CONFIG = {
       SHEET_DAY1_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQljS8QNjErNTU22R5ounyBCqMxqKC2zzWyRF0u3oSZjD-Q3f3A7f71a-XyejpSJLtj2AKPxXeonDVF/pub?gid=0&single=true&output=csv',
       SHEET_DAY2_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQljS8QNjErNTU22R5ounyBCqMxqKC2zzWyRF0u3oSZjD-Q3f3A7f71a-XyejpSJLtj2AKPxXeonDVF/pub?gid=454945590&single=true&output=csv',
       SHEET_HOTEL_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQljS8QNjErNTU22R5ounyBCqMxqKC2zzWyRF0u3oSZjD-Q3f3A7f71a-XyejpSJLtj2AKPxXeonDVF/pub?gid=1644608335&single=true&output=csv',
       SHEET_CONVEGNO_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQljS8QNjErNTU22R5ounyBCqMxqKC2zzWyRF0u3oSZjD-Q3f3A7f71a-XyejpSJLtj2AKPxXeonDVF/pub?gid=1930481779&single=true&output=csv',
-      FORM_URL: 'https://script.google.com/macros/s/AKfycbzn35WWpFhZlTX4kGJGGahr0R32Fs0FvjGCQhKV8cvbz8Jx5OQeMYn9ycs0u2Ei_C69pg/exec',
-      PREZZI: {
-        hotel_victoria: 180,
-        hotel_sitea: 220,
-        cena17: 80,
-        cena18: 90,
-      }
     };
 
-    // ═══════════════════════════════════════════════
-    // NAVIGAZIONE
-    // ═══════════════════════════════════════════════
     function showSection(name) {
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
@@ -1218,58 +284,33 @@ footer {
       if (idx === 1) loadDay2();
     }
 
-    // ═══════════════════════════════════════════════
-    // PARSER CSV ROBUSTO
-    // ═══════════════════════════════════════════════
     function parseCSV(csv) {
       const lines = csv.split('\n').filter(l => l.trim());
       return lines.slice(1).map(line => {
-        const cols = [];
-        let current = '';
-        let inQuotes = false;
+        const cols = []; let current = ''; let inQuotes = false;
         for (let i = 0; i < line.length; i++) {
           const ch = line[i];
-          if (ch === '"') {
-            inQuotes = !inQuotes;
-          } else if (ch === ',' && !inQuotes) {
-            cols.push(current.trim());
-            current = '';
-          } else {
-            current += ch;
-          }
+          if (ch === '"') { inQuotes = !inQuotes; }
+          else if (ch === ',' && !inQuotes) { cols.push(current.trim()); current = ''; }
+          else { current += ch; }
         }
         cols.push(current.trim());
         return cols;
       }).filter(r => r[0]);
     }
 
-    // ═══════════════════════════════════════════════
-    // CARICAMENTO PROGRAMMA DA GOOGLE SHEETS
-    // ═══════════════════════════════════════════════
-    // Colonne: A=Orario | B=Titolo | C=Luogo | D=Link | E=Note | F=Badge | G=Blocco
-
-    let day1Loaded = false;
-    let day2Loaded = false;
+    let day1Loaded = false, day2Loaded = false;
 
     async function loadDay1() {
       if (day1Loaded) return;
       document.getElementById('prog-day1-loading').style.display = 'block';
       document.getElementById('prog-day1-content').style.display = 'none';
       document.getElementById('prog-day1-error').style.display = 'none';
-
-      if (CONFIG.SHEET_DAY1_URL.includes('YOUR_SHEET_ID')) {
-        renderProg('prog-day1-content', 'prog-day1-loading', 'prog-day1-error', getDemoDay1());
-        day1Loaded = true;
-        return;
-      }
-
       try {
-        const r = await fetch(CONFIG.SHEET_DAY1_URL);
-        const csv = await r.text();
-        const rows = parseCSV(csv);
-        renderProg('prog-day1-content', 'prog-day1-loading', 'prog-day1-error', rows);
+        const rows = parseCSV(await (await fetch(CONFIG.SHEET_DAY1_URL)).text());
+        renderProg('prog-day1-content', 'prog-day1-loading', rows);
         day1Loaded = true;
-      } catch (e) {
+      } catch(e) {
         document.getElementById('prog-day1-loading').style.display = 'none';
         document.getElementById('prog-day1-error').style.display = 'block';
       }
@@ -1280,20 +321,11 @@ footer {
       document.getElementById('prog-day2-loading').style.display = 'block';
       document.getElementById('prog-day2-content').style.display = 'none';
       document.getElementById('prog-day2-error').style.display = 'none';
-
-      if (CONFIG.SHEET_DAY2_URL.includes('YOUR_SHEET_ID')) {
-        renderProg('prog-day2-content', 'prog-day2-loading', 'prog-day2-error', getDemoDay2());
-        day2Loaded = true;
-        return;
-      }
-
       try {
-        const r = await fetch(CONFIG.SHEET_DAY2_URL);
-        const csv = await r.text();
-        const rows = parseCSV(csv);
-        renderProg('prog-day2-content', 'prog-day2-loading', 'prog-day2-error', rows);
+        const rows = parseCSV(await (await fetch(CONFIG.SHEET_DAY2_URL)).text());
+        renderProg('prog-day2-content', 'prog-day2-loading', rows);
         day2Loaded = true;
-      } catch (e) {
+      } catch(e) {
         document.getElementById('prog-day2-loading').style.display = 'none';
         document.getElementById('prog-day2-error').style.display = 'block';
       }
@@ -1302,69 +334,28 @@ footer {
     const BLOCK_ICONS = { 'MATTINA': '🌅', 'POMERIGGIO': '☀️', 'SERA': '🌙' };
     const BLOCK_LABELS = { 'MATTINA': 'Mattina', 'POMERIGGIO': 'Pomeriggio', 'SERA': 'Sera' };
 
-    function renderProg(contentId, loadingId, errorId, rows) {
+    function renderProg(contentId, loadingId, rows) {
       document.getElementById(loadingId).style.display = 'none';
-
-      const blocks = {};
-      const blockOrder = [];
+      const blocks = {}, blockOrder = [];
       rows.forEach(r => {
         const block = (r[6] || 'ALTRO').toUpperCase().trim();
         if (!blocks[block]) { blocks[block] = []; blockOrder.push(block); }
         blocks[block].push(r);
       });
-
       let html = '';
       blockOrder.forEach(block => {
-        const icon = BLOCK_ICONS[block] || '📌';
-        const label = BLOCK_LABELS[block] || block;
-        html += `<div class="prog-block">
-      <div class="prog-block-title">${icon} ${label}</div>
-      <div class="prog-rows">`;
-
+        html += `<div class="prog-block"><div class="prog-block-title">${BLOCK_ICONS[block]||'📌'} ${BLOCK_LABELS[block]||block}</div><div class="prog-rows">`;
         blocks[block].forEach(r => {
-          const [orario, titolo, luogo, mapLink, note, badge, _block] = r;
-          const badgeHtml = badge ? getBadgeHtml(badge) : '';
-          const luogoHtml = luogo ? (mapLink
-            ? `<div class="location"><a href="${mapLink}" target="_blank">📍 ${luogo}</a></div>`
-            : `<div class="location"><span style="color:#555;font-size:12px">📍 ${luogo}</span></div>`) : '';
-          const noteHtml = note ? `<div class="note">${note}</div>` : '';
-
-          html += `<div class="prog-row">
-        <div class="prog-time">${orario}</div>
-        <div class="prog-content">
-          <div class="title">${titolo}${badgeHtml}</div>
-          ${luogoHtml}${noteHtml}
-        </div>
-      </div>`;
+          const [orario, titolo, luogo, mapLink, note, badge] = r;
+          const badgeHtml = badge && !['MATTINA','POMERIGGIO','SERA','ALTRO'].includes(badge.toUpperCase().trim()) ? `<span class="prog-badge badge-p">${badge}</span>` : '';
+          const luogoHtml = luogo ? (mapLink ? `<div class="location"><a href="${mapLink}" target="_blank">📍 ${luogo}</a></div>` : `<div class="location"><span style="color:#555;font-size:12px">📍 ${luogo}</span></div>`) : '';
+          html += `<div class="prog-row"><div class="prog-time">${orario}</div><div class="prog-content"><div class="title">${titolo}${badgeHtml}</div>${luogoHtml}${note?`<div class="note">${note}</div>`:''}</div></div>`;
         });
-
         html += `</div></div>`;
       });
-
       const el = document.getElementById(contentId);
-      el.innerHTML = html;
-      el.style.display = 'block';
+      el.innerHTML = html; el.style.display = 'block';
     }
-
-    function getBadgeHtml(badge) {
-      if (!badge) return '';
-      const b = badge.toUpperCase().trim();
-      // Non mostrare nomi dei blocchi come badge
-      if (['MATTINA', 'POMERIGGIO', 'SERA', 'ALTRO'].includes(b)) return '';
-
-      if (b.includes('PERSON') || /\d+\s*P/i.test(b)) {
-        return `<span class="prog-badge badge-p">${badge}</span>`;
-      }
-      if (b.includes('CONVEGNO') || b.includes('INCLUSO')) {
-        return `<span class="prog-badge badge-c">${badge}</span>`;
-      }
-      return `<span class="prog-badge badge-p">${badge}</span>`;
-    }
-
-    // ═══════════════════════════════════════════════
-    // CARICAMENTO HOTEL DA GOOGLE SHEETS
-    // ═══════════════════════════════════════════════
-    // Colonne: A=Nome | B=Stelle | C=Indirizzo | D=Note | E=LinkDrive | F=LinkMaps
 
     let hotelLoaded = false;
 
@@ -1373,263 +364,58 @@ footer {
       document.getElementById('hotel-loading').style.display = 'block';
       document.getElementById('hotel-content').style.display = 'none';
       document.getElementById('hotel-error').style.display = 'none';
-
       try {
-        const url = CONFIG.SHEET_HOTEL_URL + '&t=' + Date.now();
-        const r = await fetch(url);
+        const r = await fetch(CONFIG.SHEET_HOTEL_URL + '&t=' + Date.now());
         if (!r.ok) throw new Error('HTTP ' + r.status);
-        const csv = await r.text();
-        const rows = parseCSV(csv);
+        const rows = parseCSV(await r.text());
         renderHotel(rows);
         hotelLoaded = true;
-      } catch (e) {
-        console.error('Errore caricamento hotel:', e);
+      } catch(e) {
         document.getElementById('hotel-loading').style.display = 'none';
         document.getElementById('hotel-error').style.display = 'block';
       }
     }
+
     function renderHotel(rows) {
       document.getElementById('hotel-loading').style.display = 'none';
-
       if (!rows || rows.length === 0) {
         document.getElementById('hotel-content').innerHTML = '<div style="text-align:center;color:#888;padding:40px;">Nessun hotel disponibile al momento</div>';
         document.getElementById('hotel-content').style.display = 'block';
         return;
       }
-
-      // Raggruppa per hotel (colonna A)
-      const groups = {};
-      const groupOrder = [];
+      const groups = {}, groupOrder = [];
       rows.forEach(r => {
-        const nome = (r[0] || '').trim();
+        const nome = (r[0]||'').trim();
         if (!nome) return;
         if (!groups[nome]) { groups[nome] = []; groupOrder.push(nome); }
         groups[nome].push(r);
       });
-
       let html = '';
-
       groupOrder.forEach(nome => {
-        const righe = groups[nome];
-        const prima = righe[0];
-        const stelle = parseInt(prima[1]) || 0;
-        const stelleStr = '★'.repeat(stelle);
-        const indirizzo = prima[2] || '';
-
-        html += `<div class="hotel-group-title">${nome} <span class="hotel-stelle">${stelleStr}</span></div>`;
-        const contatto = righe[0][12] || '';
-        const linkMaps = righe[0][13] || '';
+        const righe = groups[nome], prima = righe[0];
+        const stelleStr = '★'.repeat(parseInt(prima[1])||0);
+        const indirizzo = prima[2]||'', linkMaps = righe[0][13]||'', contatto = righe[0][12]||'';
         const indirizzoHtml = linkMaps ? `<a href="${linkMaps}" target="_blank" style="color:#1e3a5f;text-decoration:none;font-weight:600">📍 ${indirizzo}</a>` : `📍 ${indirizzo}`;
-        const contattoHtml = contatto ? ` · <span style="color:#555">${contatto}</span>` : '';
-        html += `<div style="font-size:12px;color:#777;margin:-8px 0 12px;">${indirizzoHtml}${contattoHtml}</div>`;
+        html += `<div class="hotel-group-title">${nome} <span class="hotel-stelle">${stelleStr}</span></div>`;
+        html += `<div style="font-size:12px;color:#777;margin:-8px 0 12px;">${indirizzoHtml}${contatto?` · <span style="color:#555">${contatto}</span>`:''}</div>`;
         righe.forEach(r => {
-          const [, , , camere, prezzo, notti, tassa, totale, opzione, cancellazione, note, linkDoc] = r;
-
-          // Determina se a carico associazione o partecipante
-          const linkDocStr = (linkDoc || '').toUpperCase();
-          let tagHtml = '';
-          if (linkDocStr.includes('ASSOCIAZIONE')) {
-            tagHtml = '<span class="hotel-tag associazione">A CARICO ASSOCIAZIONE</span>';
-          } else if (linkDocStr.includes('PARTECIPANTE')) {
-            tagHtml = '<span class="hotel-tag partecipante">A CARICO PARTECIPANTE</span>';
-          }
-
-          const noteHtml = note ? `<div class="hotel-note">${note}</div>` : '';
-          const cancHtml = cancellazione ? `<span>🔄 ${cancellazione}</span>` : '';
-          const opzHtml = opzione ? `<span>📋 ${opzione}</span>` : '';
-
-          html += `<div class="hotel-card">
-            <div class="hotel-info">
-              <div class="hotel-dettagli">
-                <span>🛏️ <strong>${camere || ''}</strong></span>
-                <span>🌙 ${notti || ''} notti</span>
-                <span>💰 ${prezzo || ''}/notte</span>
-                <span>🏷️ Tassa: ${tassa || ''}/notte</span>
-                ${cancHtml}
-                ${opzHtml}
-              </div>
-              ${noteHtml}
-              ${tagHtml}
-            </div>
-            <div class="hotel-prezzo">
-              ${totale || ''}
-              <small>totale 2 notti + tassa</small>
-            </div>
-          </div>`;
+          const [,,,camere,prezzo,notti,tassa,totale,opzione,cancellazione,note,linkDoc] = r;
+          const ld = (linkDoc||'').toUpperCase();
+          const tagHtml = ld.includes('ASSOCIAZIONE') ? '<span class="hotel-tag associazione">A CARICO ASSOCIAZIONE</span>' : ld.includes('PARTECIPANTE') ? '<span class="hotel-tag partecipante">A CARICO PARTECIPANTE</span>' : '';
+          html += `<div class="hotel-card"><div class="hotel-info"><div class="hotel-dettagli"><span>🛏️ <strong>${camere||''}</strong></span><span>🌙 ${notti||''} notti</span><span>💰 ${prezzo||''}/notte</span><span>🏷️ Tassa: ${tassa||''}/notte</span>${cancellazione?`<span>🔄 ${cancellazione}</span>`:''}${opzione?`<span>📋 ${opzione}</span>`:''}</div>${note?`<div class="hotel-note">${note}</div>`:''}${tagHtml}</div><div class="hotel-prezzo">${totale||''}<small>totale 2 notti + tassa</small></div></div>`;
         });
       });
-
       const el = document.getElementById('hotel-content');
-      el.innerHTML = html;
-      el.style.display = 'block';
+      el.innerHTML = html; el.style.display = 'block';
     }
-
-    // ═══════════════════════════════════════════════
-    // DATI DEMO (mostrati quando Sheet non configurato)
-    // ═══════════════════════════════════════════════
-    function getDemoDay1() {
-      return [
-        ['Ore 13:00', 'Navetta da Aeroporto TRN agli Hotels', 'Aeroporto Torino Caselle', 'https://maps.google.com/?q=Aeroporto+Torino+Caselle', 'Arrivo autonomo nella mattinata', '', 'MATTINA'],
-        ['Ore 13:00', 'Navetta da Porta Nuova agli Hotels', 'Stazione Porta Nuova, Torino', 'https://maps.google.com/?q=Stazione+Porta+Nuova+Torino', '', '', 'MATTINA'],
-        ['Hotels', 'Sistemazione in hotel', 'Hotel Victoria – Via N. Costa 4 / Grand Hotel Sitea – Via Carlo Alberto 35', '', '', '', 'MATTINA'],
-        ['15:00–17:00', 'Consiglio ANCE', 'Grattacielo Regione Piemonte – Piazza Piemonte 1, Torino', 'https://maps.google.com/?q=Grattacielo+Regione+Piemonte+Torino', '', '20 persone', 'POMERIGGIO'],
-        ['20:15–23:00', 'Cena Ristorante Arcadia', 'Galleria Subalpina, 16, 10123 Torino', 'https://maps.google.com/?q=Galleria+Subalpina+16+Torino', '', '40 persone', 'SERA'],
-      ];
-    }
-
-    function getDemoDay2() {
-      return [
-        ['Ore 10:00', 'Consiglio ANCE Giovani Allargato', 'CAMERA – Centro Italiano per la Fotografia, Via delle Rosine 18, Torino', 'https://maps.google.com/?q=CAMERA+Via+delle+Rosine+18+Torino', '', '80 persone', 'MATTINA'],
-        ['Ore 13:00', 'Buffet', 'CAMERA – Centro Italiano per la Fotografia', 'https://maps.google.com/?q=CAMERA+Via+delle+Rosine+18+Torino', '', '', 'MATTINA'],
-        ['14:30–17:00', 'Costruire Bellezza: Edilizia e Turismo per la Valorizzazione dei Territori dell\'Italia Settentrionale', 'NH Collection Torino Piazza Carlina – Piazza Carlo Emanuele II, 15', 'https://maps.google.com/?q=NH+Collection+Torino+Piazza+Carlina', '', '100 persone', 'POMERIGGIO'],
-        ['Ore 20:00', 'Aperitivo', 'NH Collection Torino Piazza Carlina', 'https://maps.google.com/?q=NH+Collection+Torino+Piazza+Carlina', '', '100 persone', 'SERA'],
-        ['20:30–23:00', 'Cena', 'NH Collection Torino Piazza Carlina', 'https://maps.google.com/?q=NH+Collection+Torino+Piazza+Carlina', '', '100 persone', 'SERA'],
-      ];
-    }
-
-    // ═══════════════════════════════════════════════
-    // FORM ISCRIZIONI – LOGICA CONDIZIONALE
-    // ═══════════════════════════════════════════════
-    function updateTipo(){
-      const v=document.querySelector('input[name="consiglio"]:checked')?.value;if(!v)return;
-      const isC=v==='si';
-      toggle('sec-arrivo',true);toggle('sec-giovedi',true);toggle('sec-venerdi',true);toggle('sec-note',true);toggle('sec-privacy',true);
-      toggle('sec-consiglio-ristretto',isC);
-      if(!isC)document.getElementById('consiglio-ristretto').checked=false;
-      document.getElementById('cena17-price').style.display=isC?'none':'inline-block';
-      document.getElementById('cena18-price').style.display=isC?'none':'inline-block';
-      document.getElementById('btn-submit').disabled=!document.getElementById('privacy').checked;
-    }
-
-    function toggle(id, show) {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.classList.toggle('visible', show);
-    }
-
-     
-
-    // ═══════════════════════════════════════════════
-    // INVIO FORM → GOOGLE APPS SCRIPT (form-urlencoded)
-    // ═══════════════════════════════════════════════
-    async function submitForm(e) {
-      e.preventDefault();
-    
-      const btn = document.getElementById('btn-submit');
-      btn.textContent = 'Invio in corso...';
-      btn.disabled = true;
-    
-      const isC = document.querySelector('input[name="consiglio"]:checked')?.value === 'si';
-    
-      const data = {
-        nome: document.getElementById('nome').value,
-        cognome: document.getElementById('cognome').value,
-        email: document.getElementById('email').value,
-        cellulare: document.getElementById('cellulare').value,
-        impresa: document.getElementById('impresa').value,
-        territoriale: document.getElementById('territoriale').value,
-        consigliere_nazionale: isC ? 'Sì' : 'No',
-        data_arrivo: document.getElementById('data-arrivo').value,
-        mezzo_arrivo: document.getElementById('mezzo-arrivo').value,
-        hotel: document.getElementById('hotel-testo').value,
-    
-        transfer_aero: document.getElementById('transfer-aero').checked,
-        transfer_pn: document.getElementById('transfer-pn').checked,
-        consiglio_ristretto: document.getElementById('consiglio-ristretto').checked,
-        cena_giovedi: document.getElementById('cena17').checked,
-    
-        consiglio_allargato: document.getElementById('consiglio-allargato').checked,
-        buffet: document.getElementById('buffet').checked,
-        convegno: document.getElementById('convegno').checked,
-        cena_venerdi: document.getElementById('cena18').checked,
-    
-        vegetariano: document.getElementById('veg').checked,
-        vegano: document.getElementById('vegan').checked,
-        glutine: document.getElementById('gluten').checked,
-        lattosio: document.getElementById('lactose').checked,
-        halal: document.getElementById('halal').checked,
-    
-        note: document.getElementById('note').value,
-        timestamp: new Date().toISOString()
-      };
-    
-      try {
-        const body = new URLSearchParams();
-    
-        // Testo
-        body.set('nome', data.nome || '');
-        body.set('cognome', data.cognome || '');
-        body.set('email', data.email || '');
-        body.set('cellulare', data.cellulare || '');
-        body.set('impresa', data.impresa || '');
-        body.set('territoriale', data.territoriale || '');
-        body.set('consigliere_nazionale', data.consigliere_nazionale || '');
-        body.set('data_arrivo', data.data_arrivo || '');
-        body.set('mezzo_arrivo', data.mezzo_arrivo || '');
-        body.set('hotel', data.hotel || '');
-        body.set('note', data.note || '');
-        body.set('timestamp', data.timestamp || '');
-    
-        // Boolean → "true"/"false"
-        [
-          'transfer_aero',
-          'transfer_pn',
-          'consiglio_ristretto',
-          'cena_giovedi',
-          'consiglio_allargato',
-          'buffet',
-          'convegno',
-          'cena_venerdi',
-          'vegetariano',
-          'vegano',
-          'glutine',
-          'lattosio',
-          'halal'
-        ].forEach(k => body.set(k, String(!!data[k])));
-        const getUrl = CONFIG.FORM_URL + '?' + body.toString();
-        await fetch(getUrl, { method: 'GET', mode: 'no-cors' });
-        
-        // Con no-cors non possiamo leggere la risposta, ma se non lancia eccezione è ok
-        document.getElementById('iscr-form').style.display = 'none';
-        document.getElementById('form-success').style.display = 'block';
-    
-         
-    
-      } catch (err) {
-        console.error(err);
-        btn.textContent = 'Errore – Riprova';
-        btn.disabled = false;
-        alert('Errore. Riprova o scrivi a info@ancepiemonte.it');
-      }
-    }
-
-    
-    // ═══════════════════════════════════════════════
-    // ABILITA SUBMIT SOLO CON PRIVACY
-    // ═══════════════════════════════════════════════
-    document.getElementById('privacy').addEventListener('change', function () {
-      const consiglio =
-        document.querySelector('input[name="consiglio"]:checked');
-    
-      if (consiglio) {
-        document.getElementById('btn-submit').disabled = !this.checked;
-      }
-    });
-    // ═══════════════════════════════════════════════
-    // PROGRAMMA CONVEGNO (Home)
-    // ═══════════════════════════════════════════════
-    // Colonne: A=Ora | B=Sessione | C=Titolo | D=Relatore | E=Ruolo
 
     async function loadConvegno() {
       document.getElementById('conv-loading').style.display = 'block';
       document.getElementById('conv-content').innerHTML = '';
-
       try {
-        const r = await fetch(CONFIG.SHEET_CONVEGNO_URL);
-        const csv = await r.text();
-        const rows = parseCSV(csv);
+        const rows = parseCSV(await (await fetch(CONFIG.SHEET_CONVEGNO_URL)).text());
         renderConvegno(rows);
-      } catch (e) {
+      } catch(e) {
         document.getElementById('conv-loading').style.display = 'none';
         document.getElementById('conv-content').innerHTML = '<div style="text-align:center;color:rgba(255,255,255,0.4);font-size:12px;padding:20px;">Programma in fase di definizione</div>';
       }
@@ -1637,41 +423,23 @@ footer {
 
     function renderConvegno(rows) {
       document.getElementById('conv-loading').style.display = 'none';
-
       if (!rows || rows.length === 0) {
         document.getElementById('conv-content').innerHTML = '<div style="text-align:center;color:rgba(255,255,255,0.4);font-size:12px;padding:20px;">Programma in fase di definizione</div>';
         return;
       }
-
       let html = '<div class="conv-table">';
-
       rows.forEach(r => {
         const [ora, sessione, titolo, relatore, ruolo] = r;
-        const tipoClass = 'tipo-' + (sessione || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-
-        const relatoreHtml = relatore ? `<div class="conv-relatore">${relatore}</div>` : '';
-        const ruoloHtml = ruolo ? `<div class="conv-ruolo">${ruolo}</div>` : '';
-
-        html += `<div class="conv-row ${tipoClass}">
-          <div class="conv-ora">${ora || ''}</div>
-          <div class="conv-detail">
-            <div class="conv-sessione">${sessione || ''}</div>
-            <div class="conv-titolo">${titolo || ''}</div>
-            ${relatoreHtml}
-            ${ruoloHtml}
-          </div>
-        </div>`;
+        const tipoClass = 'tipo-' + (sessione||'').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+        html += `<div class="conv-row ${tipoClass}"><div class="conv-ora">${ora||''}</div><div class="conv-detail"><div class="conv-sessione">${sessione||''}</div><div class="conv-titolo">${titolo||''}</div>${relatore?`<div class="conv-relatore">${relatore}</div>`:''}${ruolo?`<div class="conv-ruolo">${ruolo}</div>`:''}</div></div>`;
       });
-
       html += '</div>';
       document.getElementById('conv-content').innerHTML = html;
     }
-    
-    // Carica programma giorno 1 all'avvio
+
     loadDay1();
     loadConvegno();
   </script>
 
 </body>
-
 </html>
