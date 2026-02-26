@@ -1704,7 +1704,7 @@ footer {
      
 
     // ═══════════════════════════════════════════════
-    // INVIO FORM → GOOGLE APPS SCRIPT (NO CORS)
+    // INVIO FORM → GOOGLE APPS SCRIPT (form-urlencoded)
     // ═══════════════════════════════════════════════
     async function submitForm(e) {
       e.preventDefault();
@@ -1713,8 +1713,7 @@ footer {
       btn.textContent = 'Invio in corso...';
       btn.disabled = true;
     
-      const isC =
-        document.querySelector('input[name="consiglio"]:checked')?.value === 'si';
+      const isC = document.querySelector('input[name="consiglio"]:checked')?.value === 'si';
     
       const data = {
         nome: document.getElementById('nome').value,
@@ -1727,28 +1726,31 @@ footer {
         data_arrivo: document.getElementById('data-arrivo').value,
         mezzo_arrivo: document.getElementById('mezzo-arrivo').value,
         hotel: document.getElementById('hotel-testo').value,
+    
         transfer_aero: document.getElementById('transfer-aero').checked,
         transfer_pn: document.getElementById('transfer-pn').checked,
         consiglio_ristretto: document.getElementById('consiglio-ristretto').checked,
         cena_giovedi: document.getElementById('cena17').checked,
+    
         consiglio_allargato: document.getElementById('consiglio-allargato').checked,
         buffet: document.getElementById('buffet').checked,
         convegno: document.getElementById('convegno').checked,
         cena_venerdi: document.getElementById('cena18').checked,
+    
         vegetariano: document.getElementById('veg').checked,
         vegano: document.getElementById('vegan').checked,
         glutine: document.getElementById('gluten').checked,
         lattosio: document.getElementById('lactose').checked,
         halal: document.getElementById('halal').checked,
+    
         note: document.getElementById('note').value,
         timestamp: new Date().toISOString()
       };
     
       try {
-        // costruzione body form-urlencoded
         const body = new URLSearchParams();
     
-        // campi testo
+        // Testo
         body.set('nome', data.nome || '');
         body.set('cognome', data.cognome || '');
         body.set('email', data.email || '');
@@ -1762,7 +1764,7 @@ footer {
         body.set('note', data.note || '');
         body.set('timestamp', data.timestamp || '');
     
-        // boolean → "true"/"false"
+        // Boolean → "true"/"false"
         [
           'transfer_aero',
           'transfer_pn',
@@ -1781,49 +1783,27 @@ footer {
     
         const res = await fetch(CONFIG.FORM_URL, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-          },
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
           body: body.toString()
         });
-        // legge la risposta testuale
+    
         const txt = await res.text();
-        
-        console.log("GAS response:", txt);
+        console.log('GAS response:', txt);
+    
         if (!res.ok) throw new Error('HTTP ' + res.status + ' - ' + txt);
-
-        let json;
-        try { json = JSON.parse(txt); } catch (e) { throw new Error('Risposta non JSON: ' + txt); }
-        if (json.status !== 'ok') throw new Error('Errore GAS: ' + (json.message || txt));
-        // controlla errore HTTP
-        if (!res.ok) {
-          throw new Error('HTTP ' + res.status + ' - ' + txt);
-        }
-        
-        // prova a interpretare JSON restituito da Apps Script
+    
         let json;
         try {
           json = JSON.parse(txt);
         } catch (e) {
-          throw new Error("Risposta non valida dal server: " + txt);
+          throw new Error('Risposta non JSON: ' + txt);
         }
-        
-        // se GAS ha restituito errore, lo mostra
+    
         if (json.status !== 'ok') {
-          throw new Error("Errore GAS: " + json.message);
-        }
-        
-        // 👇 SOLO SE TUTTO OK MOSTRA SUCCESSO
-        
-        document.getElementById('iscr-form').style.display = 'none';
-        document.getElementById('form-success').style.display = 'block';
-        
-    
-        if (!res.ok) {
-          throw new Error('HTTP ' + res.status);
+          throw new Error('Errore GAS: ' + (json.message || txt));
         }
     
-        // successo
+        // ✅ SOLO SE OK
         document.getElementById('iscr-form').style.display = 'none';
         document.getElementById('form-success').style.display = 'block';
     
@@ -1834,7 +1814,7 @@ footer {
         alert('Errore. Riprova o scrivi a info@ancepiemonte.it');
       }
     }
-    
+
     
     // ═══════════════════════════════════════════════
     // ABILITA SUBMIT SOLO CON PRIVACY
