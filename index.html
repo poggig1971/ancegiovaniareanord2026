@@ -1753,36 +1753,38 @@ footer {
     // ═══════════════════════════════════════════════
     // INVIO FORM → GOOGLE APPS SCRIPT
     // ═══════════════════════════════════════════════
-    async function submitForm(e) {
-      e.preventDefault();
-      const btn = document.getElementById('btn-submit');
-      btn.textContent = 'Invio in corso...';
-      btn.disabled = true;
-
-      const data = {
-        nome: document.getElementById('nome').value,
-        cognome: document.getElementById('cognome').value,
-        email: document.getElementById('email').value,
-        cellulare: document.getElementById('cellulare').value,
-        impresa: document.getElementById('impresa').value,
-        territoriale: document.getElementById('territoriale').value,
-        consiglio: document.querySelector('input[name="consiglio"]:checked')?.value,
-        hotel: document.querySelector('input[name="hotel"]:checked')?.value || '',
-        hotel_notti: document.getElementById('hotel-notti')?.value || '',
-        transfer_aero: document.getElementById('transfer-aero').checked,
-        transfer_pn: document.getElementById('transfer-pn').checked,
-        cena17: document.querySelector('input[name="cena17"]:checked')?.value || '',
-        cena18: document.querySelector('input[name="cena18"]:checked')?.value || '',
-        vegetariano: document.getElementById('veg').checked,
-        vegano: document.getElementById('vegan').checked,
-        glutine: document.getElementById('gluten').checked,
-        lattosio: document.getElementById('lactose').checked,
-        halal: document.getElementById('halal').checked,
-        note: document.getElementById('note').value,
-        prezzo_totale: document.getElementById('prezzo-amount')?.textContent || '',
-        timestamp: new Date().toISOString()
+    async function submitForm(e){
+      e.preventDefault();const btn=document.getElementById('btn-submit');btn.textContent='Invio in corso...';btn.disabled=true;
+      const isC=document.querySelector('input[name="consiglio"]:checked')?.value==='si';
+      const data={
+        nome:document.getElementById('nome').value,
+        cognome:document.getElementById('cognome').value,
+        email:document.getElementById('email').value,
+        cellulare:document.getElementById('cellulare').value,
+        impresa:document.getElementById('impresa').value,
+        territoriale:document.getElementById('territoriale').value,
+        consigliere_nazionale:isC?'Sì':'No',
+        data_arrivo:document.getElementById('data-arrivo').value,
+        mezzo_arrivo:document.getElementById('mezzo-arrivo').value,
+        hotel:document.getElementById('hotel-testo').value,
+        transfer_aero:document.getElementById('transfer-aero').checked,
+        transfer_pn:document.getElementById('transfer-pn').checked,
+        consiglio_ristretto:document.getElementById('consiglio-ristretto').checked,
+        cena_giovedi:document.getElementById('cena17').checked,
+        consiglio_allargato:document.getElementById('consiglio-allargato').checked,
+        buffet:document.getElementById('buffet').checked,
+        convegno:document.getElementById('convegno').checked,
+        cena_venerdi:document.getElementById('cena18').checked,
+        vegetariano:document.getElementById('veg').checked,
+        vegano:document.getElementById('vegan').checked,
+        glutine:document.getElementById('gluten').checked,
+        lattosio:document.getElementById('lactose').checked,
+        halal:document.getElementById('halal').checked,
+        note:document.getElementById('note').value,
+        timestamp:new Date().toISOString()
       };
-
+  try{await fetch(CONFIG.FORM_URL,{method:'POST',body:JSON.stringify(data),headers:{'Content-Type':'application/json'}});document.getElementById('iscr-form').style.display='none';document.getElementById('form-success').style.display='block';}catch(err){btn.textContent='Errore – Riprova';btn.disabled=false;alert('Errore. Riprova o scrivi a info@ancepiemonte.it');}
+}
       if (CONFIG.FORM_URL.includes('YOUR_APPS_SCRIPT_ID')) {
         setTimeout(() => {
           document.getElementById('iscr-form').style.display = 'none';
