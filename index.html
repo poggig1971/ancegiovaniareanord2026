@@ -1786,6 +1786,34 @@ footer {
           },
           body: body.toString()
         });
+        // legge la risposta testuale
+        const txt = await res.text();
+        
+        console.log("GAS response:", txt);
+        
+        // controlla errore HTTP
+        if (!res.ok) {
+          throw new Error('HTTP ' + res.status + ' - ' + txt);
+        }
+        
+        // prova a interpretare JSON restituito da Apps Script
+        let json;
+        try {
+          json = JSON.parse(txt);
+        } catch (e) {
+          throw new Error("Risposta non valida dal server: " + txt);
+        }
+        
+        // se GAS ha restituito errore, lo mostra
+        if (json.status !== 'ok') {
+          throw new Error("Errore GAS: " + json.message);
+        }
+        
+        // 👇 SOLO SE TUTTO OK MOSTRA SUCCESSO
+        
+        document.getElementById('iscr-form').style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+        
     
         if (!res.ok) {
           throw new Error('HTTP ' + res.status);
