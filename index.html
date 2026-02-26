@@ -1704,14 +1704,18 @@ footer {
      
 
     // ═══════════════════════════════════════════════
-    // INVIO FORM → GOOGLE APPS SCRIPT
+    // INVIO FORM → GOOGLE APPS SCRIPT (NO CORS)
     // ═══════════════════════════════════════════════
     async function submitForm(e) {
       e.preventDefault();
+    
       const btn = document.getElementById('btn-submit');
       btn.textContent = 'Invio in corso...';
       btn.disabled = true;
-      const isC = document.querySelector('input[name="consiglio"]:checked')?.value === 'si';
+    
+      const isC =
+        document.querySelector('input[name="consiglio"]:checked')?.value === 'si';
+    
       const data = {
         nome: document.getElementById('nome').value,
         cognome: document.getElementById('cognome').value,
@@ -1739,27 +1743,78 @@ footer {
         note: document.getElementById('note').value,
         timestamp: new Date().toISOString()
       };
+    
       try {
-        await fetch(CONFIG.FORM_URL, {
+        // costruzione body form-urlencoded
+        const body = new URLSearchParams();
+    
+        // campi testo
+        body.set('nome', data.nome || '');
+        body.set('cognome', data.cognome || '');
+        body.set('email', data.email || '');
+        body.set('cellulare', data.cellulare || '');
+        body.set('impresa', data.impresa || '');
+        body.set('territoriale', data.territoriale || '');
+        body.set('consigliere_nazionale', data.consigliere_nazionale || '');
+        body.set('data_arrivo', data.data_arrivo || '');
+        body.set('mezzo_arrivo', data.mezzo_arrivo || '');
+        body.set('hotel', data.hotel || '');
+        body.set('note', data.note || '');
+        body.set('timestamp', data.timestamp || '');
+    
+        // boolean → "true"/"false"
+        [
+          'transfer_aero',
+          'transfer_pn',
+          'consiglio_ristretto',
+          'cena_giovedi',
+          'consiglio_allargato',
+          'buffet',
+          'convegno',
+          'cena_venerdi',
+          'vegetariano',
+          'vegano',
+          'glutine',
+          'lattosio',
+          'halal'
+        ].forEach(k => body.set(k, String(!!data[k])));
+    
+        const res = await fetch(CONFIG.FORM_URL, {
           method: 'POST',
-          body: JSON.stringify(data),
-          headers: { 'Content-Type': 'application/json' }
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+          },
+          body: body.toString()
         });
+    
+        if (!res.ok) {
+          throw new Error('HTTP ' + res.status);
+        }
+    
+        // successo
         document.getElementById('iscr-form').style.display = 'none';
         document.getElementById('form-success').style.display = 'block';
+    
       } catch (err) {
+        console.error(err);
         btn.textContent = 'Errore – Riprova';
         btn.disabled = false;
         alert('Errore. Riprova o scrivi a info@ancepiemonte.it');
       }
     }
-
-    // Abilita submit solo con privacy
+    
+    
+    // ═══════════════════════════════════════════════
+    // ABILITA SUBMIT SOLO CON PRIVACY
+    // ═══════════════════════════════════════════════
     document.getElementById('privacy').addEventListener('change', function () {
-      const consiglio = document.querySelector('input[name="consiglio"]:checked');
-      if (consiglio) document.getElementById('btn-submit').disabled = !this.checked;
+      const consiglio =
+        document.querySelector('input[name="consiglio"]:checked');
+    
+      if (consiglio) {
+        document.getElementById('btn-submit').disabled = !this.checked;
+      }
     });
-
     // ═══════════════════════════════════════════════
     // PROGRAMMA CONVEGNO (Home)
     // ═══════════════════════════════════════════════
