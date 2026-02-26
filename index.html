@@ -1239,84 +1239,55 @@ footer {
         </div>
       </div>
 
-      form-card cond-section
+      
       <!-- GIOVEDÌ 17 SETTEMBRE -->
       <div class="form-card cond-section" id="sec-giovedi">
         <h3>📅 Giovedì 17 Settembre</h3>
-
         <div class="form-group">
-          <label>Transfer arrivo</label>
+          <label>A quali attività partecipi?</label>
           <div class="check-group">
             <label class="check-item">
-              <input type="checkbox" id="transfer-aero" onchange="updatePrezzo()">
-              <div class="label-text">
-                Navetta da Aeroporto TRN agli hotels
-                <small>Ore 13:00 · Gratuito per tutti</small>
-              </div>
-              <span class="free-tag">GRATUITO</span>
+              <input type="checkbox" id="transfer-aero">
+              <div class="label-text">Navetta da Aeroporto TRN agli Hotels<small>Ore 13:00</small></div>
             </label>
             <label class="check-item">
-              <input type="checkbox" id="transfer-pn" onchange="updatePrezzo()">
-              <div class="label-text">
-                Navetta da Porta Nuova agli hotels
-                <small>Ore 13:00 · Gratuito per tutti</small>
-              </div>
-              <span class="free-tag">GRATUITO</span>
+              <input type="checkbox" id="transfer-pn">
+              <div class="label-text">Navetta da Porta Nuova agli Hotels<small>Ore 13:00</small></div>
             </label>
-          </div>
-        </div>
-
-        <div class="form-group" id="sec-cena17-wrap">
-          <label>Cena di Giovedì – Ristorante Arcadia <span class="req" id="cena17-req"></span></label>
-          <div class="radio-group">
-            <label class="radio-item">
-              <input type="radio" name="cena17" value="si" onchange="updatePrezzo()">
-              <div class="label-text">
-                Sì, partecipo alla cena
-                <small>📍 Galleria Subalpina, 16, Torino · 20:15–23:00</small>
-              </div>
-              <span id="cena17-tag" class="price-tag">€ 1000/persona</span>
+            <label class="check-item cond-section" id="sec-consiglio-ristretto">
+              <input type="checkbox" id="consiglio-ristretto" checked>
+              <div class="label-text">Consiglio ANCE (ristretto)<small>📍 Grattacielo Regione Piemonte · 15:00–17:00 · Solo Consiglieri Nazionali</small></div>
             </label>
-            <label class="radio-item">
-              <input type="radio" name="cena17" value="no" onchange="updatePrezzo()">
-              <div class="label-text">Non partecipo alla cena di giovedì</div>
+            <label class="check-item">
+              <input type="checkbox" id="cena17">
+              <div class="label-text">Cena – Ristorante Arcadia<small>📍 Galleria Subalpina, 16, Torino · 20:15–23:00</small></div>
+              <span id="cena17-price" class="price-tag" style="display:none">€ 80</span>
             </label>
           </div>
         </div>
       </div>
-
       <!-- VENERDÌ 18 SETTEMBRE -->
       <div class="form-card cond-section" id="sec-venerdi">
         <h3>📅 Venerdì 18 Settembre</h3>
-
         <div class="form-group">
-          <label>Convegno principale (ore 14:30–17:00)</label>
+          <label>A quali attività partecipi?</label>
           <div class="check-group">
             <label class="check-item">
-              <input type="checkbox" id="convegno" checked disabled>
-              <div class="label-text">
-                Partecipo al XVI Convegno Interregionale
-                <small>📍 NH Collection Torino Piazza Carlina · Gratuito e obbligatorio</small>
-              </div>
-              <span class="free-tag">INCLUSO</span>
+              <input type="checkbox" id="consiglio-allargato">
+              <div class="label-text">Consiglio ANCE Giovani Allargato<small>📍 CAMERA – Via delle Rosine 18, Torino · 10:00</small></div>
             </label>
-          </div>
-        </div>
-
-        <div class="form-group" id="sec-cena18-wrap">
-          <label>Cena di Venerdì <span class="req" id="cena18-req"></span></label>
-          <div class="radio-group">
-            <label class="radio-item">
-              <input type="radio" name="cena18" value="si" onchange="updatePrezzo()">
-              <div class="label-text">
-                Sì, partecipo all'aperitivo e cena
-                <small>📍 NH Collection Torino · 20:00–23:00</small>
-              </div>
-              <span id="cena18-tag" class="price-tag">€ 2000/persona</span>
+            <label class="check-item">
+              <input type="checkbox" id="buffet">
+              <div class="label-text">Buffet<small>📍 CAMERA · 13:00</small></div>
             </label>
-            <label class="radio-item">
-              <input type="radio" name="cena18" value="no" onchange="updatePrezzo()">
-              <div class="label-text">Non partecipo alla cena di venerdì</div>
+            <label class="check-item">
+              <input type="checkbox" id="convegno" checked>
+              <div class="label-text">XVI Convegno Interregionale<small>📍 NH Collection Torino Piazza Carlina · 14:30–17:00</small></div>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" id="cena18">
+              <div class="label-text">Aperitivo e Cena<small>📍 NH Collection Torino · 20:00–23:00</small></div>
+              <span id="cena18-price" class="price-tag" style="display:none">€ 90</span>
             </label>
           </div>
         </div>
@@ -1351,18 +1322,7 @@ footer {
         </div>
       </div>
 
-      <!-- RIEPILOGO PREZZO (solo paganti) -->
-      <div class="cond-section" id="sec-prezzo">
-        <div class="prezzo-totale">
-          <div>
-            <div class="label">Totale stimato da saldare</div>
-            <div style="font-size:11px;opacity:0.6;margin-top:4px;">La segreteria invierà le istruzioni di pagamento
-              per email</div>
-          </div>
-          <div class="amount" id="prezzo-amount">€ 0</div>
-        </div>
-      </div>
-
+      
       <div class="form-card cond-section" id="sec-privacy" style="background:#f8fafc">
         <div class="form-group">
           <label class="check-item" style="align-items:flex-start">
@@ -1731,69 +1691,44 @@ footer {
       el.classList.toggle('visible', show);
     }
 
-    function updatePrezzo() {
-      const isConsigliere = document.querySelector('input[name="consiglio"]:checked')?.value === 'si';
-      if (isConsigliere) return;
-
-      let tot = 0;
-      const hotel = document.querySelector('input[name="hotel"]:checked')?.value;
-      const notti = parseInt(document.getElementById('hotel-notti')?.value || '1');
-      if (hotel === 'victoria') tot += CONFIG.PREZZI.hotel_victoria * notti;
-      if (hotel === 'sitea') tot += CONFIG.PREZZI.hotel_sitea * notti;
-
-      const cena17 = document.querySelector('input[name="cena17"]:checked')?.value;
-      if (cena17 === 'si') tot += CONFIG.PREZZI.cena17;
-
-      const cena18 = document.querySelector('input[name="cena18"]:checked')?.value;
-      if (cena18 === 'si') tot += CONFIG.PREZZI.cena18;
-
-      document.getElementById('prezzo-amount').textContent = '€ ' + tot.toLocaleString('it-IT');
-    }
+     
 
     // ═══════════════════════════════════════════════
     // INVIO FORM → GOOGLE APPS SCRIPT
     // ═══════════════════════════════════════════════
-    async function submitForm(e){
-      e.preventDefault();const btn=document.getElementById('btn-submit');btn.textContent='Invio in corso...';btn.disabled=true;
-      const isC=document.querySelector('input[name="consiglio"]:checked')?.value==='si';
-      const data={
-        nome:document.getElementById('nome').value,
-        cognome:document.getElementById('cognome').value,
-        email:document.getElementById('email').value,
-        cellulare:document.getElementById('cellulare').value,
-        impresa:document.getElementById('impresa').value,
-        territoriale:document.getElementById('territoriale').value,
-        consigliere_nazionale:isC?'Sì':'No',
-        data_arrivo:document.getElementById('data-arrivo').value,
-        mezzo_arrivo:document.getElementById('mezzo-arrivo').value,
-        hotel:document.getElementById('hotel-testo').value,
-        transfer_aero:document.getElementById('transfer-aero').checked,
-        transfer_pn:document.getElementById('transfer-pn').checked,
-        consiglio_ristretto:document.getElementById('consiglio-ristretto').checked,
-        cena_giovedi:document.getElementById('cena17').checked,
-        consiglio_allargato:document.getElementById('consiglio-allargato').checked,
-        buffet:document.getElementById('buffet').checked,
-        convegno:document.getElementById('convegno').checked,
-        cena_venerdi:document.getElementById('cena18').checked,
-        vegetariano:document.getElementById('veg').checked,
-        vegano:document.getElementById('vegan').checked,
-        glutine:document.getElementById('gluten').checked,
-        lattosio:document.getElementById('lactose').checked,
-        halal:document.getElementById('halal').checked,
-        note:document.getElementById('note').value,
-        timestamp:new Date().toISOString()
+    async function submitForm(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-submit');
+      btn.textContent = 'Invio in corso...';
+      btn.disabled = true;
+      const isC = document.querySelector('input[name="consiglio"]:checked')?.value === 'si';
+      const data = {
+        nome: document.getElementById('nome').value,
+        cognome: document.getElementById('cognome').value,
+        email: document.getElementById('email').value,
+        cellulare: document.getElementById('cellulare').value,
+        impresa: document.getElementById('impresa').value,
+        territoriale: document.getElementById('territoriale').value,
+        consigliere_nazionale: isC ? 'Sì' : 'No',
+        data_arrivo: document.getElementById('data-arrivo').value,
+        mezzo_arrivo: document.getElementById('mezzo-arrivo').value,
+        hotel: document.getElementById('hotel-testo').value,
+        transfer_aero: document.getElementById('transfer-aero').checked,
+        transfer_pn: document.getElementById('transfer-pn').checked,
+        consiglio_ristretto: document.getElementById('consiglio-ristretto').checked,
+        cena_giovedi: document.getElementById('cena17').checked,
+        consiglio_allargato: document.getElementById('consiglio-allargato').checked,
+        buffet: document.getElementById('buffet').checked,
+        convegno: document.getElementById('convegno').checked,
+        cena_venerdi: document.getElementById('cena18').checked,
+        vegetariano: document.getElementById('veg').checked,
+        vegano: document.getElementById('vegan').checked,
+        glutine: document.getElementById('gluten').checked,
+        lattosio: document.getElementById('lactose').checked,
+        halal: document.getElementById('halal').checked,
+        note: document.getElementById('note').value,
+        timestamp: new Date().toISOString()
       };
-  try{await fetch(CONFIG.FORM_URL,{method:'POST',body:JSON.stringify(data),headers:{'Content-Type':'application/json'}});document.getElementById('iscr-form').style.display='none';document.getElementById('form-success').style.display='block';}catch(err){btn.textContent='Errore – Riprova';btn.disabled=false;alert('Errore. Riprova o scrivi a info@ancepiemonte.it');}
-}
-      if (CONFIG.FORM_URL.includes('YOUR_APPS_SCRIPT_ID')) {
-        setTimeout(() => {
-          document.getElementById('iscr-form').style.display = 'none';
-          document.getElementById('form-success').style.display = 'block';
-          console.log('DATI FORM (demo):', data);
-        }, 1000);
-        return;
-      }
-
       try {
         await fetch(CONFIG.FORM_URL, {
           method: 'POST',
@@ -1805,7 +1740,7 @@ footer {
       } catch (err) {
         btn.textContent = 'Errore – Riprova';
         btn.disabled = false;
-        alert('Errore durante l\'invio. Riprova o scrivi a info@ancepiemonte.it');
+        alert('Errore. Riprova o scrivi a info@ancepiemonte.it');
       }
     }
 
