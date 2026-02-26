@@ -1790,7 +1790,11 @@ footer {
         const txt = await res.text();
         
         console.log("GAS response:", txt);
-        
+        if (!res.ok) throw new Error('HTTP ' + res.status + ' - ' + txt);
+
+        let json;
+        try { json = JSON.parse(txt); } catch (e) { throw new Error('Risposta non JSON: ' + txt); }
+        if (json.status !== 'ok') throw new Error('Errore GAS: ' + (json.message || txt));
         // controlla errore HTTP
         if (!res.ok) {
           throw new Error('HTTP ' + res.status + ' - ' + txt);
