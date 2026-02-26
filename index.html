@@ -1194,83 +1194,52 @@ footer {
       <div class="form-card">
         <h3>🏷️ Tipologia Partecipante</h3>
         <div class="form-group">
-          <label>Sei membro del Consiglio Nazionale ANCE Giovani? <span class="req">*</span></label>
+          <label>Componente del Consiglio Nazionale ANCE Giovani? <span class="req">*</span></label>
           <div class="radio-group">
             <label class="radio-item">
               <input type="radio" name="consiglio" value="si" onchange="updateTipo()">
-              <div class="label-text">
-                Sì, sono Consigliere Nazionale
-                <small>Hotel, cena e tutte le attività sono a carico dell'organizzazione</small>
-              </div>
-              <span class="free-tag">GRATUITO</span>
+              <div class="label-text">Sì</div>
             </label>
             <label class="radio-item">
               <input type="radio" name="consiglio" value="no" onchange="updateTipo()">
-              <div class="label-text">
-                No, partecipo come ospite / delegato regionale
-                <small>Hotel, cena e attività sono a pagamento</small>
-              </div>
-              <span class="price-tag">A PAGAMENTO</span>
+              <div class="label-text">No</div>
             </label>
-          </div>
-        </div>
-
-        <!-- SE CONSIGLIERE -->
-        <div class="cond-section" id="sec-gratuito">
-          <div class="gratuito-notice">
-            ✅ In quanto Consigliere Nazionale, la tua partecipazione è completamente gratuita.<br>
-            Compila solo le preferenze logistiche qui sotto.
-          </div>
-        </div>
-
-        <!-- SE NON CONSIGLIERE -->
-        <div class="cond-section" id="sec-pagante">
-          <div class="pagante-notice">
-            💳 Seleziona le attività a cui desideri partecipare. I costi verranno riepilogati prima dell'invio.
           </div>
         </div>
       </div>
 
-      <!-- HOTEL (condizionale) -->
-      <div class="form-card cond-section" id="sec-hotel-form">
-        <h3>🏨 Sistemazione in Hotel <span id="hotel-badge"></span></h3>
+      <!-- ARRIVO E ALLOGGIO -->
+      <div class="form-card cond-section" id="sec-arrivo">
+        <h3>🚗 Arrivo e Alloggio</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Data di arrivo a Torino <span class="req">*</span></label>
+            <select id="data-arrivo">
+              <option value="">— Seleziona —</option>
+              <option value="17/09/2026">Giovedì 17 Settembre</option>
+              <option value="18/09/2026">Venerdì 18 Settembre</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Mezzo di arrivo <span class="req">*</span></label>
+            <select id="mezzo-arrivo">
+              <option value="">— Seleziona —</option>
+              <option value="Aereo">Aereo</option>
+              <option value="Treno">Treno</option>
+              <option value="Auto">Auto</option>
+            </select>
+          </div>
+        </div>
         <div class="form-group">
-          <label>Preferenza Hotel <span class="req">*</span></label>
-          <div class="radio-group">
-            <label class="radio-item">
-              <input type="radio" name="hotel" value="victoria" onchange="updatePrezzo()">
-              <div class="label-text">
-                Hotel Victoria ★★★★
-                <small>📍 Via N. Costa 4, 10123 Torino</small>
-              </div>
-              <span id="hotel-price-tag" class="price-tag">€ 180/notte</span>
-            </label>
-            <label class="radio-item">
-              <input type="radio" name="hotel" value="sitea" onchange="updatePrezzo()">
-              <div class="label-text">
-                Grand Hotel Sitea ★★★★★
-                <small>📍 Via Carlo Alberto 35, 10123 Torino</small>
-              </div>
-              <span id="hotel-price-tag2" class="price-tag">€ 220/notte</span>
-            </label>
-            <label class="radio-item">
-              <input type="radio" name="hotel" value="nessuno" onchange="updatePrezzo()">
-              <div class="label-text">
-                Provvedo autonomamente
-                <small>Non ho bisogno di prenotazione hotel</small>
-              </div>
-            </label>
-          </div>
+          <label>Nome albergo scelto</label>
+          <input type="text" id="hotel-testo" placeholder="Es: Hotel Victoria, Best Western Genio, Airbnb, ecc.">
         </div>
-        <div class="form-group" id="hotel-notti-group" style="display:none">
-          <label>Numero di notti</label>
-          <select id="hotel-notti" onchange="updatePrezzo()">
-            <option value="1">1 notte (17 settembre)</option>
-            <option value="2">2 notti (17–18 settembre)</option>
-          </select>
+        <div class="info-box" style="margin-top:0">
+          Consulta la sezione <a href="#" onclick="showSection('hotel');return false;" style="color:#1e3a5f;font-weight:700">Hotel</a> per le tariffe convenzionate.
         </div>
       </div>
 
+      form-card cond-section
       <!-- GIOVEDÌ 17 SETTEMBRE -->
       <div class="form-card cond-section" id="sec-giovedi">
         <h3>📅 Giovedì 17 Settembre</h3>
