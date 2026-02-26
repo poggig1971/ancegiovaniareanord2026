@@ -1144,271 +1144,29 @@ footer {
     </div>
   </section>
 
-  <!-- ═══════════ ISCRIZIONI ═══════════ -->
+<!-- ═══════════ ISCRIZIONI ═══════════ -->
 
   <section class="section" id="sec-iscrizioni">
     <div class="iscr-outer">
       <div style="text-align:center; padding: 10px 20px 0;">
-        <div class="hero-card" style="display:inline-block; margin-bottom:10px;">
+        <div class="hero-card" style="display:inline-block; margin-bottom:24px;">
           <h1>XVI Convegno Interregionale</h1>
           <div class="date">Settembre 2026</div>
         </div>
       </div>
-      <div class="iscr-inner">
-        <h2 class="iscr-title">Modulo di Iscrizione</h2>
-        <p class="iscr-sub">
-          Compila il modulo per iscriverti al XVI Convegno Interregionale Giovani ANCE – Area Nord 2026.<br>
-          I campi contrassegnati con <span style="color:#c0181e">*</span> sono obbligatori.
-        </p>
-
-
-    <form id="iscr-form" onsubmit="submitForm(event)">
-
-      <!-- DATI PERSONALI -->
-      <div class="form-card">
-        <h3>👤 Dati Personali</h3>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Nome <span class="req">*</span></label>
-            <input type="text" id="nome" required placeholder="Mario">
-          </div>
-          <div class="form-group">
-            <label>Cognome <span class="req">*</span></label>
-            <input type="text" id="cognome" required placeholder="Rossi">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Email <span class="req">*</span></label>
-            <input type="email" id="email" required placeholder="mario.rossi@impresa.it">
-          </div>
-          <div class="form-group">
-            <label>Cellulare <span class="req">*</span></label>
-            <input type="tel" id="cellulare" required placeholder="+39 333 1234567">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Impresa / Ente <span class="req">*</span></label>
-            <input type="text" id="impresa" required placeholder="Rossi Costruzioni Srl">
-          </div>
-          <div class="form-group">
-            <label>Associazione Territoriale <span class="req">*</span></label>
-            <select id="territoriale" required>
-              <option value="">— Seleziona —</option>
-              <optgroup label="Friuli-Venezia Giulia">
-                <option>ANCE Alto Adriatico</option>
-                <option>ANCE Udine</option>
-              </optgroup>
-              <optgroup label="Liguria">
-                <option>ANCE Liguria</option>
-                <option>ANCE Genova</option>
-                <option>ANCE Imperia</option>
-                <option>ANCE La Spezia</option>
-                <option>ANCE Savona</option>
-              </optgroup>
-              <optgroup label="Lombardia">
-                <option>ANCE Lombardia</option>
-                <option>ANCE Bergamo</option>
-                <option>ANCE Brescia</option>
-                <option>ANCE Como</option>
-                <option>ANCE Cremona</option>
-                <option>ANCE Lecco Sondrio</option>
-                <option>ANCE Mantova</option>
-                <option>ANCE Milano, Lodi, Monza e Brianza</option>
-                <option>ANCE Pavia</option>
-                <option>ANCE Varese</option>
-              </optgroup>
-              <optgroup label="Piemonte Valle d'Aosta">
-                <option>ANCE Piemonte VdA</option>
-                <option>ANCE Alessandria</option>
-                <option>ANCE Aosta</option>
-                <option>ANCE Asti</option>
-                <option>ANCE Biella</option>
-                <option>ANCE Cuneo</option>
-                <option>ANCE Novara Vercelli</option>
-                <option>ANCE Torino</option>
-                <option>ANCE Verbania</option>
-              </optgroup>
-              <optgroup label="Veneto">
-                <option>ANCE Veneto</option>
-                <option>ANCE Belluno</option>
-                <option>ANCE Padova</option>
-                <option>ANCE Rovigo</option>
-                <option>ANCE Treviso</option>
-                <option>ANCE Venezia</option>
-                <option>ANCE Verona</option>
-                <option>ANCE Vicenza</option>
-              </optgroup>
-            </select>
-          </div>
-        </div>
+      <div style="max-width:800px; margin:0 auto;">
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLSebPwgp_FCgh7cv2G0vcSj5x2IYTMLUdM8F04iId3GDgFit3w/viewform?embedded=true"
+          width="100%"
+          height="2400"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+          style="border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+          Caricamento…
+        </iframe>
       </div>
-
-      <!-- TIPOLOGIA PARTECIPANTE -->
-      <div class="form-card">
-        <h3>🏷️ Tipologia Partecipante</h3>
-        <div class="form-group">
-          <label>Componente del Consiglio Nazionale ANCE Giovani? <span class="req">*</span></label>
-          <div class="radio-group">
-            <label class="radio-item">
-              <input type="radio" name="consiglio" value="si" onchange="updateTipo()">
-              <div class="label-text">Sì</div>
-            </label>
-            <label class="radio-item">
-              <input type="radio" name="consiglio" value="no" onchange="updateTipo()">
-              <div class="label-text">No</div>
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <!-- ARRIVO E ALLOGGIO -->
-      <div class="form-card cond-section" id="sec-arrivo">
-        <h3>🚗 Arrivo e Alloggio</h3>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Data di arrivo a Torino <span class="req">*</span></label>
-            <select id="data-arrivo">
-              <option value="">— Seleziona —</option>
-              <option value="17/09/2026">Giovedì 17 Settembre</option>
-              <option value="18/09/2026">Venerdì 18 Settembre</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Mezzo di arrivo <span class="req">*</span></label>
-            <select id="mezzo-arrivo">
-              <option value="">— Seleziona —</option>
-              <option value="Aereo">Aereo</option>
-              <option value="Treno">Treno</option>
-              <option value="Auto">Auto</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Nome albergo scelto</label>
-          <input type="text" id="hotel-testo" placeholder="Es: Hotel Victoria, Best Western Genio, Airbnb, ecc.">
-        </div>
-        <div class="info-box" style="margin-top:0">
-          Consulta la sezione <a href="#" onclick="showSection('hotel');return false;" style="color:#1e3a5f;font-weight:700">Hotel</a> per le tariffe convenzionate.
-        </div>
-      </div>
-
-      
-      <!-- GIOVEDÌ 17 SETTEMBRE -->
-      <div class="form-card cond-section" id="sec-giovedi">
-        <h3>📅 Giovedì 17 Settembre</h3>
-        <div class="form-group">
-          <label>A quali attività partecipi?</label>
-          <div class="check-group">
-            <label class="check-item">
-              <input type="checkbox" id="transfer-aero">
-              <div class="label-text">Navetta da Aeroporto TRN agli Hotels<small>Ore 13:00</small></div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" id="transfer-pn">
-              <div class="label-text">Navetta da Porta Nuova agli Hotels<small>Ore 13:00</small></div>
-            </label>
-            <label class="check-item cond-section" id="sec-consiglio-ristretto">
-              <input type="checkbox" id="consiglio-ristretto" checked>
-              <div class="label-text">Consiglio ANCE (ristretto)<small>📍 Grattacielo Regione Piemonte · 15:00–17:00 · Solo Consiglieri Nazionali</small></div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" id="cena17">
-              <div class="label-text">Cena – Ristorante Arcadia<small>📍 Galleria Subalpina, 16, Torino · 20:15–23:00</small></div>
-              <span id="cena17-price" class="price-tag" style="display:none">€ 80</span>
-            </label>
-          </div>
-        </div>
-      </div>
-      <!-- VENERDÌ 18 SETTEMBRE -->
-      <div class="form-card cond-section" id="sec-venerdi">
-        <h3>📅 Venerdì 18 Settembre</h3>
-        <div class="form-group">
-          <label>A quali attività partecipi?</label>
-          <div class="check-group">
-            <label class="check-item">
-              <input type="checkbox" id="consiglio-allargato">
-              <div class="label-text">Consiglio ANCE Giovani Allargato<small>📍 CAMERA – Via delle Rosine 18, Torino · 10:00</small></div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" id="buffet">
-              <div class="label-text">Buffet<small>📍 CAMERA · 13:00</small></div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" id="convegno" checked>
-              <div class="label-text">XVI Convegno Interregionale<small>📍 NH Collection Torino Piazza Carlina · 14:30–17:00</small></div>
-            </label>
-            <label class="check-item">
-              <input type="checkbox" id="cena18">
-              <div class="label-text">Aperitivo e Cena<small>📍 NH Collection Torino · 20:00–23:00</small></div>
-              <span id="cena18-price" class="price-tag" style="display:none">€ 90</span>
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <!-- NOTE -->
-      <div class="form-card cond-section" id="sec-note">
-        <h3>📝 Note e Richieste Speciali</h3>
-        <div class="form-group">
-          <label>Esigenze alimentari / allergie</label>
-          <div class="check-group">
-            <label class="check-item"><input type="checkbox" id="veg">
-              <div class="label-text">Vegetariano</div>
-            </label>
-            <label class="check-item"><input type="checkbox" id="vegan">
-              <div class="label-text">Vegano</div>
-            </label>
-            <label class="check-item"><input type="checkbox" id="gluten">
-              <div class="label-text">Senza glutine (celiachia)</div>
-            </label>
-            <label class="check-item"><input type="checkbox" id="lactose">
-              <div class="label-text">Senza lattosio</div>
-            </label>
-            <label class="check-item"><input type="checkbox" id="halal">
-              <div class="label-text">Halal</div>
-            </label>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Altre note o richieste</label>
-          <textarea id="note" rows="3" placeholder="Inserisci eventuali note per la segreteria..."></textarea>
-        </div>
-      </div>
-
-      
-      <div class="form-card cond-section" id="sec-privacy" style="background:#f8fafc">
-        <div class="form-group">
-          <label class="check-item" style="align-items:flex-start">
-            <input type="checkbox" id="privacy" required style="margin-top:3px">
-            <div class="label-text" style="font-size:12px;color:#555">
-              Ho letto e accetto l'<a href="#" style="color:#1e3a5f">Informativa sulla Privacy</a> ai sensi del GDPR
-              (Reg. UE 2016/679) <span class="req">*</span>
-            </div>
-          </label>
-        </div>
-        <button type="submit" class="btn-submit" id="btn-submit" disabled>
-          INVIA ISCRIZIONE
-        </button>
-      </div>
-
-    </form>
-
-    <div id="form-success" style="display:none; text-align:center; padding:60px 20px;">
-      <div style="font-size:60px;margin-bottom:16px">✅</div>
-      <h3 style="color:#1e3a5f;font-size:22px;font-weight:800;margin-bottom:12px">Iscrizione inviata!</h3>
-      <p style="color:#555;font-size:14px;line-height:1.7">
-        Grazie per la tua iscrizione.<br>
-        Riceverai una email di conferma a breve.<br>
-        Per informazioni: <a href="mailto:info@ancepiemonte.it"
-          style="color:#1e3a5f;font-weight:700">info@ancepiemonte.it</a>
-      </p>
     </div>
-  </div>
-</div>
-```
-
   </section>
 
   <!-- FOOTER -->
