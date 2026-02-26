@@ -925,6 +925,38 @@ footer {
   }
 }
 
+    /* HOME LAYOUT */
+.home-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 24px;
+  max-width: 1100px;
+  width: 100%;
+  align-items: start;
+}
+
+.home-flyer img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+}
+
+.home-sponsor {
+  max-width: 1100px;
+  width: 100%;
+}
+
+.home-sponsor img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+@media(max-width:768px) {
+  .home-layout {
+    grid-template-columns: 1fr;
+  }
+}
 
   </style>
 </head>
@@ -999,15 +1031,23 @@ footer {
   <!-- ═══════════ HOME ═══════════ -->
 
   <section class="section active" id="sec-home">
-    <div class="hero">
-      <div class="hero-card">
-        <h1>XVI Convegno Interregionale</h1>
-        <div class="date">18 Settembre 2026</div>
-        <div class="time">Venerdì · Ore 14:30</div>
+  <div class="hero">
+
+    <div class="hero-card">
+      <h1>XVI Convegno Interregionale</h1>
+      <div class="date">18 Settembre 2026</div>
+      <div class="time">Venerdì · Ore 14:30</div>
+    </div>
+
+    <div class="home-layout">
+
+      <!-- COLONNA SX: FLYER -->
+      <div class="home-flyer">
+        <img src="./flyer.jpg" alt="Flyer XVI Convegno">
       </div>
-      <img src="./save%20the%20date.png" alt="" class="save-date-img">
-      <!-- ARTICOLAZIONE CONVEGNO -->
-      <div class="conv-outer">
+
+      <!-- COLONNA DX: PROGRAMMA CONVEGNO -->
+      <div class="conv-outer" style="padding:0; max-width:none;">
         <h3 class="conv-title">📋 Articolazione del Convegno</h3>
         <div id="conv-loading" class="loading" style="display:none">
           <div class="spinner" style="border-top-color:#f0a500"></div>
@@ -1015,8 +1055,16 @@ footer {
         </div>
         <div id="conv-content"></div>
       </div>
+
     </div>
-  </section>
+
+    <!-- SPONSOR -->
+    <div class="home-sponsor">
+      <img src="./sponsor.jpg" alt="Sponsor XVI Convegno">
+    </div>
+
+  </div>
+</section>
 
   <!-- ═══════════ PROGRAMMA ═══════════ -->
 
