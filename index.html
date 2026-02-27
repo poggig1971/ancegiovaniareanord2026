@@ -760,7 +760,6 @@ body {
 }
     
 /* HOTEL CARDS */
-/* HOTEL CARDS */
 .hotel-card {
   background: #fff;
   border-radius: 8px;
@@ -875,17 +874,42 @@ body {
 }
 
 .hotel-group-title {
-  
   font-size: 16px;
   font-weight: 700;
   color: #1e3a5f;
   margin: 24px 0 12px;
   padding-bottom: 6px;
   border-bottom: 2px solid #f0a500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .hotel-group-title:first-child {
   margin-top: 0;
+}
+
+/* BOOK BUTTON */
+.hotel-book-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: #f0a500;
+  text-decoration: none;
+  padding: 4px 14px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  margin-left: auto;
+}
+
+.hotel-book-btn:hover {
+  background: #1e3a5f;
+  color: #f0a500;
 }
 
 /* FOOTER */
@@ -1028,7 +1052,7 @@ footer {
     <button class="nav-tab" onclick="showSection('iscrizioni')">Iscrizioni</button>
   </nav>
 
-  <!-- ═══════════ HOME ═══════════ -->
+  <!-- HOME -->
   <section class="section active" id="sec-home">
   <div class="hero">
 
@@ -1066,7 +1090,7 @@ footer {
 </section>
 
   
-  <!-- ═══════════ PROGRAMMA ═══════════ -->
+  <!-- PROGRAMMA -->
 
   <section class="section" id="sec-programma">
     <div class="prog-outer">
@@ -1119,7 +1143,7 @@ footer {
 
   </section>
 
-  <!-- ═══════════ HOTEL ═══════════ -->
+  <!-- HOTEL -->
 
   <section class="section" id="sec-hotel">
     <div class="prog-outer">
@@ -1151,9 +1175,7 @@ footer {
     </div>
   </section>
 
-<!-- ═══════════ ISCRIZIONI ═══════════ -->
-
-  <!-- ═══════════ ISCRIZIONI ═══════════ -->
+  <!-- ISCRIZIONI -->
 
   <section class="section" id="sec-iscrizioni">
     <div class="iscr-outer">
@@ -1190,9 +1212,6 @@ footer {
   </footer>
 
   <script>
-    // ═══════════════════════════════════════════════
-    // CONFIGURAZIONE – MODIFICA SOLO QUESTI VALORI
-    // ═══════════════════════════════════════════════
     const CONFIG = {
       SHEET_DAY1_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQljS8QNjErNTU22R5ounyBCqMxqKC2zzWyRF0u3oSZjD-Q3f3A7f71a-XyejpSJLtj2AKPxXeonDVF/pub?gid=0&single=true&output=csv',
       SHEET_DAY2_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQljS8QNjErNTU22R5ounyBCqMxqKC2zzWyRF0u3oSZjD-Q3f3A7f71a-XyejpSJLtj2AKPxXeonDVF/pub?gid=454945590&single=true&output=csv',
@@ -1207,9 +1226,7 @@ footer {
       }
     };
 
-    // ═══════════════════════════════════════════════
     // NAVIGAZIONE
-    // ═══════════════════════════════════════════════
     function showSection(name) {
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
@@ -1227,9 +1244,7 @@ footer {
       if (idx === 1) loadDay2();
     }
 
-    // ═══════════════════════════════════════════════
-    // PARSER CSV ROBUSTO
-    // ═══════════════════════════════════════════════
+    // PARSER CSV
     function parseCSV(csv) {
       const lines = csv.split('\n').filter(l => l.trim());
       return lines.slice(1).map(line => {
@@ -1252,11 +1267,7 @@ footer {
       }).filter(r => r[0]);
     }
 
-    // ═══════════════════════════════════════════════
-    // CARICAMENTO PROGRAMMA DA GOOGLE SHEETS
-    // ═══════════════════════════════════════════════
-    // Colonne: A=Orario | B=Titolo | C=Luogo | D=Link | E=Note | F=Badge | G=Blocco
-
+    // CARICAMENTO PROGRAMMA
     let day1Loaded = false;
     let day2Loaded = false;
 
@@ -1358,7 +1369,6 @@ footer {
     function getBadgeHtml(badge) {
       if (!badge) return '';
       const b = badge.toUpperCase().trim();
-      // Non mostrare nomi dei blocchi come badge
       if (['MATTINA', 'POMERIGGIO', 'SERA', 'ALTRO'].includes(b)) return '';
 
       if (b.includes('PERSON') || /\d+\s*P/i.test(b)) {
@@ -1370,10 +1380,8 @@ footer {
       return `<span class="prog-badge badge-p">${badge}</span>`;
     }
 
-    // ═══════════════════════════════════════════════
-    // CARICAMENTO HOTEL DA GOOGLE SHEETS
-    // ═══════════════════════════════════════════════
-    // Colonne: A=Nome | B=Stelle | C=Indirizzo | D=Note | E=LinkDrive | F=LinkMaps
+    // CARICAMENTO HOTEL
+    // Colonne: A=Nome | B=Stelle | C=Indirizzo | D=Camere | E=Prezzo | F=Notti | G=Tassa | H=Totale | I=Opzione | J=Cancellazione | K=Note | L=LinkDoc | M=Contatto | N=LinkMaps | O=LinkHotel
 
     let hotelLoaded = false;
 
@@ -1397,6 +1405,7 @@ footer {
         document.getElementById('hotel-error').style.display = 'block';
       }
     }
+
     function renderHotel(rows) {
       document.getElementById('hotel-loading').style.display = 'none';
 
@@ -1406,7 +1415,6 @@ footer {
         return;
       }
 
-      // Raggruppa per hotel (colonna A)
       const groups = {};
       const groupOrder = [];
       rows.forEach(r => {
@@ -1424,8 +1432,10 @@ footer {
         const stelle = parseInt(prima[1]) || 0;
         const stelleStr = '★'.repeat(stelle);
         const indirizzo = prima[2] || '';
+        const linkHotel = righe[0][14] || '';
 
-        html += `<div class="hotel-group-title">${nome} <span class="hotel-stelle">${stelleStr}</span></div>`;
+        const bookBtn = linkHotel ? `<a href="${linkHotel}" target="_blank" class="hotel-book-btn">🔗 Book</a>` : '';
+        html += `<div class="hotel-group-title">${nome} <span class="hotel-stelle">${stelleStr}</span>${bookBtn}</div>`;
         const contatto = righe[0][12] || '';
         const linkMaps = righe[0][13] || '';
         const indirizzoHtml = linkMaps ? `<a href="${linkMaps}" target="_blank" style="color:#1e3a5f;text-decoration:none;font-weight:600">📍 ${indirizzo}</a>` : `📍 ${indirizzo}`;
@@ -1434,7 +1444,6 @@ footer {
         righe.forEach(r => {
           const [, , , camere, prezzo, notti, tassa, totale, opzione, cancellazione, note, linkDoc] = r;
 
-          // Determina se a carico associazione o partecipante
           const linkDocStr = (linkDoc || '').toUpperCase();
           let tagHtml = '';
           if (linkDocStr.includes('ASSOCIAZIONE')) {
@@ -1473,9 +1482,7 @@ footer {
       el.style.display = 'block';
     }
 
-    // ═══════════════════════════════════════════════
-    // DATI DEMO (mostrati quando Sheet non configurato)
-    // ═══════════════════════════════════════════════
+    // DATI DEMO
     function getDemoDay1() {
       return [
         ['Ore 13:00', 'Navetta da Aeroporto TRN agli Hotels', 'Aeroporto Torino Caselle', 'https://maps.google.com/?q=Aeroporto+Torino+Caselle', 'Arrivo autonomo nella mattinata', '', 'MATTINA'],
@@ -1490,15 +1497,13 @@ footer {
       return [
         ['Ore 10:00', 'Consiglio ANCE Giovani Allargato', 'CAMERA – Centro Italiano per la Fotografia, Via delle Rosine 18, Torino', 'https://maps.google.com/?q=CAMERA+Via+delle+Rosine+18+Torino', '', '80 persone', 'MATTINA'],
         ['Ore 13:00', 'Buffet', 'CAMERA – Centro Italiano per la Fotografia', 'https://maps.google.com/?q=CAMERA+Via+delle+Rosine+18+Torino', '', '', 'MATTINA'],
-        ['14:30–17:00', 'Costruire Bellezza: Edilizia e Turismo per la Valorizzazione dei Territori dell\'Italia Settentrionale', 'NH Collection Torino Piazza Carlina – Piazza Carlo Emanuele II, 15', 'https://maps.google.com/?q=NH+Collection+Torino+Piazza+Carlina', '', '100 persone', 'POMERIGGIO'],
+        ['14:30–17:00', "Costruire Bellezza: Edilizia e Turismo per la Valorizzazione dei Territori dell'Italia Settentrionale", 'NH Collection Torino Piazza Carlina – Piazza Carlo Emanuele II, 15', 'https://maps.google.com/?q=NH+Collection+Torino+Piazza+Carlina', '', '100 persone', 'POMERIGGIO'],
         ['Ore 20:00', 'Aperitivo', 'NH Collection Torino Piazza Carlina', 'https://maps.google.com/?q=NH+Collection+Torino+Piazza+Carlina', '', '100 persone', 'SERA'],
         ['20:30–23:00', 'Cena', 'NH Collection Torino Piazza Carlina', 'https://maps.google.com/?q=NH+Collection+Torino+Piazza+Carlina', '', '100 persone', 'SERA'],
       ];
     }
 
-    // ═══════════════════════════════════════════════
-    // FORM ISCRIZIONI – LOGICA CONDIZIONALE
-    // ═══════════════════════════════════════════════
+    // FORM ISCRIZIONI
     function updateTipo(){
       const v=document.querySelector('input[name="consiglio"]:checked')?.value;if(!v)return;
       const isC=v==='si';
@@ -1516,11 +1521,6 @@ footer {
       el.classList.toggle('visible', show);
     }
 
-     
-
-    // ═══════════════════════════════════════════════
-    // INVIO FORM → GOOGLE APPS SCRIPT (form-urlencoded)
-    // ═══════════════════════════════════════════════
     async function submitForm(e) {
       e.preventDefault();
     
@@ -1565,7 +1565,6 @@ footer {
       try {
         const body = new URLSearchParams();
     
-        // Testo
         body.set('nome', data.nome || '');
         body.set('cognome', data.cognome || '');
         body.set('email', data.email || '');
@@ -1579,7 +1578,6 @@ footer {
         body.set('note', data.note || '');
         body.set('timestamp', data.timestamp || '');
     
-        // Boolean → "true"/"false"
         [
           'transfer_aero',
           'transfer_pn',
@@ -1598,11 +1596,8 @@ footer {
         const getUrl = CONFIG.FORM_URL + '?' + body.toString();
         await fetch(getUrl, { method: 'GET', mode: 'no-cors' });
         
-        // Con no-cors non possiamo leggere la risposta, ma se non lancia eccezione è ok
         document.getElementById('iscr-form').style.display = 'none';
         document.getElementById('form-success').style.display = 'block';
-    
-         
     
       } catch (err) {
         console.error(err);
@@ -1612,13 +1607,7 @@ footer {
       }
     }
 
-    
-     
-    // ═══════════════════════════════════════════════
     // PROGRAMMA CONVEGNO (Home)
-    // ═══════════════════════════════════════════════
-    // Colonne: A=Ora | B=Sessione | C=Titolo | D=Relatore | E=Ruolo
-
     async function loadConvegno() {
       document.getElementById('conv-loading').style.display = 'block';
       document.getElementById('conv-content').innerHTML = '';
@@ -1666,7 +1655,6 @@ footer {
       document.getElementById('conv-content').innerHTML = html;
     }
     
-    // Carica programma giorno 1 all'avvio
     loadDay1();
     loadConvegno();
   </script>
@@ -1674,4 +1662,3 @@ footer {
 </body>
 
 </html>
-
