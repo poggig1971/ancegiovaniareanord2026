@@ -421,6 +421,51 @@ body {
   font-size: 13px;
 }
 
+/* MAPPA */
+.map-block {
+  margin-top: 32px;
+  margin-bottom: 8px;
+}
+
+.map-block-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #1e3a5f;
+  color: #f0a500;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 10px 18px;
+  border-radius: 6px 6px 0 0;
+}
+
+.map-block-title svg {
+  flex-shrink: 0;
+}
+
+.map-wrapper {
+  border: 2px solid #1e3a5f;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.map-wrapper iframe {
+  display: block;
+  width: 100%;
+  height: 420px;
+  border: none;
+}
+
+@media(max-width: 600px) {
+  .map-wrapper iframe {
+    height: 300px;
+  }
+}
+
 /* ISCRIZIONI */
 .iscr-outer {
   background: #f5f7fa;
@@ -1119,6 +1164,19 @@ footer {
         ⚠️ Impossibile caricare il programma. <a href="#" onclick="loadDay1()">Riprova</a> o controlla la
         connessione.
       </div>
+
+      <!-- MAPPA GIORNO 17 -->
+      <div class="map-block">
+        <div class="map-block-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+          Mappa Sedi · Giovedì 17 Settembre
+        </div>
+        <div class="map-wrapper">
+          <iframe src="https://www.google.com/maps/d/embed?mid=1r3FGUqXm3C6HQ57PoQkff5eJtrxNBkU&ehbc=2E312F" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
     </div>
 
     <!-- GIORNO 2 -->
@@ -1130,6 +1188,19 @@ footer {
       <div id="prog-day2-content" style="display:none"></div>
       <div id="prog-day2-error" style="display:none" class="error-msg">
         ⚠️ Impossibile caricare il programma. <a href="#" onclick="loadDay2()">Riprova</a>
+      </div>
+
+      <!-- MAPPA GIORNO 18 -->
+      <div class="map-block">
+        <div class="map-block-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+          Mappa Sedi · Venerdì 18 Settembre
+        </div>
+        <div class="map-wrapper">
+          <iframe src="https://www.google.com/maps/d/embed?mid=11Sk2siTSAbbkAQq4R9luZZ655pITSyc&ehbc=2E312F" allowfullscreen loading="lazy"></iframe>
+        </div>
       </div>
     </div>
 
@@ -1381,8 +1452,6 @@ footer {
     }
 
     // CARICAMENTO HOTEL
-    // Colonne: A=Nome | B=Stelle | C=Indirizzo | D=Camere | E=Prezzo | F=Notti | G=Tassa | H=Totale | I=Opzione | J=Cancellazione | K=Note | L=LinkDoc | M=Contatto | N=LinkMaps | O=LinkHotel
-
     let hotelLoaded = false;
 
     async function loadHotel() {
@@ -1501,110 +1570,6 @@ footer {
         ['Ore 20:00', 'Aperitivo', 'NH Collection Torino Piazza Carlina', 'https://maps.google.com/?q=NH+Collection+Torino+Piazza+Carlina', '', '100 persone', 'SERA'],
         ['20:30–23:00', 'Cena', 'NH Collection Torino Piazza Carlina', 'https://maps.google.com/?q=NH+Collection+Torino+Piazza+Carlina', '', '100 persone', 'SERA'],
       ];
-    }
-
-    // FORM ISCRIZIONI
-    function updateTipo(){
-      const v=document.querySelector('input[name="consiglio"]:checked')?.value;if(!v)return;
-      const isC=v==='si';
-      toggle('sec-arrivo',true);toggle('sec-giovedi',true);toggle('sec-venerdi',true);toggle('sec-note',true);toggle('sec-privacy',true);
-      toggle('sec-consiglio-ristretto',isC);
-      if(!isC)document.getElementById('consiglio-ristretto').checked=false;
-      document.getElementById('cena17-price').style.display=isC?'none':'inline-block';
-      document.getElementById('cena18-price').style.display=isC?'none':'inline-block';
-      document.getElementById('btn-submit').disabled=!document.getElementById('privacy').checked;
-    }
-
-    function toggle(id, show) {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.classList.toggle('visible', show);
-    }
-
-    async function submitForm(e) {
-      e.preventDefault();
-    
-      const btn = document.getElementById('btn-submit');
-      btn.textContent = 'Invio in corso...';
-      btn.disabled = true;
-    
-      const isC = document.querySelector('input[name="consiglio"]:checked')?.value === 'si';
-    
-      const data = {
-        nome: document.getElementById('nome').value,
-        cognome: document.getElementById('cognome').value,
-        email: document.getElementById('email').value,
-        cellulare: document.getElementById('cellulare').value,
-        impresa: document.getElementById('impresa').value,
-        territoriale: document.getElementById('territoriale').value,
-        consigliere_nazionale: isC ? 'Sì' : 'No',
-        data_arrivo: document.getElementById('data-arrivo').value,
-        mezzo_arrivo: document.getElementById('mezzo-arrivo').value,
-        hotel: document.getElementById('hotel-testo').value,
-    
-        transfer_aero: document.getElementById('transfer-aero').checked,
-        transfer_pn: document.getElementById('transfer-pn').checked,
-        consiglio_ristretto: document.getElementById('consiglio-ristretto').checked,
-        cena_giovedi: document.getElementById('cena17').checked,
-    
-        consiglio_allargato: document.getElementById('consiglio-allargato').checked,
-        buffet: document.getElementById('buffet').checked,
-        convegno: document.getElementById('convegno').checked,
-        cena_venerdi: document.getElementById('cena18').checked,
-    
-        vegetariano: document.getElementById('veg').checked,
-        vegano: document.getElementById('vegan').checked,
-        glutine: document.getElementById('gluten').checked,
-        lattosio: document.getElementById('lactose').checked,
-        halal: document.getElementById('halal').checked,
-    
-        note: document.getElementById('note').value,
-        timestamp: new Date().toISOString()
-      };
-    
-      try {
-        const body = new URLSearchParams();
-    
-        body.set('nome', data.nome || '');
-        body.set('cognome', data.cognome || '');
-        body.set('email', data.email || '');
-        body.set('cellulare', data.cellulare || '');
-        body.set('impresa', data.impresa || '');
-        body.set('territoriale', data.territoriale || '');
-        body.set('consigliere_nazionale', data.consigliere_nazionale || '');
-        body.set('data_arrivo', data.data_arrivo || '');
-        body.set('mezzo_arrivo', data.mezzo_arrivo || '');
-        body.set('hotel', data.hotel || '');
-        body.set('note', data.note || '');
-        body.set('timestamp', data.timestamp || '');
-    
-        [
-          'transfer_aero',
-          'transfer_pn',
-          'consiglio_ristretto',
-          'cena_giovedi',
-          'consiglio_allargato',
-          'buffet',
-          'convegno',
-          'cena_venerdi',
-          'vegetariano',
-          'vegano',
-          'glutine',
-          'lattosio',
-          'halal'
-        ].forEach(k => body.set(k, String(!!data[k])));
-        const getUrl = CONFIG.FORM_URL + '?' + body.toString();
-        await fetch(getUrl, { method: 'GET', mode: 'no-cors' });
-        
-        document.getElementById('iscr-form').style.display = 'none';
-        document.getElementById('form-success').style.display = 'block';
-    
-      } catch (err) {
-        console.error(err);
-        btn.textContent = 'Errore – Riprova';
-        btn.disabled = false;
-        alert('Errore. Riprova o scrivi a info@ancepiemonte.it');
-      }
     }
 
     // PROGRAMMA CONVEGNO (Home)
