@@ -1,1106 +1,849 @@
 <!DOCTYPE html>
-
 <html lang="it">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="XVI Convegno Interregionale Giovani ANCE – Area Nord 2026, Torino 22-23 Ottobre 2026">
   <title>XVI Convegno Interregionale Giovani ANCE – Area Nord 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /* ── VARIABLES ── */
+    :root {
+      --navy:     #0d1c2e;
+      --navy-mid: #1a2e4a;
+      --navy-hi:  #2a4a73;
+      --gold:     #f0a500;
+      --gold-dim: rgba(240,165,0,0.12);
+      --gold-border: rgba(240,165,0,0.3);
+      --w:    #ffffff;
+      --w80:  rgba(255,255,255,0.80);
+      --w60:  rgba(255,255,255,0.60);
+      --w30:  rgba(255,255,255,0.30);
+      --w15:  rgba(255,255,255,0.15);
+      --w08:  rgba(255,255,255,0.08);
+      --glass: rgba(13,28,46,0.60);
+      --glass-light: rgba(255,255,255,0.95);
+      --fast: 150ms ease-out;
+      --med:  250ms ease-out;
+      --slow: 300ms ease-out;
+      --r4:  4px; --r8: 8px; --r12: 12px; --r16: 16px;
+      --sd: 0 4px 24px rgba(0,0,0,0.28);
+      --sd2: 0 16px 56px rgba(0,0,0,0.48);
     }
 
-body {
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Helvetica,
-    Arial,
-    sans-serif;
-
-  background: #1e3a5f;
-  color: #fff;
-  padding-top: 50px;
-}
-
-/* TOP BAR */
-.topbar {
-  background: #17305a;
-  padding: 6px 30px;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.topbar a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.topbar a:hover {
-  text-decoration: underline;
-}
-
-/* HEADER */
-.header {
-  background: #2a4a73;
-  padding: 12px 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 3px solid #f0a500;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.logos-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.logo-item {
-  display: flex;
-  align-items: center;
-}
-
-.logo-ance {
-   
-  font-size: 18px;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: -1px;
-  line-height: 1;
-}
-
-.logo-ance span.giovani {
-   
-  display: block;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: #f0a500;
-  text-transform: uppercase;
-  text-align: right; 
-}
-
-.logo-divider {
-  width: 2px;
-  height: 30px;
-  background: #f0a500;
-  margin: 0 7px;
-}
-
-.logo-region {
-   
-  font-size: 10px;
-  font-weight: 700;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  line-height: 1.3;
-}
-
-.logo-sep {
-  width: 1px;
-  height: 36px;
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* NAV */
-.nav-tabs {
-  background: #17305a;
-  display: flex;
-  justify-content: center;
-  border-bottom: 3px solid #f0a500;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-}
-
-.nav-tab {
-  padding: 14px 36px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
-  border: none;
-  background: none;
-  cursor: pointer;
-  border-bottom: 3px solid transparent;
-  margin-bottom: -3px;
-  transition: all 0.2s;
-}
-
-.nav-tab.active,
-.nav-tab:hover {
-  color: #f0a500;
-  border-bottom-color: #f0a500;
-}
-
-/* SECTIONS */
-.section {
-  display: none;
-}
-
-.section.active {
-  display: block;
-}
-
-/* HOME */
-.hero {
-  background: #1e3a5f;
-  min-height: calc(100vh - 110px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 20px 20px 50px;
-  gap: 12px;
-}
-
-.hero-card {
-  background: rgba(23, 48, 90, 0.9);
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
-  padding: 32px 50px;
-  text-align: center;
-  max-width: 680px;
-  width: 100%;
-}
-
-.hero-card h1 {
-  font-size: clamp(16px, 3vw, 24px);
-  font-weight: 900;
-  color: #f0a500;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  line-height: 1.3;
-  margin-bottom: 8px;
-}
-
-.hero-card .date {
-  font-size: clamp(14px, 2.5vw, 20px);
-  font-weight: 800;
-  color: #f0a500;
-  margin-bottom: 6px;
-}
-
-.hero-card .time {
-  font-size: 14px;
-  font-weight: 600;
-  color: #f0a500;
-  font-style: italic;
-  letter-spacing: 2px;
-}
-
-.save-date-img {
-  max-width: 800px;
-  width: 100%;
-  border-radius: 8px;
-  border: 3px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
-}
-
-/* PROGRAMMA */
-.prog-outer {
-  background: #f5f7fa;
-  padding: 20px 20px 20px;
-  min-height: 70vh;
-}
-
-.prog-inner {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.day-switcher {
-  display: flex;
-  gap: 0;
-  margin-bottom: 36px;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 2px solid #1e3a5f;
-}
-
-.day-btn {
-  flex: 1;
-  padding: 14px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  border: none;
-  background: #fff;
-  color: #1e3a5f;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.day-btn.active {
-  background: #1e3a5f;
-  color: #f0a500;
-}
-
-.day-content {
-  display: none;
-}
-
-.day-content.active {
-  display: block;
-}
-
-.section-divider {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 24px;
-}
-
-.section-divider h2 {
-  font-size: 20px;
-  font-weight: 800;
-  color: #1e3a5f;
-  white-space: nowrap;
-}
-
-.section-divider .line {
-  flex: 1;
-  height: 2px;
-  background: linear-gradient(to right, #1e3a5f, transparent);
-}
-
-.prog-block {
-  margin-bottom: 28px;
-}
-
-.prog-block-title {
-  background: #1e3a5f;
-  color: #fff;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  padding: 10px 18px;
-  border-radius: 4px 4px 0 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.prog-rows {
-  background: #fff;
-  border-radius: 0 0 6px 6px;
-  overflow: hidden;
-  border: 1px solid #dde3ec;
-  border-top: none;
-}
-
-.prog-row {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  border-bottom: 1px solid #eef0f4;
-  align-items: stretch;
-}
-
-.prog-row:last-child {
-  border-bottom: none;
-}
-
-.prog-time {
-  background: #f8fafc;
-  padding: 16px;
-  font-size: 12px;
-  font-weight: 700;
-  color: #1e3a5f;
-  border-right: 2px solid #eef0f4;
-  display: flex;
-  align-items: center;
-  line-height: 1.4;
-}
-
-.prog-content {
-  padding: 14px 20px;
-}
-
-.prog-content .title {
-  font-size: 14px;
-  font-weight: 700;
-  color: #1a1a2e;
-  margin-bottom: 5px;
-}
-
-.prog-content .location a {
-  color: #1e3a5f;
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 1.6;
-  display: block;
-}
-
-.prog-content .location a:hover {
-  color: #f0a500;
-}
-
-.prog-content .note {
-  font-size: 11px;
-  color: #888;
-  margin-top: 4px;
-  font-style: italic;
-}
-
-.prog-badge {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 2px;
-  margin-left: 6px;
-  vertical-align: middle;
-}
-
-.badge-p {
-  background: rgba(30, 58, 95, 0.1);
-  color: #1e3a5f;
-}
-
-.badge-c {
-  background: rgba(240, 165, 0, 0.15);
-  color: #8a5e00;
-}
-
-.badge-s {
-  background: rgba(40, 140, 40, 0.1);
-  color: #1a6b1a;
-}
-
-/* Loading spinner */
-.loading {
-  text-align: center;
-  padding: 40px;
-  color: #1e3a5f;
-}
-
-.spinner {
-  width: 36px;
-  height: 36px;
-  border: 4px solid #dde3ec;
-  border-top-color: #1e3a5f;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-  margin: 0 auto 12px;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.error-msg {
-  background: #fff3cd;
-  color: #856404;
-  border: 1px solid #ffc107;
-  border-radius: 6px;
-  padding: 16px 20px;
-  margin: 20px 0;
-  font-size: 13px;
-}
-
-/* MAPPA */
-.map-block {
-  margin-top: 32px;
-  margin-bottom: 8px;
-}
-
-.map-block-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: #1e3a5f;
-  color: #f0a500;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  padding: 10px 18px;
-  border-radius: 6px 6px 0 0;
-}
-
-.map-block-title svg {
-  flex-shrink: 0;
-}
-
-.map-wrapper {
-  border: 2px solid #1e3a5f;
-  border-top: none;
-  border-radius: 0 0 6px 6px;
-  overflow: hidden;
-  background: #fff;
-}
-
-.map-wrapper iframe {
-  display: block;
-  width: 100%;
-  height: 420px;
-  border: none;
-}
-
-@media(max-width: 600px) {
-  .map-wrapper iframe {
-    height: 300px;
-  }
-}
-
-/* ISCRIZIONI */
-.iscr-outer {
-  background: #f5f7fa;
-  padding: 20px 20px 60px;
-  min-height: 70vh;
-}
-
-.iscr-inner {
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-.iscr-title {
-  font-size: 24px;
-  font-weight: 800;
-  color: #1e3a5f;
-  margin-bottom: 8px;
-}
-
-.iscr-sub {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 32px;
-  line-height: 1.6;
-}
-
-.form-card {
-  background: #fff;
-  border-radius: 8px;
-  border: 1px solid #dde3ec;
-  padding: 30px;
-  margin-bottom: 24px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-}
-
-.form-card h3 {
-  font-size: 15px;
-  font-weight: 800;
-  color: #1e3a5f;
-  margin-bottom: 18px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #f0a500;
-}
-
-.form-group {
-  margin-bottom: 18px;
-}
-
-.form-group label {
-  display: block;
-  font-size: 12px;
-  font-weight: 700;
-  color: #1e3a5f;
-  margin-bottom: 6px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
-
-.form-group label .req {
-  color: #c0181e;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  width: 100%;
-  padding: 10px 14px;
-  border: 1.5px solid #dde3ec;
-  border-radius: 4px;
-  
-  font-size: 13px;
-  color: #1a1a2e;
-  transition: border-color 0.2s;
-  background: #fafbfc;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: #1e3a5f;
-  background: #fff;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-.radio-group,
-.check-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.radio-item,
-.check-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  cursor: pointer;
-}
-
-.radio-item input,
-.check-item input {
-  margin-top: 2px;
-  accent-color: #1e3a5f;
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-}
-
-.radio-item .label-text,
-.check-item .label-text {
-  font-size: 13px;
-  color: #333;
-  font-weight: 500;
-  line-height: 1.4;
-}
-
-.radio-item .label-text small,
-.check-item .label-text small {
-  display: block;
-  color: #888;
-  font-size: 11px;
-  font-weight: 400;
-}
-
-.price-tag {
-  display: inline-block;
-  background: #f0a500;
-  color: #fff;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 2px;
-  margin-left: 6px;
-}
-
-.free-tag {
-  display: inline-block;
-  background: #2c782c;
-  color: #fff;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 2px;
-  margin-left: 6px;
-}
-
-/* Conditional sections */
-.cond-section {
-  display: none;
-}
-
-.cond-section.visible {
-  display: block;
-}
-
-.gratuito-notice {
-  background: #e8f5e9;
-  border: 1px solid #a5d6a7;
-  border-radius: 6px;
-  padding: 14px 18px;
-  margin-bottom: 20px;
-  font-size: 13px;
-  color: #1b5e20;
-  font-weight: 600;
-}
-
-.pagante-notice {
-  background: #fff8e1;
-  border: 1px solid #ffe082;
-  border-radius: 6px;
-  padding: 14px 18px;
-  margin-bottom: 20px;
-  font-size: 13px;
-  color: #5d4037;
-  font-weight: 600;
-}
-
-.prezzo-totale {
-  background: #1e3a5f;
-  color: #fff;
-  border-radius: 6px;
-  padding: 20px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 24px;
-}
-
-.prezzo-totale .label {
-  font-size: 13px;
-  font-weight: 600;
-  opacity: 0.8;
-}
-
-.prezzo-totale .amount {
-  font-size: 28px;
-  font-weight: 900;
-  color: #f0a500;
-}
-
-.btn-submit {
-  width: 100%;
-  background: #1e3a5f;
-  color: #fff;
-  border: none;
-  padding: 16px;
-  font-size: 15px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: background 0.2s;
-}
-
-.btn-submit:hover {
-  background: #f0a500;
-}
-
-.info-box {
-  background: #e8f0fb;
-  border-left: 4px solid #1e3a5f;
-  padding: 14px 18px;
-  border-radius: 0 6px 6px 0;
-  font-size: 12px;
-  color: #1e3a5f;
-  line-height: 1.7;
-  margin-top: 16px;
-}
-/* PROGRAMMA CONVEGNO HOME */
-.conv-outer {
-  max-width: 800px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.conv-title {
-   
-  font-size: 18px;
-  font-weight: 700;
-  color: #f0a500;
-  text-align: center;
-  margin-bottom: 16px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-.conv-subtitle {
-  font-size: 14px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
-  text-align: center;
-  font-style: italic;
-  margin-bottom: 16px;
-  letter-spacing: 0.3px;
-}
-
-.conv-table {
-  width: 100%;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 2px solid rgba(255, 255, 255, 0.15);
-}
-
-.conv-row {
-  display: grid;
-  grid-template-columns: 85px 1fr;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.conv-row:last-child {
-  border-bottom: none;
-}
-
-.conv-row.tipo-registrazione,
-.conv-row.tipo-chiusura,
-.conv-row.tipo-moderazione {
-  background: rgba(255, 255, 255, 0.03);
-}
-
-.conv-row.tipo-tavola-rotonda-i,
-.conv-row.tipo-tavola-rotonda-ii {
-  background: rgba(240, 165, 0, 0.1);
-}
-
-.conv-row.tipo-intervento,
-.conv-row.tipo-intervista {
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.conv-ora {
-  padding: 12px 10px;
-  font-size: 16px;
-  font-weight: 700;
-  color: #f0a500;
-  border-right: 2px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.conv-detail {
-  padding: 12px 16px;
-}
-
-.conv-sessione {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.4);
-  margin-bottom: 2px;
-}
-
-.conv-titolo {
-  font-size: 16px;
-  font-weight: 700;
-  color: #fff;
-  display: inline;
-}
-
-.conv-relatore {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.7);
-  display: inline;
-}
-
-.conv-ruolo {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.4);
-  font-style: italic;
-  display: inline;
-}
-
-@media(max-width:600px) {
-  .conv-row {
-    grid-template-columns: 60px 1fr;
-  }
-}
-    
-/* HOTEL CARDS */
-.hotel-card {
-  background: #fff;
-  border-radius: 8px;
-  border: 1px solid #dde3ec;
-  padding: 16px 20px;
-  margin-bottom: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.hotel-info {
-  flex: 1;
-  min-width: 200px;
-}
-
-.hotel-nome {
-  font-size: 15px;
-  font-weight: 800;
-  color: #1e3a5f;
-  display: inline;
-}
-
-.hotel-stelle {
-  color: #f0a500;
-  font-size: 13px;
-  margin-left: 6px;
-}
-
-.hotel-indirizzo {
-  font-size: 12px;
-  color: #777;
-  margin-top: 2px;
-}
-
-.hotel-dettagli {
-  font-size: 12px;
-  color: #555;
-  margin-top: 4px;
-  line-height: 1.6;
-}
-
-.hotel-dettagli span {
-  display: inline;
-  margin-right: 10px;
-  white-space: nowrap;
-}
-
-.hotel-prezzo {
-  font-size: 20px;
-  font-weight: 900;
-  color: #1e3a5f;
-  white-space: nowrap;
-}
-
-.hotel-prezzo small {
-  display: block;
-  font-size: 11px;
-  font-weight: 600;
-  color: #888;
-}
-
-.hotel-tag {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 3px;
-  margin-top: 4px;
-}
-
-.hotel-tag.associazione {
-  background: #e8f5e9;
-  color: #1b5e20;
-}
-
-.hotel-tag.partecipante {
-  background: #fff8e1;
-  color: #5d4037;
-}
-
-.hotel-note {
-  font-size: 11px;
-  color: #999;
-  font-style: italic;
-  margin-top: 4px;
-}
-
-.hotel-links {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 6px;
-}
-
-.hotel-link {
-  font-size: 11px;
-  font-weight: 700;
-  color: #1e3a5f;
-  text-decoration: none;
-  padding: 4px 12px;
-  border: 1.5px solid #1e3a5f;
-  border-radius: 4px;
-  transition: all 0.2s;
-}
-
-.hotel-link:hover {
-  background: #1e3a5f;
-  color: #fff;
-}
-
-.hotel-group-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: #1e3a5f;
-  margin: 24px 0 12px;
-  padding-bottom: 6px;
-  border-bottom: 2px solid #f0a500;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.hotel-group-title:first-child {
-  margin-top: 0;
-}
-
-/* BOOK BUTTON */
-.hotel-book-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #fff;
-  background: #f0a500;
-  text-decoration: none;
-  padding: 4px 14px;
-  border-radius: 4px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  transition: all 0.2s;
-  margin-left: auto;
-}
-
-.hotel-book-btn:hover {
-  background: #1e3a5f;
-  color: #f0a500;
-}
-
-/* FOOTER */
-footer {
-  background: #12263f;
-  color: rgba(255, 255, 255, 0.5);
-  text-align: center;
-  padding: 30px 20px;
-  font-size: 12px;
-  line-height: 2;
-}
-
-@media(max-width:600px) {
-  .header {
-    flex-direction: column;
-  }
-
-  .logos-row {
-    justify-content: center;
-  }
-
-  .prog-row {
-    grid-template-columns: 80px 1fr;
-  }
-
-  .hero-card {
-    padding: 24px 16px;
-  }
-
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-
-  .nav-tab {
-    padding: 12px 16px;
-    font-size: 11px;
-  }
-}
-
-    /* HOME LAYOUT */
-.home-layout {
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 24px;
-  max-width: 1100px;
-  width: 100%;
-  align-items: start;
-}
-
-.home-flyer img {
-  width: 100%;
-  border-radius: 8px;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.4);
-}
-
-.home-sponsor {
-  max-width: 1100px;
-  width: 100%;
-}
-
-.home-sponsor img {
-  width: 100%;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-}
-
-@media(max-width:768px) {
-  .home-layout {
-    grid-template-columns: 1fr;
-  }
-}
-
+    /* ── RESET ── */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    button { font-family:inherit; }
+    img { display:block; max-width:100%; }
+
+    /* ── SKIP LINK ── */
+    .skip-link {
+      position: absolute; top: -100%; left: 8px;
+      background: var(--gold); color: var(--navy);
+      font-weight: 800; font-size: 13px;
+      padding: 8px 16px; border-radius: var(--r4);
+      z-index: 9999; text-decoration: none;
+      transition: top var(--fast);
+    }
+    .skip-link:focus { top: 8px; }
+
+    /* ── FOCUS VISIBLE ── */
+    :focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+      border-radius: var(--r4);
+    }
+    button:focus:not(:focus-visible),
+    a:focus:not(:focus-visible) { outline: none; }
+
+    /* ── BASE ── */
+    body {
+      font-family: 'Barlow', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--w);
+      background: var(--navy);
+      padding-top: 56px;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── ANIMATED BACKGROUND ── */
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      z-index: -1;
+      pointer-events: none;
+      will-change: transform;
+    }
+    .bg-orb-1 {
+      width: 900px; height: 900px;
+      background: radial-gradient(circle, rgba(42,74,115,0.5) 0%, transparent 65%);
+      top: -25%; left: -20%;
+      animation: orb1 28s ease-in-out infinite;
+    }
+    .bg-orb-2 {
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(240,165,0,0.07) 0%, transparent 65%);
+      top: 30%; right: -15%;
+      animation: orb2 34s ease-in-out infinite;
+    }
+    .bg-orb-3 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(10,25,48,0.75) 0%, transparent 65%);
+      bottom: -10%; left: 25%;
+      animation: orb3 22s ease-in-out infinite;
+    }
+    .bg-orb-4 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(240,165,0,0.05) 0%, transparent 65%);
+      top: 60%; left: 5%;
+      animation: orb4 38s ease-in-out infinite;
+    }
+    @keyframes orb1 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      25%  { transform: translate(80px,-100px) scale(1.1); }
+      50%  { transform: translate(30px,60px) scale(0.92); }
+      75%  { transform: translate(-60px,-40px) scale(1.06); }
+    }
+    @keyframes orb2 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33%  { transform: translate(-70px,80px) scale(1.18); }
+      66%  { transform: translate(50px,-60px) scale(0.88); }
+    }
+    @keyframes orb3 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      50%  { transform: translate(-90px,70px) scale(1.22); }
+    }
+    @keyframes orb4 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      30%  { transform: translate(100px,-50px) scale(1.1); }
+      60%  { transform: translate(-50px,80px) scale(0.9); }
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: -2;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      position: relative; z-index: 60;
+      background: rgba(5,12,22,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--w08);
+      padding: 0 24px;
+      height: 34px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .topbar a {
+      color: var(--w60); font-size: 12px; font-weight: 500;
+      text-decoration: none; letter-spacing: 0.3px;
+      transition: color var(--fast);
+    }
+    .topbar a:hover { color: var(--gold); }
+
+    /* ── HEADER & LOGOS ── */
+    .header {
+      background: rgba(13,26,48,0.78);
+      backdrop-filter: blur(18px);
+      border-bottom: 3px solid var(--gold);
+      padding: 16px 24px;
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .logos-row {
+      display: flex; align-items: center;
+      gap: 18px; flex-wrap: wrap; justify-content: center;
+    }
+    .logo-item { display: flex; align-items: center; gap: 10px; }
+    .logo-ance {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px; font-weight: 900;
+      color: var(--w); letter-spacing: -0.5px; line-height: 1;
+    }
+    .logo-ance .giovani {
+      display: block; font-size: 9px; font-weight: 700;
+      letter-spacing: 2.5px; color: var(--gold);
+      text-transform: uppercase; text-align: right; margin-top: 2px;
+    }
+    .logo-divider {
+      width: 2px; height: 36px;
+      background: var(--gold); border-radius: 1px;
+    }
+    .logo-region {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 700;
+      color: var(--w); text-transform: uppercase;
+      letter-spacing: 1px; line-height: 1.4;
+    }
+    .logo-sep {
+      width: 1px; height: 40px;
+      background: var(--w15);
+    }
+
+    /* ── NAV ── */
+    .nav-tabs {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(7,14,26,0.90);
+      backdrop-filter: blur(20px) saturate(1.4);
+      display: flex; justify-content: center;
+      border-bottom: 2px solid var(--gold);
+    }
+    .nav-tab {
+      height: 56px; padding: 0 32px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--w60); background: none; border: none;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: color var(--med), border-color var(--med);
+      white-space: nowrap;
+    }
+    .nav-tab:hover { color: var(--w); }
+    .nav-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .nav-tab:active { transform: scale(0.97); }
+
+    /* ── SECTION VISIBILITY ── */
+    .section { display: none; }
+    .section.active {
+      display: block;
+      animation: sectionIn 200ms ease-out both;
+    }
+    @keyframes sectionIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── HOME HERO ── */
+    .hero {
+      min-height: calc(100vh - 56px);
+      display: flex; flex-direction: column;
+      align-items: center;
+      padding: 48px 20px 72px;
+      gap: 32px;
+    }
+    .hero-card {
+      background: var(--glass);
+      border: 1px solid var(--w15);
+      border-radius: var(--r16);
+      padding: 40px 60px;
+      text-align: center;
+      max-width: 740px; width: 100%;
+      backdrop-filter: blur(18px);
+      box-shadow: var(--sd2), inset 0 1px 0 var(--w15);
+      animation: fadeUp .6s 0ms ease-out both;
+    }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(28px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .hero-card h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(20px, 3.5vw, 34px);
+      font-weight: 900; color: var(--gold);
+      letter-spacing: 1.5px; text-transform: uppercase;
+      line-height: 1.2; margin-bottom: 14px;
+    }
+    .hero-card .date {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(16px, 2.8vw, 24px);
+      font-weight: 800; color: var(--w);
+      letter-spacing: 0.5px; margin-bottom: 4px;
+    }
+    .hero-card .time {
+      font-size: 13px; font-weight: 600;
+      color: var(--gold); font-style: italic; letter-spacing: 2px;
+    }
+    .hero-tagline {
+      margin-top: 22px; padding-top: 22px;
+      border-top: 1px solid var(--w15);
+    }
+    .hero-tagline .main {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 20px; font-weight: 800;
+      color: var(--gold); letter-spacing: 1px; text-transform: uppercase;
+    }
+    .hero-tagline .sub {
+      font-size: 13px; color: var(--w60);
+      font-style: italic; margin-top: 7px; line-height: 1.5;
+    }
+
+    /* ── COUNTDOWN ── */
+    .countdown-wrap {
+      margin-top: 24px; padding-top: 24px;
+      border-top: 1px solid var(--w15);
+    }
+    .countdown-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; color: var(--w30);
+      text-transform: uppercase; margin-bottom: 10px;
+    }
+    .countdown {
+      display: flex; align-items: baseline;
+      justify-content: center; gap: 4px;
+      flex-wrap: wrap;
+    }
+    .cd-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 36px; font-weight: 900;
+      color: var(--gold); line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+    .cd-lbl {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 1.5px; color: var(--w30);
+      text-transform: uppercase; margin-right: 8px;
+      align-self: flex-end; margin-bottom: 4px;
+    }
+    .cd-sep {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 28px; font-weight: 700;
+      color: var(--w30); margin: 0 2px;
+      line-height: 1;
+    }
+
+    .save-date-img {
+      max-width: 840px; width: 100%;
+      border-radius: var(--r12);
+      border: 2px solid var(--w15);
+      box-shadow: var(--sd2);
+      animation: fadeUp .6s 120ms ease-out both;
+    }
+
+    /* ── CONV TABLE (home) ── */
+    .conv-outer {
+      max-width: 840px; width: 100%;
+      animation: fadeUp .6s 220ms ease-out both;
+    }
+    .conv-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 20px; font-weight: 800; color: var(--gold);
+      text-align: center; margin-bottom: 6px;
+      letter-spacing: 1.5px; text-transform: uppercase;
+    }
+    .conv-subtitle {
+      font-size: 13px; color: var(--w60);
+      text-align: center; font-style: italic; margin-bottom: 18px;
+    }
+    .conv-location-pill {
+      text-align: center; margin-bottom: 20px;
+    }
+    .conv-location-pill a {
+      display: inline-flex; align-items: center; gap: 7px;
+      color: var(--gold); font-size: 13px; font-weight: 600;
+      text-decoration: none; letter-spacing: 0.5px;
+      padding: 9px 18px;
+      background: var(--gold-dim);
+      border: 1px solid var(--gold-border);
+      border-radius: 100px;
+      transition: background var(--fast), border-color var(--fast);
+    }
+    .conv-location-pill a:hover {
+      background: rgba(240,165,0,0.2);
+      border-color: var(--gold);
+    }
+    .conv-table {
+      width: 100%; border-radius: var(--r12); overflow: hidden;
+      border: 1px solid var(--w15);
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--sd2);
+    }
+    .conv-row {
+      display: grid; grid-template-columns: 90px 1fr;
+      border-bottom: 1px solid var(--w08);
+    }
+    .conv-row:last-child { border-bottom: none; }
+    .conv-row.tipo-registrazione,
+    .conv-row.tipo-chiusura,
+    .conv-row.tipo-moderazione { background: rgba(255,255,255,0.03); }
+    .conv-row.tipo-tavola-rotonda-i,
+    .conv-row.tipo-tavola-rotonda-ii { background: rgba(240,165,0,0.08); }
+    .conv-row.tipo-intervento,
+    .conv-row.tipo-intervista { background: rgba(255,255,255,0.05); }
+    .conv-ora {
+      padding: 14px 10px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px; font-weight: 700; color: var(--gold);
+      border-right: 1px solid var(--w08);
+      display: flex; align-items: center; justify-content: center;
+      font-variant-numeric: tabular-nums;
+    }
+    .conv-detail { padding: 14px 18px; }
+    .conv-sessione {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--w30); margin-bottom: 3px;
+    }
+    .conv-titolo { font-size: 15px; font-weight: 700; color: var(--w); }
+    .conv-relatore { font-size: 13px; color: var(--w60); margin-top: 2px; }
+    .conv-ruolo { font-size: 12px; color: var(--w30); font-style: italic; margin-top: 1px; }
+
+    /* ── SPONSOR ── */
+    .sponsor-outer {
+      max-width: 840px; width: 100%;
+      animation: fadeUp .6s 320ms ease-out both;
+    }
+    .sponsor-outer img {
+      width: 100%; border-radius: var(--r12);
+      border: 1px solid var(--w08);
+      box-shadow: var(--sd);
+    }
+
+    /* ── SHARED SECTION WRAPPER ── */
+    .prog-outer {
+      padding: 36px 20px 72px;
+      min-height: calc(100vh - 56px);
+    }
+    .prog-inner { max-width: 940px; margin: 0 auto; }
+    .iscr-outer {
+      padding: 36px 20px 72px;
+      min-height: calc(100vh - 56px);
+    }
+
+    /* ── SECTION HEADER CARD ── */
+    .section-header-card {
+      background: var(--glass);
+      border: 1px solid var(--w15);
+      border-radius: var(--r16);
+      padding: 28px 44px;
+      text-align: center;
+      max-width: 560px; margin: 0 auto 32px;
+      backdrop-filter: blur(16px);
+      box-shadow: var(--sd2);
+    }
+    .section-header-card h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(18px, 3vw, 28px);
+      font-weight: 900; color: var(--gold);
+      letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px;
+    }
+    .section-header-card .date {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px; font-weight: 700; color: var(--w);
+    }
+
+    /* ── DAY SWITCHER ── */
+    .day-switcher {
+      display: flex; gap: 6px; margin-bottom: 28px;
+      background: var(--glass); border: 1px solid var(--w15);
+      border-radius: var(--r8); padding: 6px;
+      backdrop-filter: blur(12px);
+    }
+    .day-btn {
+      flex: 1; min-height: 44px; padding: 10px 16px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase;
+      border: none; background: transparent;
+      color: var(--w60); cursor: pointer;
+      touch-action: manipulation;
+      border-radius: var(--r4);
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      transition: background var(--med), color var(--med);
+    }
+    .day-btn:hover { color: var(--w); background: var(--w08); }
+    .day-btn.active { background: var(--gold); color: var(--navy); }
+    .day-btn:active { transform: scale(0.97); }
+
+    .day-content { display: none; }
+    .day-content.active { display: block; }
+
+    /* ── PROGRAM BLOCKS ── */
+    .prog-block { margin-bottom: 24px; }
+    .prog-block-title {
+      background: var(--navy-mid);
+      border: 1px solid var(--w15); border-bottom: none;
+      color: var(--w);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; font-weight: 800;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      padding: 12px 20px;
+      border-radius: var(--r8) var(--r8) 0 0;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .prog-rows {
+      background: var(--glass-light);
+      border-radius: 0 0 var(--r8) var(--r8);
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.08); border-top: none;
+    }
+    .prog-row {
+      display: grid; grid-template-columns: 120px 1fr;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      align-items: stretch;
+      transition: background var(--fast);
+    }
+    .prog-row:last-child { border-bottom: none; }
+    .prog-row:hover { background: rgba(240,165,0,0.05); }
+    .prog-time {
+      background: rgba(240,165,0,0.06);
+      padding: 16px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; font-weight: 700; color: #1a2e4a;
+      border-right: 2px solid rgba(240,165,0,0.18);
+      display: flex; align-items: center; line-height: 1.4;
+      font-variant-numeric: tabular-nums;
+    }
+    .prog-content { padding: 14px 20px; }
+    .prog-content .title {
+      font-size: 14px; font-weight: 700; color: #111827;
+      margin-bottom: 5px; line-height: 1.4;
+    }
+    .prog-content .location a {
+      color: #1a2e4a; text-decoration: none;
+      font-size: 12px; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 4px;
+      transition: color var(--fast);
+    }
+    .prog-content .location a:hover { color: #f0a500; }
+    .prog-content .location span { font-size: 12px; color: #555; font-weight: 500; }
+    .prog-content .note { font-size: 11px; color: #888; margin-top: 4px; font-style: italic; }
+    .prog-badge {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      padding: 2px 8px; border-radius: 100px;
+      margin-left: 6px; vertical-align: middle;
+    }
+    .badge-p { background: rgba(26,46,74,0.1); color: #1a2e4a; }
+    .badge-c { background: rgba(240,165,0,0.15); color: #7a5500; }
+    .badge-s { background: rgba(40,140,40,0.1); color: #1a5e1a; }
+
+    /* ── MAPS ── */
+    .map-block { margin-top: 32px; }
+    .map-block-title {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--navy-mid);
+      color: var(--gold);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 800;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 12px 18px;
+      border-radius: var(--r8) var(--r8) 0 0;
+      border: 1px solid var(--w15); border-bottom: none;
+    }
+    .map-wrapper {
+      border: 1px solid var(--w15); border-top: none;
+      border-radius: 0 0 var(--r8) var(--r8); overflow: hidden;
+    }
+    .map-wrapper iframe { display: block; width: 100%; height: 420px; border: none; }
+
+    /* ── LOADING / SKELETON / ERROR / INFO ── */
+    .loading { padding: 0; }
+    .skeleton-wrap { padding: 4px 0; }
+    .skeleton-row {
+      display: flex; gap: 0; margin-bottom: 2px; overflow: hidden;
+      border-radius: var(--r4);
+    }
+    .skeleton-block {
+      height: 52px; background: linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.06) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s ease-in-out infinite;
+    }
+    .skeleton-block.time  { width: 120px; flex-shrink: 0; margin-right: 2px; border-radius: var(--r4) 0 0 var(--r4); }
+    .skeleton-block.body  { flex: 1; border-radius: 0 var(--r4) var(--r4) 0; }
+    .skeleton-block:nth-child(2) { animation-delay: 0.1s; }
+    .skeleton-block:nth-child(3) { animation-delay: 0.2s; }
+    @keyframes shimmer {
+      from { background-position: 200% 0; }
+      to   { background-position: -200% 0; }
+    }
+    .spinner {
+      width: 32px; height: 32px;
+      border: 3px solid var(--w15); border-top-color: var(--gold);
+      border-radius: 50%; animation: spin .8s linear infinite;
+      margin: 0 auto 12px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .error-msg {
+      background: rgba(255,200,0,0.08);
+      color: #c8a000;
+      border: 1px solid rgba(255,200,0,0.22);
+      border-radius: var(--r8);
+      padding: 16px 20px; margin: 16px 0; font-size: 13px;
+    }
+    .error-msg a { color: var(--gold); font-weight: 600; }
+    .info-box {
+      background: rgba(240,165,0,0.07);
+      border-left: 3px solid var(--gold);
+      padding: 14px 18px;
+      border-radius: 0 var(--r8) var(--r8) 0;
+      font-size: 13px; color: var(--w80);
+      line-height: 1.7; margin-top: 24px;
+    }
+    .info-box a { color: var(--gold); font-weight: 600; }
+
+    /* ── SECTION DIVIDER (hotel) ── */
+    .section-divider {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+    }
+    .section-divider h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px; font-weight: 800; color: var(--w); white-space: nowrap;
+    }
+    .section-divider .line {
+      flex: 1; height: 2px;
+      background: linear-gradient(to right, var(--gold), transparent);
+    }
+
+    /* ── HOTEL CARDS ── */
+    .hotel-group-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 21px; font-weight: 800; color: var(--w);
+      margin: 28px 0 6px; padding-bottom: 8px;
+      border-bottom: 2px solid var(--gold);
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    }
+    .hotel-group-title:first-child { margin-top: 0; }
+    .hotel-stelle { color: var(--gold); font-size: 14px; }
+    .hotel-card {
+      background: var(--glass-light);
+      border-radius: var(--r8);
+      border: 1px solid rgba(0,0,0,0.07);
+      padding: 18px 22px; margin-bottom: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.14);
+      display: flex; align-items: center;
+      gap: 20px; flex-wrap: wrap;
+      transition: box-shadow var(--med), transform var(--med);
+    }
+    .hotel-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.22); transform: translateY(-2px); }
+    .hotel-card:active { transform: scale(0.99); }
+    .hotel-info { flex: 1; min-width: 200px; }
+    .hotel-nome {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 17px; font-weight: 800; color: #1a2e4a;
+    }
+    .hotel-indirizzo { font-size: 12px; color: #777; margin-top: 3px; }
+    .hotel-dettagli { font-size: 12px; color: #555; margin-top: 6px; line-height: 1.7; }
+    .hotel-dettagli span { display: inline-block; margin-right: 12px; white-space: nowrap; }
+    .hotel-note { font-size: 11px; color: #999; font-style: italic; margin-top: 4px; }
+    .hotel-tag {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+      padding: 3px 10px; border-radius: 100px;
+      margin-top: 6px; text-transform: uppercase;
+    }
+    .hotel-tag.associazione { background: #e8f5e9; color: #1b5e20; }
+    .hotel-tag.partecipante { background: #fff8e1; color: #5d4037; }
+    .hotel-prezzo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 28px; font-weight: 900; color: #1a2e4a;
+      white-space: nowrap; text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .hotel-prezzo small {
+      display: block; font-family: 'Barlow', sans-serif;
+      font-size: 10px; font-weight: 600; color: #888;
+    }
+    .hotel-links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+    .hotel-link {
+      min-height: 36px;
+      display: inline-flex; align-items: center;
+      font-size: 11px; font-weight: 700; color: #1a2e4a;
+      text-decoration: none; padding: 0 14px;
+      border: 2px solid #1a2e4a; border-radius: var(--r4);
+      transition: background var(--fast), color var(--fast);
+    }
+    .hotel-link:hover { background: #1a2e4a; color: #fff; }
+    .hotel-book-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      min-height: 44px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; font-weight: 800;
+      letter-spacing: 0.5px; text-transform: uppercase;
+      color: var(--navy); background: var(--gold);
+      text-decoration: none; padding: 0 18px;
+      border-radius: var(--r4); margin-left: auto;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: background var(--med), transform var(--fast);
+    }
+    .hotel-book-btn:hover { background: #d99400; transform: translateY(-1px); }
+    .hotel-book-btn:active { transform: scale(0.97); }
+
+    /* ── RADIO PLAYER ── */
+    #radio-player {
+      position: fixed; bottom: 24px; right: 24px;
+      background: rgba(9,18,32,0.94);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--gold);
+      border-radius: var(--r12);
+      padding: 12px 18px;
+      display: flex; align-items: center; gap: 12px;
+      z-index: 200;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.55), 0 0 0 1px rgba(240,165,0,0.1);
+    }
+    .radio-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; font-weight: 700; color: var(--gold);
+      letter-spacing: 0.5px;
+      display: flex; align-items: center; gap: 7px;
+    }
+    #radio-btn {
+      min-width: 76px; min-height: 36px;
+      background: var(--gold); border: none;
+      border-radius: var(--r4);
+      color: var(--navy);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; font-weight: 800; letter-spacing: 0.5px;
+      cursor: pointer;
+      touch-action: manipulation;
+      padding: 0 14px;
+      transition: background var(--fast), transform var(--fast);
+    }
+    #radio-btn:hover { background: #d99400; transform: scale(1.04); }
+    #radio-btn:active { transform: scale(0.96); }
+
+    /* ── ISCRIZIONI ── */
+    .iscr-frame-wrap {
+      max-width: 840px; margin: 0 auto;
+      background: var(--glass);
+      border: 1px solid var(--w15);
+      border-radius: var(--r16); overflow: hidden;
+      backdrop-filter: blur(16px);
+      box-shadow: var(--sd2);
+    }
+    .iscr-frame-wrap iframe { display: block; border: none; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: rgba(4,10,20,0.92);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid var(--w08);
+      color: var(--w30); text-align: center;
+      padding: 40px 24px; font-size: 13px; line-height: 2;
+    }
+    .footer-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 17px; font-weight: 700; color: var(--w);
+      margin-bottom: 4px; letter-spacing: 0.5px;
+    }
+    .footer-regions { font-size: 13px; color: var(--w60); }
+    .footer-links { margin-top: 14px; }
+    .footer-links a {
+      color: var(--w30); text-decoration: none; font-size: 12px;
+      transition: color var(--fast);
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy { margin-top: 8px; font-size: 11px; opacity: .3; }
+
+    /* ── HOME LAYOUT ── */
+    .home-layout {
+      display: grid; grid-template-columns: 320px 1fr;
+      gap: 28px; max-width: 1120px; width: 100%;
+      align-items: start;
+    }
+    .home-flyer img {
+      width: 100%; border-radius: var(--r12);
+      box-shadow: var(--sd2); border: 1px solid var(--w15);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .home-layout { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-tab { padding: 0 20px; font-size: 12px; }
+      .hero { padding: 32px 16px 56px; gap: 24px; }
+      .hero-card { padding: 28px 24px; }
+      .section-header-card { padding: 24px 20px; }
+      .prog-outer, .iscr-outer { padding: 24px 16px 56px; }
+      .header { padding: 12px 16px; }
+      .logos-row { gap: 10px; }
+      .logo-sep { display: none; }
+      .map-wrapper iframe { height: 300px; }
+      #radio-player { bottom: 16px; right: 16px; padding: 10px 14px; }
+    }
+    @media (max-width: 600px) {
+      .prog-row { grid-template-columns: 80px 1fr; }
+      .conv-row { grid-template-columns: 58px 1fr; }
+      .hotel-card { flex-direction: column; align-items: flex-start; }
+      .hotel-book-btn { margin-left: 0; }
+    }
+    @media (max-width: 375px) {
+      .nav-tab { padding: 0 13px; font-size: 11px; letter-spacing: 0.8px; }
+      .hero-card { padding: 20px 16px; }
+    }
+
+    /* ── PREFERS REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
   </style>
 </head>
-
 <body>
+  <a href="#main-content" class="skip-link">Vai al contenuto principale</a>
+
+  <!-- ANIMATED BACKGROUND ORBS -->
+  <div class="bg-orb bg-orb-1" aria-hidden="true"></div>
+  <div class="bg-orb bg-orb-2" aria-hidden="true"></div>
+  <div class="bg-orb bg-orb-3" aria-hidden="true"></div>
+  <div class="bg-orb bg-orb-4" aria-hidden="true"></div>
 
   <!-- TOP BAR -->
-
   <div class="topbar">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-      <polyline points="22,6 12,13 2,6" />
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="color:rgba(255,255,255,0.35);flex-shrink:0">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+      <polyline points="22,6 12,13 2,6"/>
     </svg>
-    &nbsp;<a href="mailto:info@ancepiemonte.it">Contattaci</a>
+    <a href="mailto:info@ancepiemonte.it">info@ancepiemonte.it</a>
   </div>
 
   <!-- HEADER -->
   <header class="header">
     <div class="logos-row">
       <div class="logo-item">
-        <div>
-          <div class="logo-ance">ANCE<span class="giovani">GIOVANI</span></div>
-        </div>
+        <div class="logo-ance">ANCE<span class="giovani">GIOVANI</span></div>
         <div class="logo-divider"></div>
         <div class="logo-region">LIGURIA</div>
       </div>
-      <div class="logo-sep"></div>
+      <div class="logo-sep" aria-hidden="true"></div>
       <div class="logo-item">
-        <div>
-          <div class="logo-ance">ANCE<span class="giovani">GIOVANI</span></div>
-        </div>
+        <div class="logo-ance">ANCE<span class="giovani">GIOVANI</span></div>
         <div class="logo-divider"></div>
         <div class="logo-region">LOMBARDIA</div>
       </div>
-      <div class="logo-sep"></div>
+      <div class="logo-sep" aria-hidden="true"></div>
       <div class="logo-item">
-        <div>
-          <div class="logo-ance">ANCE<span class="giovani">GIOVANI</span></div>
-        </div>
+        <div class="logo-ance">ANCE<span class="giovani">GIOVANI</span></div>
         <div class="logo-divider"></div>
         <div class="logo-region">PIEMONTE<br>VALLE D'AOSTA</div>
       </div>
-      <div class="logo-sep"></div>
+      <div class="logo-sep" aria-hidden="true"></div>
       <div class="logo-item">
-        <div>
-          <div class="logo-ance">ANCE<span class="giovani">GIOVANI</span></div>
-        </div>
+        <div class="logo-ance">ANCE<span class="giovani">GIOVANI</span></div>
         <div class="logo-divider"></div>
         <div class="logo-region">VENETO</div>
       </div>
-      <div class="logo-sep"></div>
+      <div class="logo-sep" aria-hidden="true"></div>
       <div class="logo-item">
-        <div>
-          <div class="logo-ance">ANCE<span class="giovani">GIOVANI</span></div>
-        </div>
+        <div class="logo-ance">ANCE<span class="giovani">GIOVANI</span></div>
         <div class="logo-divider"></div>
         <div class="logo-region">FRIULI<br>VENEZIA GIULIA</div>
       </div>
     </div>
   </header>
-  
 
   <!-- NAV -->
-
-  <nav class="nav-tabs">
+  <nav class="nav-tabs" role="navigation" aria-label="Sezioni principali">
     <button class="nav-tab active" onclick="showSection('home')">Home</button>
     <button class="nav-tab" onclick="showSection('programma')">Agenda</button>
     <button class="nav-tab" onclick="showSection('hotel')">Hotel</button>
@@ -1108,158 +851,167 @@ footer {
   </nav>
 
   <!-- HOME -->
-  <section class="section active" id="sec-home">
-  <div class="hero">
-    <div class="hero-card">
-      <h1>XVI Convegno Interregionale</h1>
-      <div class="date">23 Ottobre 2026</div>
-      <div class="time">Venerdì Ore 14:30 - Torino</div>
-      <div style="margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.15);">
-        <div style="font-size:16px; font-weight:800; color:#f0a500; letter-spacing:0.5px;">
-          COSTRUIRE BELLEZZA, GENERARE FUTURO
+  <section class="section active" id="sec-home" id="main-content">
+    <div class="hero">
+      <div class="hero-card">
+        <h1>XVI Convegno Interregionale</h1>
+        <div class="date">23 Ottobre 2026 · Torino</div>
+        <div class="time">Venerdì · Ore 14:30</div>
+        <div class="hero-tagline">
+          <div class="main">COSTRUIRE BELLEZZA, GENERARE FUTURO</div>
+          <div class="sub">Quando la qualità del costruito diventa motore di investimenti e sviluppo</div>
         </div>
-        <div style="font-size:12px; color:rgba(255,255,255,0.7); font-style:italic; margin-top:6px; line-height:1.5;">
-          Quando la qualità del costruito diventa motore di investimenti e sviluppo
+        <div class="countdown-wrap" aria-live="polite" aria-label="Conto alla rovescia">
+          <div class="countdown-label">ALL'EVENTO MANCANO</div>
+          <div id="countdown" class="countdown"></div>
         </div>
       </div>
-    </div>
-    
 
-    <img src="./save%20the%20date.png" alt="" class="save-date-img">
+      <img src="./save%20the%20date.png" alt="Save the Date – XVI Convegno Interregionale Giovani ANCE Area Nord 2026" class="save-date-img">
 
-    <!-- PROGRAMMA CONVEGNO -->
-    <div class="conv-outer">
-      <h3 class="conv-title">📋 BOZZA COSTRUIRE BELLEZZA, GENERARE FUTURO</h3>
-      <p class="conv-subtitle">Quando la qualità del costruito diventa motore di investimenti e sviluppo</p>
-       
-      <div style="text-align:center; margin-bottom:16px;">
-        <a href="https://maps.app.goo.gl/7FreCy27BgcJUGNP8?g_st=ic" target="_blank"
-           style="color:#f0a500; font-size:13px; font-weight:600; text-decoration:none; letter-spacing:0.5px;">
-          📍 CAMERA - Centro Italiano per la Fotografia -  · Venerdì 23 Ottobre · Ore 14:30
-        </a>
+      <!-- PROGRAMMA CONVEGNO -->
+      <div class="conv-outer">
+        <h3 class="conv-title">BOZZA PROGRAMMA · COSTRUIRE BELLEZZA, GENERARE FUTURO</h3>
+        <p class="conv-subtitle">Quando la qualità del costruito diventa motore di investimenti e sviluppo</p>
+        <div class="conv-location-pill">
+          <a href="https://maps.app.goo.gl/7FreCy27BgcJUGNP8?g_st=ic" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            CAMERA – Centro Italiano per la Fotografia · Venerdì 23 Ottobre · Ore 14:30
+          </a>
+        </div>
+        <div id="conv-loading" class="loading" style="display:none">
+          <div class="spinner"></div>
+          <div>Caricamento programma…</div>
+        </div>
+        <div id="conv-content"></div>
       </div>
-      <div id="conv-loading" class="loading" style="display:none">
-        <div class="spinner" style="border-top-color:#f0a500"></div>
-        <div style="color:rgba(255,255,255,0.6)">Caricamento programma...</div>
+
+      <!-- SPONSOR -->
+      <div class="sponsor-outer">
+        <img src="./sponsor.jpg" alt="Sponsor XVI Convegno Interregionale Giovani ANCE Area Nord 2026">
       </div>
-
-      <div id="conv-content"></div>
     </div>
+  </section>
 
-    <!-- SPONSOR -->
-    <div class="conv-outer" style="padding:0 20px;">
-      <img src="./sponsor.jpg" alt="Sponsor XVI Convegno" style="width:100%; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.3);">
-    </div>
-
-  </div>
-</section>
-
-  
-  <!-- PROGRAMMA -->
-
+  <!-- AGENDA -->
   <section class="section" id="sec-programma">
     <div class="prog-outer">
-      <div style="text-align:center; padding: 10px 20px 0;">
-        <div class="hero-card" style="display:inline-block; margin-bottom:10px;">
-          <h1>XVI Convegno Interregionale</h1>
-          <div class="date">Ottobre 2026</div>
-        </div>
+      <div class="section-header-card">
+        <h1>XVI Convegno Interregionale</h1>
+        <div class="date">22–23 Ottobre 2026</div>
       </div>
       <div class="prog-inner">
-
-
-    <div class="day-switcher">
-      <button class="day-btn active" onclick="switchDay(0)">📅 Giovedì 22 Ottobre</button>
-      <button class="day-btn" onclick="switchDay(1)">📅 Venerdì 23 Ottobre</button>
-    </div>
-
-    <!-- GIORNO 1 -->
-    <div class="day-content active" id="day-0">
-      <div id="prog-day1-loading" class="loading">
-        <div class="spinner"></div>
-        <div>Caricamento programma in corso...</div>
-      </div>
-      <div id="prog-day1-content" style="display:none"></div>
-      <div id="prog-day1-error" style="display:none" class="error-msg">
-        ⚠️ Impossibile caricare il programma. <a href="#" onclick="loadDay1()">Riprova</a> o controlla la
-        connessione.
-      </div>
-
-      <!-- MAPPA GIORNO 17 -->
-      <div class="map-block">
-        <div class="map-block-title">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
-          </svg>
-          Mappa Sedi · Giovedì 22 Ottobre
+        <div class="day-switcher" role="tablist" aria-label="Seleziona giorno">
+          <button class="day-btn active" role="tab" aria-selected="true" onclick="switchDay(0)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            Giovedì 22 Ottobre
+          </button>
+          <button class="day-btn" role="tab" aria-selected="false" onclick="switchDay(1)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            Venerdì 23 Ottobre
+          </button>
         </div>
-        <div class="map-wrapper">
-          <iframe src="https://www.google.com/maps/d/embed?mid=1r3FGUqXm3C6HQ57PoQkff5eJtrxNBkU&ehbc=2E312F" allowfullscreen loading="lazy"></iframe>
+
+        <!-- DAY 1 -->
+        <div class="day-content active" id="day-0">
+          <div id="prog-day1-loading" class="loading">
+            <div class="skeleton-wrap">
+              <div class="skeleton-row"><div class="skeleton-block time"></div><div class="skeleton-block body"></div></div>
+              <div class="skeleton-row"><div class="skeleton-block time"></div><div class="skeleton-block body"></div></div>
+              <div class="skeleton-row"><div class="skeleton-block time"></div><div class="skeleton-block body"></div></div>
+              <div class="skeleton-row"><div class="skeleton-block time"></div><div class="skeleton-block body"></div></div>
+              <div class="skeleton-row"><div class="skeleton-block time"></div><div class="skeleton-block body"></div></div>
+            </div>
+          </div>
+          <div id="prog-day1-content" style="display:none"></div>
+          <div id="prog-day1-error" style="display:none" class="error-msg">
+            Impossibile caricare il programma. <a href="#" onclick="loadDay1()">Riprova</a>
+          </div>
+          <div class="map-block">
+            <div class="map-block-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+              Mappa Sedi · Giovedì 22 Ottobre
+            </div>
+            <div class="map-wrapper">
+              <iframe src="https://www.google.com/maps/d/embed?mid=1r3FGUqXm3C6HQ57PoQkff5eJtrxNBkU&ehbc=2E312F" allowfullscreen loading="lazy" title="Mappa sedi Giovedì 22 Ottobre"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- DAY 2 -->
+        <div class="day-content" id="day-1">
+          <div id="prog-day2-loading" class="loading" style="display:none">
+            <div class="skeleton-wrap">
+              <div class="skeleton-row"><div class="skeleton-block time"></div><div class="skeleton-block body"></div></div>
+              <div class="skeleton-row"><div class="skeleton-block time"></div><div class="skeleton-block body"></div></div>
+              <div class="skeleton-row"><div class="skeleton-block time"></div><div class="skeleton-block body"></div></div>
+              <div class="skeleton-row"><div class="skeleton-block time"></div><div class="skeleton-block body"></div></div>
+              <div class="skeleton-row"><div class="skeleton-block time"></div><div class="skeleton-block body"></div></div>
+            </div>
+          </div>
+          <div id="prog-day2-content" style="display:none"></div>
+          <div id="prog-day2-error" style="display:none" class="error-msg">
+            Impossibile caricare il programma. <a href="#" onclick="loadDay2()">Riprova</a>
+          </div>
+          <div class="map-block">
+            <div class="map-block-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+              Mappa Sedi · Venerdì 23 Ottobre
+            </div>
+            <div class="map-wrapper">
+              <iframe src="https://www.google.com/maps/d/embed?mid=11Sk2siTSAbbkAQq4R9luZZ655pITSyc&ehbc=2E312F" allowfullscreen loading="lazy" title="Mappa sedi Venerdì 23 Ottobre"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box">
+          Il programma è aggiornato in tempo reale dalla segreteria organizzativa.<br>
+          Per informazioni: <a href="mailto:info@ancepiemonte.it">info@ancepiemonte.it</a>
         </div>
       </div>
     </div>
-
-    <!-- GIORNO 2 -->
-    <div class="day-content" id="day-1">
-      <div id="prog-day2-loading" class="loading" style="display:none">
-        <div class="spinner"></div>
-        <div>Caricamento programma in corso...</div>
-      </div>
-      <div id="prog-day2-content" style="display:none"></div>
-      <div id="prog-day2-error" style="display:none" class="error-msg">
-        ⚠️ Impossibile caricare il programma. <a href="#" onclick="loadDay2()">Riprova</a>
-      </div>
-
-      <!-- MAPPA GIORNO 18 -->
-      <div class="map-block">
-        <div class="map-block-title">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
-          </svg>
-          Mappa Sedi · Venerdì 23 Ottobre
-        </div>
-        <div class="map-wrapper">
-          <iframe src="https://www.google.com/maps/d/embed?mid=11Sk2siTSAbbkAQq4R9luZZ655pITSyc&ehbc=2E312F" allowfullscreen loading="lazy"></iframe>
-        </div>
-      </div>
-    </div>
-
-    <div class="info-box">
-      📝 Il programma è aggiornato in tempo reale dalla segreteria organizzativa.<br>
-      Per informazioni: <a href="mailto:info@ancepiemonte.it">info@ancepiemonte.it</a>
-    </div>
-  </div>
-</div>
-
-
   </section>
 
   <!-- HOTEL -->
-
   <section class="section" id="sec-hotel">
     <div class="prog-outer">
-      <div style="text-align:center; padding: 10px 20px 0;">
-        <div class="hero-card" style="display:inline-block; margin-bottom:10px;">
-          <h1>XVI Convegno Interregionale</h1>
-          <div class="date">22-23 Ottobre 2026</div>
-          <div class="time"> </div>
-        </div>
+      <div class="section-header-card">
+        <h1>XVI Convegno Interregionale</h1>
+        <div class="date">22–23 Ottobre 2026</div>
       </div>
       <div class="prog-inner">
         <div class="section-divider">
-          <h2>🏨 Hotel Convenzionati</h2>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="color:var(--gold);flex-shrink:0">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <h2>Hotel Convenzionati</h2>
           <div class="line"></div>
         </div>
         <div id="hotel-loading" class="loading">
-          <div class="spinner"></div>
-          <div>Caricamento hotel...</div>
+          <div class="skeleton-wrap">
+            <div class="skeleton-row"><div class="skeleton-block time"></div><div class="skeleton-block body"></div></div>
+            <div class="skeleton-row"><div class="skeleton-block time"></div><div class="skeleton-block body"></div></div>
+            <div class="skeleton-row"><div class="skeleton-block time"></div><div class="skeleton-block body"></div></div>
+            <div class="skeleton-row"><div class="skeleton-block time"></div><div class="skeleton-block body"></div></div>
+            <div class="skeleton-row"><div class="skeleton-block time"></div><div class="skeleton-block body"></div></div>
+          </div>
         </div>
         <div id="hotel-content" style="display:none"></div>
         <div id="hotel-error" style="display:none" class="error-msg">
-          ⚠️ Impossibile caricare gli hotel. <a href="#" onclick="loadHotel()">Riprova</a>
+          Impossibile caricare gli hotel. <a href="#" onclick="loadHotel()">Riprova</a>
         </div>
         <div class="info-box">
-          📝 Tariffe convenzionate riservate ai partecipanti al Convegno.<br>
+          Tariffe convenzionate riservate ai partecipanti al Convegno.<br>
           Per informazioni: <a href="mailto:info@ancepiemonte.it">info@ancepiemonte.it</a>
         </div>
       </div>
@@ -1267,24 +1019,17 @@ footer {
   </section>
 
   <!-- ISCRIZIONI -->
-
   <section class="section" id="sec-iscrizioni">
     <div class="iscr-outer">
-      <div style="text-align:center; padding: 10px 20px 0;">
-        <div class="hero-card" style="display:inline-block; margin-bottom:24px;">
-          <h1>XVI Convegno Interregionale</h1>
-          <div class="date">Ottobre 2026</div>
-        </div>
+      <div class="section-header-card">
+        <h1>XVI Convegno Interregionale</h1>
+        <div class="date">22–23 Ottobre 2026</div>
       </div>
-      <div style="max-width:800px; margin:0 auto;">
+      <div class="iscr-frame-wrap">
         <iframe
           src="https://docs.google.com/forms/d/e/1FAIpQLSebPwgp_FCgh7cv2G0vcSj5x2IYTMLUdM8F04iId3GDgFit3w/viewform?embedded=true"
-          width="100%"
-          height="2400"
-          frameborder="0"
-          marginheight="0"
-          marginwidth="0"
-          style="border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+          width="100%" height="2400"
+          title="Modulo di iscrizione XVI Convegno">
           Caricamento…
         </iframe>
       </div>
@@ -1292,15 +1037,28 @@ footer {
   </section>
 
   <!-- FOOTER -->
-
   <footer>
-    <p style="font-size:14px;font-weight:700;color:white;margin-bottom:6px">XVI Convegno Interregionale Giovani ANCE –
-      Area Nord 2026</p>
-    <p>Liguria · Lombardia · Piemonte e Valle d'Aosta · Veneto · Friuli-Venezia Giulia</p>
-    <p style="margin-top:10px"><a href="#" style="color:rgba(255,255,255,0.4)">Privacy Policy</a> &nbsp;·&nbsp; <a
-        href="mailto:info@ancepiemonte.it" style="color:rgba(255,255,255,0.4)">Contatti</a></p>
-    <p style="margin-top:8px;font-size:11px;opacity:0.3">© 2026 ANCE Giovani Area Nord</p>
+    <div class="footer-title">XVI Convegno Interregionale Giovani ANCE – Area Nord 2026</div>
+    <div class="footer-regions">Liguria · Lombardia · Piemonte e Valle d'Aosta · Veneto · Friuli-Venezia Giulia</div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      &nbsp;·&nbsp;
+      <a href="mailto:info@ancepiemonte.it">Contatti</a>
+    </div>
+    <div class="footer-copy">© 2026 ANCE Giovani Area Nord</div>
   </footer>
+
+  <!-- RADIO PLAYER -->
+  <div id="radio-player" role="complementary" aria-label="Radio Sonic Universe">
+    <div class="radio-label">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+      </svg>
+      Sonic Universe
+    </div>
+    <audio id="radio" src="https://ice1.somafm.com/sonicuniverse-128-mp3" preload="none"></audio>
+    <button onclick="toggleRadio()" id="radio-btn" aria-label="Riproduci/Pausa radio">&#9654; Play</button>
+  </div>
 
   <script>
     const CONFIG = {
@@ -1309,15 +1067,9 @@ footer {
       SHEET_HOTEL_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQljS8QNjErNTU22R5ounyBCqMxqKC2zzWyRF0u3oSZjD-Q3f3A7f71a-XyejpSJLtj2AKPxXeonDVF/pub?gid=1644608335&single=true&output=csv',
       SHEET_CONVEGNO_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQljS8QNjErNTU22R5ounyBCqMxqKC2zzWyRF0u3oSZjD-Q3f3A7f71a-XyejpSJLtj2AKPxXeonDVF/pub?gid=1930481779&single=true&output=csv',
       FORM_URL: 'https://script.google.com/macros/s/AKfycbzn35WWpFhZlTX4kGJGGahr0R32Fs0FvjGCQhKV8cvbz8Jx5OQeMYn9ycs0u2Ei_C69pg/exec',
-      PREZZI: {
-        hotel_victoria: 180,
-        hotel_sitea: 220,
-        cena17: 80,
-        cena18: 90,
-      }
+      PREZZI: { hotel_victoria: 180, hotel_sitea: 220, cena17: 80, cena18: 90 }
     };
 
-    // NAVIGAZIONE
     function showSection(name) {
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
@@ -1335,50 +1087,37 @@ footer {
       if (idx === 1) loadDay2();
     }
 
-    // PARSER CSV
     function parseCSV(csv) {
       const lines = csv.split('\n').filter(l => l.trim());
       return lines.slice(1).map(line => {
         const cols = [];
-        let current = '';
-        let inQuotes = false;
+        let current = '', inQuotes = false;
         for (let i = 0; i < line.length; i++) {
           const ch = line[i];
-          if (ch === '"') {
-            inQuotes = !inQuotes;
-          } else if (ch === ',' && !inQuotes) {
-            cols.push(current.trim());
-            current = '';
-          } else {
-            current += ch;
-          }
+          if (ch === '"') { inQuotes = !inQuotes; }
+          else if (ch === ',' && !inQuotes) { cols.push(current.trim()); current = ''; }
+          else { current += ch; }
         }
         cols.push(current.trim());
         return cols;
       }).filter(r => r[0]);
     }
 
-    // CARICAMENTO PROGRAMMA
-    let day1Loaded = false;
-    let day2Loaded = false;
+    let day1Loaded = false, day2Loaded = false;
 
     async function loadDay1() {
       if (day1Loaded) return;
       document.getElementById('prog-day1-loading').style.display = 'block';
       document.getElementById('prog-day1-content').style.display = 'none';
       document.getElementById('prog-day1-error').style.display = 'none';
-
       if (CONFIG.SHEET_DAY1_URL.includes('YOUR_SHEET_ID')) {
         renderProg('prog-day1-content', 'prog-day1-loading', 'prog-day1-error', getDemoDay1());
-        day1Loaded = true;
-        return;
+        day1Loaded = true; return;
       }
-
       try {
         const r = await fetch(CONFIG.SHEET_DAY1_URL);
         const csv = await r.text();
-        const rows = parseCSV(csv);
-        renderProg('prog-day1-content', 'prog-day1-loading', 'prog-day1-error', rows);
+        renderProg('prog-day1-content', 'prog-day1-loading', 'prog-day1-error', parseCSV(csv));
         day1Loaded = true;
       } catch (e) {
         document.getElementById('prog-day1-loading').style.display = 'none';
@@ -1391,18 +1130,14 @@ footer {
       document.getElementById('prog-day2-loading').style.display = 'block';
       document.getElementById('prog-day2-content').style.display = 'none';
       document.getElementById('prog-day2-error').style.display = 'none';
-
       if (CONFIG.SHEET_DAY2_URL.includes('YOUR_SHEET_ID')) {
         renderProg('prog-day2-content', 'prog-day2-loading', 'prog-day2-error', getDemoDay2());
-        day2Loaded = true;
-        return;
+        day2Loaded = true; return;
       }
-
       try {
         const r = await fetch(CONFIG.SHEET_DAY2_URL);
         const csv = await r.text();
-        const rows = parseCSV(csv);
-        renderProg('prog-day2-content', 'prog-day2-loading', 'prog-day2-error', rows);
+        renderProg('prog-day2-content', 'prog-day2-loading', 'prog-day2-error', parseCSV(csv));
         day2Loaded = true;
       } catch (e) {
         document.getElementById('prog-day2-loading').style.display = 'none';
@@ -1410,68 +1145,46 @@ footer {
       }
     }
 
-    const BLOCK_ICONS = { 'MATTINA': '🌅', 'POMERIGGIO': '☀️', 'SERA': '🌙' };
+    const BLOCK_ICONS  = { 'MATTINA': '🌅', 'POMERIGGIO': '☀️', 'SERA': '🌙' };
     const BLOCK_LABELS = { 'MATTINA': 'Mattina', 'POMERIGGIO': 'Pomeriggio', 'SERA': 'Sera' };
 
     function renderProg(contentId, loadingId, errorId, rows) {
       document.getElementById(loadingId).style.display = 'none';
-
-      const blocks = {};
-      const blockOrder = [];
+      const blocks = {}, blockOrder = [];
       rows.forEach(r => {
         const block = (r[6] || 'ALTRO').toUpperCase().trim();
         if (!blocks[block]) { blocks[block] = []; blockOrder.push(block); }
         blocks[block].push(r);
       });
-
       let html = '';
       blockOrder.forEach(block => {
         const icon = BLOCK_ICONS[block] || '📌';
         const label = BLOCK_LABELS[block] || block;
-        html += `<div class="prog-block">
-      <div class="prog-block-title">${icon} ${label}</div>
-      <div class="prog-rows">`;
-
+        html += `<div class="prog-block"><div class="prog-block-title">${icon} ${label}</div><div class="prog-rows">`;
         blocks[block].forEach(r => {
-          const [orario, titolo, luogo, mapLink, note, badge, _block] = r;
+          const [orario, titolo, luogo, mapLink, note, badge] = r;
           const badgeHtml = badge ? getBadgeHtml(badge) : '';
           const luogoHtml = luogo ? (mapLink
-            ? `<div class="location"><a href="${mapLink}" target="_blank">📍 ${luogo}</a></div>`
-            : `<div class="location"><span style="color:#555;font-size:12px">📍 ${luogo}</span></div>`) : '';
+            ? `<div class="location"><a href="${mapLink}" target="_blank" rel="noopener">📍 ${luogo}</a></div>`
+            : `<div class="location"><span>📍 ${luogo}</span></div>`) : '';
           const noteHtml = note ? `<div class="note">${note}</div>` : '';
-
-          html += `<div class="prog-row">
-        <div class="prog-time">${orario}</div>
-        <div class="prog-content">
-          <div class="title">${titolo}${badgeHtml}</div>
-          ${luogoHtml}${noteHtml}
-        </div>
-      </div>`;
+          html += `<div class="prog-row"><div class="prog-time">${orario}</div><div class="prog-content"><div class="title">${titolo}${badgeHtml}</div>${luogoHtml}${noteHtml}</div></div>`;
         });
-
         html += `</div></div>`;
       });
-
       const el = document.getElementById(contentId);
-      el.innerHTML = html;
-      el.style.display = 'block';
+      el.innerHTML = html; el.style.display = 'block';
     }
 
     function getBadgeHtml(badge) {
       if (!badge) return '';
       const b = badge.toUpperCase().trim();
       if (['MATTINA', 'POMERIGGIO', 'SERA', 'ALTRO'].includes(b)) return '';
-
-      if (b.includes('PERSON') || /\d+\s*P/i.test(b)) {
-        return `<span class="prog-badge badge-p">${badge}</span>`;
-      }
-      if (b.includes('CONVEGNO') || b.includes('INCLUSO')) {
-        return `<span class="prog-badge badge-c">${badge}</span>`;
-      }
+      if (b.includes('PERSON') || /\d+\s*P/i.test(b)) return `<span class="prog-badge badge-p">${badge}</span>`;
+      if (b.includes('CONVEGNO') || b.includes('INCLUSO')) return `<span class="prog-badge badge-c">${badge}</span>`;
       return `<span class="prog-badge badge-p">${badge}</span>`;
     }
 
-    // CARICAMENTO HOTEL
     let hotelLoaded = false;
 
     async function loadHotel() {
@@ -1479,17 +1192,12 @@ footer {
       document.getElementById('hotel-loading').style.display = 'block';
       document.getElementById('hotel-content').style.display = 'none';
       document.getElementById('hotel-error').style.display = 'none';
-
       try {
-        const url = CONFIG.SHEET_HOTEL_URL + '&t=' + Date.now();
-        const r = await fetch(url);
+        const r = await fetch(CONFIG.SHEET_HOTEL_URL + '&t=' + Date.now());
         if (!r.ok) throw new Error('HTTP ' + r.status);
-        const csv = await r.text();
-        const rows = parseCSV(csv);
-        renderHotel(rows);
+        renderHotel(parseCSV(await r.text()));
         hotelLoaded = true;
       } catch (e) {
-        console.error('Errore caricamento hotel:', e);
         document.getElementById('hotel-loading').style.display = 'none';
         document.getElementById('hotel-error').style.display = 'block';
       }
@@ -1497,111 +1205,88 @@ footer {
 
     function renderHotel(rows) {
       document.getElementById('hotel-loading').style.display = 'none';
-
       if (!rows || rows.length === 0) {
-        document.getElementById('hotel-content').innerHTML = '<div style="text-align:center;color:#888;padding:40px;">Nessun hotel disponibile al momento</div>';
+        document.getElementById('hotel-content').innerHTML = '<div style="text-align:center;color:rgba(255,255,255,0.5);padding:40px;">Nessun hotel disponibile al momento</div>';
         document.getElementById('hotel-content').style.display = 'block';
         return;
       }
-
-      const groups = {};
-      const groupOrder = [];
+      const groups = {}, groupOrder = [];
       rows.forEach(r => {
         const nome = (r[0] || '').trim();
         if (!nome) return;
         if (!groups[nome]) { groups[nome] = []; groupOrder.push(nome); }
         groups[nome].push(r);
       });
-
       let html = '';
-
       groupOrder.forEach(nome => {
         const righe = groups[nome];
         const prima = righe[0];
-        const stelle = parseInt(prima[1]) || 0;
-        const stelleStr = '★'.repeat(stelle);
+        const stelleStr = '★'.repeat(parseInt(prima[1]) || 0);
         const indirizzo = prima[2] || '';
         const linkHotel = righe[0][14] || '';
-
-        const bookBtn = linkHotel ? `<a href="${linkHotel}" target="_blank" class="hotel-book-btn">BOOK ➡️ Download & Invia il Modulo</a>` : '';
+        const bookBtn = linkHotel ? `<a href="${linkHotel}" target="_blank" rel="noopener" class="hotel-book-btn">Download &amp; Invia Modulo</a>` : '';
         html += `<div class="hotel-group-title">${nome} <span class="hotel-stelle">${stelleStr}</span>${bookBtn}</div>`;
         const contatto = righe[0][12] || '';
         const linkMaps = righe[0][13] || '';
-        const indirizzoHtml = linkMaps ? `<a href="${linkMaps}" target="_blank" style="color:#1e3a5f;text-decoration:none;font-weight:600">📍 ${indirizzo}</a>` : `📍 ${indirizzo}`;
-        const contattoHtml = contatto ? ` · <span style="color:#555">${contatto}</span>` : '';
-        html += `<div style="font-size:12px;color:#777;margin:-8px 0 12px;">${indirizzoHtml}${contattoHtml}</div>`;
+        const indirizzoHtml = linkMaps
+          ? `<a href="${linkMaps}" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.5);text-decoration:none;font-weight:600">📍 ${indirizzo}</a>`
+          : `📍 ${indirizzo}`;
+        const contattoHtml = contatto ? ` · ${contatto}` : '';
+        html += `<div style="font-size:12px;color:rgba(255,255,255,0.5);margin:-8px 0 12px;">${indirizzoHtml}${contattoHtml}</div>`;
         righe.forEach(r => {
-          const [, , , camere, prezzo, notti, tassa, totale, opzione, cancellazione, note, linkDoc] = r;
-
+          const [,,, camere, prezzo, notti, tassa, totale, opzione, cancellazione, note, linkDoc] = r;
           const linkDocStr = (linkDoc || '').toUpperCase();
           let tagHtml = '';
-          if (linkDocStr.includes('ASSOCIAZIONE')) {
-            tagHtml = '<span class="hotel-tag associazione">CONSIGLIO NAZIONALE</span>';
-          } else if (linkDocStr.includes('PARTECIPANTE')) {
-            tagHtml = '<span class="hotel-tag partecipante">A CARICO del PARTECIPANTE</span>';
-          }
-
+          if (linkDocStr.includes('ASSOCIAZIONE')) tagHtml = '<span class="hotel-tag associazione">CONSIGLIO NAZIONALE</span>';
+          else if (linkDocStr.includes('PARTECIPANTE')) tagHtml = '<span class="hotel-tag partecipante">A CARICO del PARTECIPANTE</span>';
           const noteHtml = note ? `<div class="hotel-note">${note}</div>` : '';
           const cancHtml = cancellazione ? `<span>🔄 ${cancellazione}</span>` : '';
           const opzHtml = opzione ? `<span>📋 ${opzione}</span>` : '';
-
           html += `<div class="hotel-card">
             <div class="hotel-info">
               <div class="hotel-dettagli">
-                <span>🛏️ <strong>${camere || ''}</strong></span>
-                <span>🌙 ${notti || ''} notti</span>
-                <span>💰 ${prezzo || ''}/notte</span>
-                <span>🏷️ Tassa: ${tassa || ''}/notte</span>
-                ${cancHtml}
-                ${opzHtml}
+                <span>🛏️ <strong>${camere||''}</strong></span>
+                <span>🌙 ${notti||''} notti</span>
+                <span>💰 ${prezzo||''}/notte</span>
+                <span>🏷️ Tassa: ${tassa||''}/notte</span>
+                ${cancHtml}${opzHtml}
               </div>
-              ${noteHtml}
-              ${tagHtml}
+              ${noteHtml}${tagHtml}
             </div>
-            <div class="hotel-prezzo">
-              ${totale || ''}
-              <small>totale 2 notti + tassa</small>
-            </div>
+            <div class="hotel-prezzo">${totale||''}<small>totale 2 notti + tassa</small></div>
           </div>`;
         });
       });
-
       const el = document.getElementById('hotel-content');
-      el.innerHTML = html;
-      el.style.display = 'block';
+      el.innerHTML = html; el.style.display = 'block';
     }
 
-    // DATI DEMO
     function getDemoDay1() {
       return [
-        ['Ore 13:00', 'Navetta da Aeroporto TRN agli Hotels', 'Aeroporto Torino Caselle', 'https://maps.google.com/?q=Aeroporto+Torino+Caselle', 'Arrivo autonomo nella mattinata', '', 'MATTINA'],
-        ['Ore 13:00', 'Navetta da Porta Nuova agli Hotels', 'Stazione Porta Nuova, Torino', 'https://maps.google.com/?q=Stazione+Porta+Nuova+Torino', '', '', 'MATTINA'],
-        ['Hotels', 'Sistemazione in hotel', 'Hotel Victoria – Via N. Costa 4 / Grand Hotel Sitea – Via Carlo Alberto 35', '', '', '', 'MATTINA'],
-        ['15:00–17:00', 'Consiglio ANCE', 'Grattacielo Regione Piemonte – Piazza Piemonte 1, Torino', 'https://maps.google.com/?q=Grattacielo+Regione+Piemonte+Torino', '', '20 persone', 'POMERIGGIO'],
-        ['20:15–23:00', 'Cena Ristorante Arcadia', 'Galleria Subalpina, 16, 10123 Torino', 'https://maps.google.com/?q=Galleria+Subalpina+16+Torino', '', '40 persone', 'SERA'],
+        ['Ore 13:00','Navetta da Aeroporto TRN agli Hotels','Aeroporto Torino Caselle','https://maps.google.com/?q=Aeroporto+Torino+Caselle','Arrivo autonomo nella mattinata','','MATTINA'],
+        ['Ore 13:00','Navetta da Porta Nuova agli Hotels','Stazione Porta Nuova, Torino','https://maps.google.com/?q=Stazione+Porta+Nuova+Torino','','','MATTINA'],
+        ['Hotels','Sistemazione in hotel','Hotel Victoria – Via N. Costa 4 / Grand Hotel Sitea – Via Carlo Alberto 35','','','','MATTINA'],
+        ['15:00–17:00','Consiglio ANCE','Grattacielo Regione Piemonte – Piazza Piemonte 1, Torino','https://maps.google.com/?q=Grattacielo+Regione+Piemonte+Torino','','20 persone','POMERIGGIO'],
+        ['20:15–23:00','Cena Ristorante Arcadia','Galleria Subalpina, 16, 10123 Torino','https://maps.google.com/?q=Galleria+Subalpina+16+Torino','','40 persone','SERA'],
       ];
     }
 
     function getDemoDay2() {
       return [
-        ['Ore 10:00', 'Consiglio ANCE Giovani Allargato', 'CAMERA – Centro Italiano per la Fotografia, Via delle Rosine 18, Torino', 'https://maps.google.com/?q=CAMERA+Via+delle+Rosine+18+Torino', '', '80 persone', 'MATTINA'],
-        ['Ore 13:00', 'Buffet', 'CAMERA – Centro Italiano per la Fotografia', 'https://maps.google.com/?q=CAMERA+Via+delle+Rosine+18+Torino', '', '', 'MATTINA'],
-        ['14:30–17:00', "Costruire Bellezza: Edilizia e Turismo per la Valorizzazione dei Territori dell'Italia Settentrionale", 'NH Collection Torino Piazza Carlina – Piazza Carlo Emanuele II, 15', 'https://maps.google.com/?q=NH+Collection+Torino+Piazza+Carlina', '', '100 persone', 'POMERIGGIO'],
-        ['Ore 20:00', 'Aperitivo', 'NH Collection Torino Piazza Carlina', 'https://maps.google.com/?q=NH+Collection+Torino+Piazza+Carlina', '', '100 persone', 'SERA'],
-        ['20:30–23:00', 'Cena', 'NH Collection Torino Piazza Carlina', 'https://maps.google.com/?q=NH+Collection+Torino+Piazza+Carlina', '', '100 persone', 'SERA'],
+        ['Ore 10:00','Consiglio ANCE Giovani Allargato','CAMERA – Centro Italiano per la Fotografia, Via delle Rosine 18, Torino','https://maps.google.com/?q=CAMERA+Via+delle+Rosine+18+Torino','','80 persone','MATTINA'],
+        ['Ore 13:00','Buffet','CAMERA – Centro Italiano per la Fotografia','https://maps.google.com/?q=CAMERA+Via+delle+Rosine+18+Torino','','','MATTINA'],
+        ['14:30–17:00',"Costruire Bellezza: Edilizia e Turismo per la Valorizzazione dei Territori dell'Italia Settentrionale",'NH Collection Torino Piazza Carlina – Piazza Carlo Emanuele II, 15','https://maps.google.com/?q=NH+Collection+Torino+Piazza+Carlina','','100 persone','POMERIGGIO'],
+        ['Ore 20:00','Aperitivo','NH Collection Torino Piazza Carlina','https://maps.google.com/?q=NH+Collection+Torino+Piazza+Carlina','','100 persone','SERA'],
+        ['20:30–23:00','Cena','NH Collection Torino Piazza Carlina','https://maps.google.com/?q=NH+Collection+Torino+Piazza+Carlina','','100 persone','SERA'],
       ];
     }
 
-    // PROGRAMMA CONVEGNO (Home)
     async function loadConvegno() {
       document.getElementById('conv-loading').style.display = 'block';
       document.getElementById('conv-content').innerHTML = '';
-
       try {
         const r = await fetch(CONFIG.SHEET_CONVEGNO_URL);
-        const csv = await r.text();
-        const rows = parseCSV(csv);
-        renderConvegno(rows);
+        renderConvegno(parseCSV(await r.text()));
       } catch (e) {
         document.getElementById('conv-loading').style.display = 'none';
         document.getElementById('conv-content').innerHTML = '<div style="text-align:center;color:rgba(255,255,255,0.4);font-size:12px;padding:20px;">Programma in fase di definizione</div>';
@@ -1610,74 +1295,64 @@ footer {
 
     function renderConvegno(rows) {
       document.getElementById('conv-loading').style.display = 'none';
-
       if (!rows || rows.length === 0) {
         document.getElementById('conv-content').innerHTML = '<div style="text-align:center;color:rgba(255,255,255,0.4);font-size:12px;padding:20px;">Programma in fase di definizione</div>';
         return;
       }
-
       let html = '<div class="conv-table">';
-
       rows.forEach(r => {
         const [ora, sessione, titolo, relatore, ruolo] = r;
-        const tipoClass = 'tipo-' + (sessione || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-
-        const relatoreHtml = relatore ? `<div class="conv-relatore">${relatore}</div>` : '';
-        const ruoloHtml = ruolo ? `<div class="conv-ruolo">${ruolo}</div>` : '';
-
+        const tipoClass = 'tipo-' + (sessione||'').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
         html += `<div class="conv-row ${tipoClass}">
-          <div class="conv-ora">${ora || ''}</div>
+          <div class="conv-ora">${ora||''}</div>
           <div class="conv-detail">
-            <div class="conv-sessione">${sessione || ''}</div>
-            <div class="conv-titolo">${titolo || ''}</div>
-            ${relatoreHtml}
-            ${ruoloHtml}
+            <div class="conv-sessione">${sessione||''}</div>
+            <div class="conv-titolo">${titolo||''}</div>
+            ${relatore ? `<div class="conv-relatore">${relatore}</div>` : ''}
+            ${ruolo ? `<div class="conv-ruolo">${ruolo}</div>` : ''}
           </div>
         </div>`;
       });
-
       html += '</div>';
       document.getElementById('conv-content').innerHTML = html;
     }
-    
+
+    function toggleRadio() {
+      const audio = document.getElementById('radio');
+      const btn = document.getElementById('radio-btn');
+      if (audio.paused) { audio.play(); btn.textContent = '⏸ Pausa'; }
+      else { audio.pause(); btn.textContent = '▶ Play'; }
+    }
+
     loadDay1();
     loadConvegno();
+
+    function updateCountdown() {
+      const el = document.getElementById('countdown');
+      if (!el) return;
+      const event = new Date('2026-10-23T14:30:00+02:00');
+      const now = new Date();
+      const diff = event - now;
+      if (diff <= 0) {
+        el.innerHTML = '<span class="cd-num" style="font-size:22px">L\'evento è in corso!</span>';
+        return;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      el.innerHTML =
+        `<span class="cd-num">${d}</span><span class="cd-lbl">giorni</span>` +
+        `<span class="cd-sep">:</span>` +
+        `<span class="cd-num">${String(h).padStart(2,'0')}</span><span class="cd-lbl">ore</span>` +
+        `<span class="cd-sep">:</span>` +
+        `<span class="cd-num">${String(m).padStart(2,'0')}</span><span class="cd-lbl">min</span>` +
+        `<span class="cd-sep">:</span>` +
+        `<span class="cd-num">${String(s).padStart(2,'0')}</span><span class="cd-lbl">sec</span>`;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
   </script>
-
 </body>
-<div id="radio-player" style="
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #17305a;
-  border: 1px solid #f0a500;
-  border-radius: 8px;
-  padding: 10px 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  z-index: 100;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-">
-  <span style="color:#f0a500; font-size:12px; font-weight:700;">🎷 Sonic Universe</span>
-  <audio id="radio" src="https://ice1.somafm.com/sonicuniverse-128-mp3"></audio>
-  <button onclick="toggleRadio()" id="radio-btn" style="
-    background:#f0a500; border:none; border-radius:4px;
-    color:#fff; font-size:11px; font-weight:700;
-    padding:5px 12px; cursor:pointer;">▶ Play</button>
-</div>
-
-<script>
-function toggleRadio() {
-  const audio = document.getElementById('radio');
-  const btn = document.getElementById('radio-btn');
-  if (audio.paused) {
-    audio.play();
-    btn.textContent = '⏸ Pausa';
-  } else {
-    audio.pause();
-    btn.textContent = '▶ Play';
-  }
-}
-</script>
 </html>
+
