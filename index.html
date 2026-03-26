@@ -72,6 +72,44 @@
     }
 
     /* ── ANIMATED BACKGROUND ── */
+    /* Ethereal Shadows layer */
+    #ethereal-bg {
+      position: fixed; inset: -120px;
+      z-index: -3; pointer-events: none;
+      overflow: hidden;
+    }
+    #ethereal-blob {
+      width: 100%; height: 100%;
+      background:
+        radial-gradient(ellipse 70% 55% at 20% 30%, rgba(26,62,115,0.75) 0%, transparent 70%),
+        radial-gradient(ellipse 55% 65% at 80% 70%, rgba(10,30,70,0.85) 0%, transparent 65%),
+        radial-gradient(ellipse 45% 40% at 50% 10%, rgba(36,82,150,0.5) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 15% 80%, rgba(6,20,48,0.9) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 45% at 85% 20%, rgba(240,165,0,0.06) 0%, transparent 60%);
+      filter: url(#ethereal-filter) blur(6px);
+      will-change: filter;
+    }
+    #ethereal-canvas {
+      position: fixed; inset: 0; z-index: -2;
+      pointer-events: none; opacity: 0.6;
+    }
+
+    /* Spotlight card effect */
+    .spotlight-target {
+      --sx: 50%; --sy: 50%; --so: 0;
+      position: relative; overflow: hidden;
+    }
+    .spotlight-target::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(600px circle at var(--sx) var(--sy), rgba(240,165,0,0.12), transparent 45%);
+      opacity: var(--so);
+      pointer-events: none;
+      transition: opacity 300ms ease-out;
+      z-index: 1;
+      border-radius: inherit;
+    }
+
     .bg-orb {
       position: fixed;
       border-radius: 50%;
@@ -82,13 +120,13 @@
     }
     .bg-orb-1 {
       width: 900px; height: 900px;
-      background: radial-gradient(circle, rgba(42,74,115,0.5) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(42,74,115,0.45) 0%, transparent 65%);
       top: -25%; left: -20%;
       animation: orb1 28s ease-in-out infinite;
     }
     .bg-orb-2 {
       width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(240,165,0,0.07) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(240,165,0,0.06) 0%, transparent 65%);
       top: 30%; right: -15%;
       animation: orb2 34s ease-in-out infinite;
     }
@@ -100,7 +138,7 @@
     }
     .bg-orb-4 {
       width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(240,165,0,0.05) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(240,165,0,0.04) 0%, transparent 65%);
       top: 60%; left: 5%;
       animation: orb4 38s ease-in-out infinite;
     }
@@ -167,12 +205,12 @@
     .logo-item { display: flex; align-items: center; gap: 10px; }
     .logo-ance {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 24px; font-weight: 700;
-      color: var(--w); letter-spacing: 2px; line-height: 1;
+      font-size: 26px; font-weight: 500;
+      color: var(--w); letter-spacing: 5px; line-height: 1;
     }
     .logo-ance .giovani {
-      display: block; font-size: 11px; font-weight: 700;
-      letter-spacing: 3px; color: var(--gold);
+      display: block; font-size: 13px; font-weight: 700;
+      letter-spacing: 4px; color: var(--gold);
       text-transform: uppercase; text-align: right; margin-top: 3px;
     }
     .logo-divider {
@@ -181,9 +219,9 @@
     }
     .logo-region {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 14px; font-weight: 700;
+      font-size: 18px; font-weight: 700;
       color: var(--w); text-transform: uppercase;
-      letter-spacing: 1.5px; line-height: 1.4;
+      letter-spacing: 2px; line-height: 1.3;
     }
     .logo-sep {
       width: 1px; height: 40px;
@@ -199,10 +237,10 @@
       border-bottom: 2px solid var(--gold);
     }
     .nav-tab {
-      height: 56px; padding: 0 32px;
+      height: 60px; padding: 0 36px;
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 17px; font-weight: 700;
-      letter-spacing: 2px; text-transform: uppercase;
+      font-size: 22px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
       color: var(--w60); background: none; border: none;
       border-bottom: 3px solid transparent;
       margin-bottom: -2px;
@@ -287,7 +325,7 @@
     }
     .countdown-label {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 15px; font-weight: 700;
+      font-size: 10px; font-weight: 700;
       letter-spacing: 2px; color: var(--w30);
       text-transform: uppercase; margin-bottom: 10px;
     }
@@ -304,7 +342,7 @@
     }
     .cd-lbl {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 14px; font-weight: 700;
+      font-size: 9px; font-weight: 700;
       letter-spacing: 1.5px; color: var(--w30);
       text-transform: uppercase; margin-right: 8px;
       align-self: flex-end; margin-bottom: 4px;
@@ -791,6 +829,27 @@
 </head>
 <body>
   <a href="#main-content" class="skip-link">Vai al contenuto principale</a>
+
+  <!-- ETHEREAL SHADOWS BACKGROUND (inspired by 21st.dev) -->
+  <div id="ethereal-bg" aria-hidden="true">
+    <svg style="position:absolute;width:0;height:0">
+      <defs>
+        <filter id="ethereal-filter" x="-20%" y="-20%" width="140%" height="140%">
+          <feTurbulence id="et-turb" type="turbulence" numOctaves="2"
+            baseFrequency="0.0008,0.0020" seed="3" result="undulation"/>
+          <feColorMatrix id="et-hue" in="undulation" type="hueRotate" values="0" result="colored"/>
+          <feColorMatrix in="colored" result="circulation" type="matrix"
+            values="3 0 0 0 0  3 0 0 0 0  4 0 0 0 0  1 0 0 0 0"/>
+          <feDisplacementMap in="SourceGraphic" in2="circulation"
+            scale="60" xChannelSelector="R" yChannelSelector="G" result="dist"/>
+          <feDisplacementMap in="dist" in2="undulation" scale="40"
+            xChannelSelector="G" yChannelSelector="B"/>
+        </filter>
+      </defs>
+    </svg>
+    <div id="ethereal-blob"></div>
+  </div>
+  <canvas id="ethereal-canvas" aria-hidden="true"></canvas>
 
   <!-- ANIMATED BACKGROUND ORBS -->
   <div class="bg-orb bg-orb-1" aria-hidden="true"></div>
@@ -1352,8 +1411,80 @@
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
+
+    /* ── ETHEREAL SHADOWS – hue rotation (inspired by 21st.dev) ── */
+    (function() {
+      const hue = document.getElementById('et-hue');
+      if (!hue) return;
+      let h = 0;
+      function animEthereal() {
+        h = (h + 0.18) % 360;
+        hue.setAttribute('values', String(h));
+        requestAnimationFrame(animEthereal);
+      }
+      animEthereal();
+    })();
+
+    /* ── CANVAS NOISE (film grain) ── */
+    (function() {
+      const canvas = document.getElementById('ethereal-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d', { alpha: true });
+      let frame = 0, animId;
+      const SIZE = 512;
+      function resize() {
+        canvas.width = SIZE; canvas.height = SIZE;
+        canvas.style.width = '100vw'; canvas.style.height = '100vh';
+      }
+      function drawNoise() {
+        const img = ctx.createImageData(SIZE, SIZE);
+        const d = img.data;
+        for (let i = 0; i < d.length; i += 4) {
+          const v = Math.random() * 255;
+          d[i] = v; d[i+1] = v; d[i+2] = v; d[i+3] = 14;
+        }
+        ctx.putImageData(img, 0, 0);
+      }
+      function loop() {
+        if (frame % 3 === 0) drawNoise();
+        frame++;
+        animId = requestAnimationFrame(loop);
+      }
+      window.addEventListener('resize', resize);
+      resize(); loop();
+    })();
+
+    /* ── SPOTLIGHT CARD – mouse tracking ── */
+    (function() {
+      function attachSpotlight(el, color) {
+        el.classList.add('spotlight-target');
+        el.addEventListener('mousemove', function(e) {
+          const r = el.getBoundingClientRect();
+          el.style.setProperty('--sx', (e.clientX - r.left) + 'px');
+          el.style.setProperty('--sy', (e.clientY - r.top) + 'px');
+          el.style.setProperty('--so', '1');
+          if (color) el.style.setProperty('--spotlight-color', color);
+        });
+        el.addEventListener('mouseleave', function() {
+          el.style.setProperty('--so', '0');
+        });
+      }
+      // Hero card – gold spotlight
+      const heroCard = document.querySelector('.hero-card');
+      if (heroCard) attachSpotlight(heroCard, 'rgba(240,165,0,0.13)');
+      // Hotel cards – blue spotlight (applied after render via MutationObserver)
+      function applyHotelSpotlight() {
+        document.querySelectorAll('.hotel-card:not(.spotlight-target)').forEach(function(card) {
+          attachSpotlight(card, 'rgba(60,120,220,0.15)');
+        });
+      }
+      const obs = new MutationObserver(applyHotelSpotlight);
+      const hotelContainer = document.getElementById('hotel-list');
+      if (hotelContainer) obs.observe(hotelContainer, { childList: true, subtree: true });
+    })();
   </script>
 </body>
 </html>
+
 
 
