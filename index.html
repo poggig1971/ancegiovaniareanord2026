@@ -91,7 +91,7 @@
     }
     #ethereal-canvas {
       position: fixed; inset: 0; z-index: -2;
-      pointer-events: none; opacity: 0.6;
+      pointer-events: none; opacity: 0.85;
     }
 
     /* Spotlight card effect */
@@ -102,10 +102,10 @@
     .spotlight-target::after {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(600px circle at var(--sx) var(--sy), rgba(240,165,0,0.12), transparent 45%);
+      background: radial-gradient(900px circle at var(--sx) var(--sy), rgba(240,165,0,0.28), transparent 50%);
       opacity: var(--so);
       pointer-events: none;
-      transition: opacity 300ms ease-out;
+      transition: opacity 200ms ease-out;
       z-index: 1;
       border-radius: inherit;
     }
@@ -122,25 +122,25 @@
       width: 900px; height: 900px;
       background: radial-gradient(circle, rgba(42,74,115,0.45) 0%, transparent 65%);
       top: -25%; left: -20%;
-      animation: orb1 28s ease-in-out infinite;
+      animation: orb1 9s ease-in-out infinite;
     }
     .bg-orb-2 {
       width: 700px; height: 700px;
       background: radial-gradient(circle, rgba(240,165,0,0.06) 0%, transparent 65%);
       top: 30%; right: -15%;
-      animation: orb2 34s ease-in-out infinite;
+      animation: orb2 11s ease-in-out infinite;
     }
     .bg-orb-3 {
       width: 600px; height: 600px;
       background: radial-gradient(circle, rgba(10,25,48,0.75) 0%, transparent 65%);
       bottom: -10%; left: 25%;
-      animation: orb3 22s ease-in-out infinite;
+      animation: orb3 7s ease-in-out infinite;
     }
     .bg-orb-4 {
       width: 400px; height: 400px;
       background: radial-gradient(circle, rgba(240,165,0,0.04) 0%, transparent 65%);
       top: 60%; left: 5%;
-      animation: orb4 38s ease-in-out infinite;
+      animation: orb4 13s ease-in-out infinite;
     }
     @keyframes orb1 {
       0%,100% { transform: translate(0,0) scale(1); }
@@ -205,8 +205,8 @@
     .logo-item { display: flex; align-items: center; gap: 10px; }
     .logo-ance {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 26px; font-weight: 500;
-      color: var(--w); letter-spacing: 5px; line-height: 1;
+      font-size: 26px; font-weight: 700;
+      color: var(--w); letter-spacing: 3px; line-height: 1;
     }
     .logo-ance .giovani {
       display: block; font-size: 13px; font-weight: 700;
@@ -272,16 +272,33 @@
       padding: 48px 20px 72px;
       gap: 32px;
     }
+    @keyframes heroNeonGlow {
+      0%,100% {
+        border-color: rgba(0,120,255,0.55);
+        box-shadow: var(--sd2), inset 0 1px 0 var(--w15),
+          0 0 0 1px rgba(0,120,255,0.35), 0 0 22px rgba(0,180,255,0.25), 0 0 48px rgba(0,100,255,0.12);
+      }
+      33% {
+        border-color: rgba(80,200,255,0.75);
+        box-shadow: var(--sd2), inset 0 1px 0 var(--w15),
+          0 0 0 1px rgba(80,200,255,0.5), 0 0 30px rgba(80,220,255,0.35), 0 0 60px rgba(40,140,255,0.18);
+      }
+      66% {
+        border-color: rgba(220,240,255,0.65);
+        box-shadow: var(--sd2), inset 0 1px 0 var(--w15),
+          0 0 0 1px rgba(200,235,255,0.45), 0 0 18px rgba(180,230,255,0.28), 0 0 40px rgba(100,180,255,0.14);
+      }
+    }
     .hero-card {
       background: var(--glass);
-      border: 1px solid var(--w15);
+      border: 1px solid rgba(0,120,255,0.45);
       border-radius: var(--r16);
       padding: 40px 60px;
       text-align: center;
       max-width: 740px; width: 100%;
       backdrop-filter: blur(18px);
       box-shadow: var(--sd2), inset 0 1px 0 var(--w15);
-      animation: fadeUp .6s 0ms ease-out both;
+      animation: fadeUp .6s 0ms ease-out both, heroNeonGlow 4s .6s ease-in-out infinite;
     }
     @keyframes fadeUp {
       from { opacity:0; transform:translateY(28px); }
@@ -494,9 +511,20 @@
       display: inline-flex; align-items: center; justify-content: center; gap: 6px;
       transition: background var(--med), color var(--med);
     }
+    @keyframes dayNeonGlow {
+      0%,100% { box-shadow: 0 0 0 1px rgba(0,140,255,0.5), 0 0 14px rgba(0,180,255,0.35), 0 0 28px rgba(0,100,255,0.2); }
+      40%     { box-shadow: 0 0 0 1px rgba(80,210,255,0.7), 0 0 20px rgba(80,220,255,0.45), 0 0 40px rgba(40,150,255,0.25); }
+      70%     { box-shadow: 0 0 0 1px rgba(210,240,255,0.6), 0 0 12px rgba(200,235,255,0.35), 0 0 24px rgba(120,200,255,0.18); }
+    }
     .day-btn:hover { color: var(--w); background: var(--w08); }
-    .day-btn.active { background: var(--gold); color: var(--navy); }
-    .day-btn:active { transform: scale(0.97); }
+    .day-btn.active {
+      background: var(--gold); color: var(--navy);
+      animation: dayNeonGlow 3s ease-in-out infinite;
+    }
+    .day-btn:not(.active) {
+      animation: dayNeonGlow 3s .8s ease-in-out infinite;
+    }
+    .day-btn:active { transform: scale(0.97); animation: none; }
 
     .day-content { display: none; }
     .day-content.active { display: block; }
@@ -1418,40 +1446,86 @@
       if (!hue) return;
       let h = 0;
       function animEthereal() {
-        h = (h + 0.18) % 360;
+        h = (h + 0.54) % 360;
         hue.setAttribute('values', String(h));
         requestAnimationFrame(animEthereal);
       }
       animEthereal();
     })();
 
-    /* ── CANVAS NOISE (film grain) ── */
+    /* ── BEAMS BACKGROUND (ported from 21st.dev BeamsBackground – blue tones) ── */
     (function() {
       const canvas = document.getElementById('ethereal-canvas');
       if (!canvas) return;
-      const ctx = canvas.getContext('2d', { alpha: true });
-      let frame = 0, animId;
-      const SIZE = 512;
+      const ctx = canvas.getContext('2d');
+      const BEAM_COUNT = 30;
+      let beams = [];
+
+      function createBeam(w, h) {
+        return {
+          x: Math.random() * w * 1.5 - w * 0.25,
+          y: Math.random() * h * 1.5 - h * 0.25,
+          width: 30 + Math.random() * 70,
+          length: h * 2.5,
+          angle: -35 + Math.random() * 10,
+          speed: 1.05 + Math.random() * 2.25,
+          opacity: 0.13 + Math.random() * 0.18,
+          hue: 200 + Math.random() * 55,
+          pulse: Math.random() * Math.PI * 2,
+          pulseSpeed: 0.018 + Math.random() * 0.025
+        };
+      }
+
+      function resetBeam(beam, i, w, h) {
+        const col = i % 3, spacing = w / 3;
+        beam.y = h + 120;
+        beam.x = col * spacing + spacing / 2 + (Math.random() - 0.5) * spacing * 0.5;
+        beam.width = 70 + Math.random() * 90;
+        beam.speed = 1.05 + Math.random() * 1.65;
+        beam.hue = 200 + (i * 55) / BEAM_COUNT;
+        beam.opacity = 0.12 + Math.random() * 0.18;
+      }
+
+      function drawBeam(beam) {
+        ctx.save();
+        ctx.translate(beam.x, beam.y);
+        ctx.rotate(beam.angle * Math.PI / 180);
+        const po = beam.opacity * (0.8 + Math.sin(beam.pulse) * 0.2);
+        const g = ctx.createLinearGradient(0, 0, 0, beam.length);
+        g.addColorStop(0,   `hsla(${beam.hue},85%,65%,0)`);
+        g.addColorStop(0.1, `hsla(${beam.hue},85%,65%,${po * 0.5})`);
+        g.addColorStop(0.4, `hsla(${beam.hue},85%,65%,${po})`);
+        g.addColorStop(0.6, `hsla(${beam.hue},85%,65%,${po})`);
+        g.addColorStop(0.9, `hsla(${beam.hue},85%,65%,${po * 0.5})`);
+        g.addColorStop(1,   `hsla(${beam.hue},85%,65%,0)`);
+        ctx.fillStyle = g;
+        ctx.fillRect(-beam.width / 2, 0, beam.width, beam.length);
+        ctx.restore();
+      }
+
       function resize() {
-        canvas.width = SIZE; canvas.height = SIZE;
-        canvas.style.width = '100vw'; canvas.style.height = '100vh';
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        canvas.style.width = '100vw';
+        canvas.style.height = '100vh';
+        beams = Array.from({ length: BEAM_COUNT }, () => createBeam(canvas.width, canvas.height));
       }
-      function drawNoise() {
-        const img = ctx.createImageData(SIZE, SIZE);
-        const d = img.data;
-        for (let i = 0; i < d.length; i += 4) {
-          const v = Math.random() * 255;
-          d[i] = v; d[i+1] = v; d[i+2] = v; d[i+3] = 14;
-        }
-        ctx.putImageData(img, 0, 0);
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.filter = 'blur(32px)';
+        beams.forEach(function(beam, i) {
+          beam.y -= beam.speed;
+          beam.pulse += beam.pulseSpeed;
+          if (beam.y + beam.length < -100) resetBeam(beam, i, canvas.width, canvas.height);
+          drawBeam(beam);
+        });
+        requestAnimationFrame(animate);
       }
-      function loop() {
-        if (frame % 3 === 0) drawNoise();
-        frame++;
-        animId = requestAnimationFrame(loop);
-      }
+
       window.addEventListener('resize', resize);
-      resize(); loop();
+      resize();
+      animate();
     })();
 
     /* ── SPOTLIGHT CARD – mouse tracking ── */
@@ -1471,20 +1545,44 @@
       }
       // Hero card – gold spotlight
       const heroCard = document.querySelector('.hero-card');
-      if (heroCard) attachSpotlight(heroCard, 'rgba(240,165,0,0.13)');
+      if (heroCard) attachSpotlight(heroCard, 'rgba(240,165,0,0.28)');
+
+      // Section header cards (Agenda, Hotel, Iscrizioni) – blue-gold spotlight
+      document.querySelectorAll('.section-header-card').forEach(function(card) {
+        attachSpotlight(card, 'rgba(240,165,0,0.22)');
+      });
+
+      // Day switcher container
+      const daySwitcher = document.querySelector('.day-switcher');
+      if (daySwitcher) attachSpotlight(daySwitcher, 'rgba(80,160,255,0.2)');
+
       // Hotel cards – blue spotlight (applied after render via MutationObserver)
       function applyHotelSpotlight() {
         document.querySelectorAll('.hotel-card:not(.spotlight-target)').forEach(function(card) {
-          attachSpotlight(card, 'rgba(60,120,220,0.15)');
+          attachSpotlight(card, 'rgba(60,120,220,0.22)');
         });
       }
       const obs = new MutationObserver(applyHotelSpotlight);
       const hotelContainer = document.getElementById('hotel-list');
       if (hotelContainer) obs.observe(hotelContainer, { childList: true, subtree: true });
+
+      // Program rows – blue spotlight (applied after render)
+      function applyProgSpotlight() {
+        document.querySelectorAll('.prog-row:not(.spotlight-target), .conv-row:not(.spotlight-target)').forEach(function(row) {
+          attachSpotlight(row, 'rgba(80,160,255,0.18)');
+        });
+      }
+      const obsDay1 = new MutationObserver(applyProgSpotlight);
+      const obsDay2 = new MutationObserver(applyProgSpotlight);
+      const day1 = document.getElementById('prog-day1');
+      const day2 = document.getElementById('prog-day2');
+      if (day1) obsDay1.observe(day1, { childList: true, subtree: true });
+      if (day2) obsDay2.observe(day2, { childList: true, subtree: true });
     })();
   </script>
 </body>
 </html>
+
 
 
 
