@@ -865,12 +865,21 @@
 
     /* ── PREFERS REDUCED MOTION ── */
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Mobile: disabilita animazioni pesanti */
+@media (max-width: 768px) {
+  #ethereal-bg, #ethereal-canvas { display: none !important; }
+  .bg-orb { display: none !important; }
+  .hero-card { animation: fadeUp .3s ease-out both !important; }
+  .section.active { animation: none !important; }
+}
+
   </style>
 </head>
 <body>
