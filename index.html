@@ -11,16 +11,16 @@
   <meta property="og:url"          content="https://ancegiovaniareanord2026.vercel.app/" />
   <meta property="og:title"        content="XVI Convegno Interregionale Giovani ANCE – Area Nord 2026" />
   <meta property="og:description"  content="Costruire Bellezza, Generare Futuro · 23 Ottobre 2026 · Torino · CAMERA – Centro Italiano per la Fotografia" />
-  <meta property="og:image"        content="https://ancegiovaniareanord2026.vercel.app/save-the-date.jpg" />
+  <meta property="og:image"        content="https://ancegiovaniareanord2026.vercel.app/save-the-date.jpeg" />
   <meta property="og:image:alt"    content="Save the Date – XVI Convegno Interregionale Giovani ANCE Area Nord 2026" />
   <meta property="og:locale"       content="it_IT" />
   <meta property="og:site_name"    content="ANCE Giovani Area Nord" />
 
-  <!-- Twitter/X Card (funziona anche su altri canali) -->
+  <!-- Twitter/X Card -->
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="XVI Convegno Interregionale Giovani ANCE – Area Nord 2026" />
   <meta name="twitter:description" content="Costruire Bellezza, Generare Futuro · 23 Ottobre 2026 · Torino" />
-  <meta name="twitter:image"       content="https://ancegiovaniareanord2026.vercel.app/save-the-date.jpg" />
+  <meta name="twitter:image"       content="https://ancegiovaniareanord2026.vercel.app/save-the-date.jpeg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -89,7 +89,6 @@
     }
 
     /* ── ANIMATED BACKGROUND ── */
-    /* Ethereal Shadows layer */
     #ethereal-bg {
       position: fixed; inset: -120px;
       z-index: -3; pointer-events: none;
@@ -127,6 +126,7 @@
       border-radius: inherit;
     }
 
+    /* ── ORBS — velocità x3 ── */
     .bg-orb {
       position: fixed;
       border-radius: 50%;
@@ -139,25 +139,25 @@
       width: 900px; height: 900px;
       background: radial-gradient(circle, rgba(42,74,115,0.45) 0%, transparent 65%);
       top: -25%; left: -20%;
-      animation: orb1 9s ease-in-out infinite;
+      animation: orb1 3s ease-in-out infinite;
     }
     .bg-orb-2 {
       width: 700px; height: 700px;
       background: radial-gradient(circle, rgba(240,165,0,0.06) 0%, transparent 65%);
       top: 30%; right: -15%;
-      animation: orb2 11s ease-in-out infinite;
+      animation: orb2 3.7s ease-in-out infinite;
     }
     .bg-orb-3 {
       width: 600px; height: 600px;
       background: radial-gradient(circle, rgba(10,25,48,0.75) 0%, transparent 65%);
       bottom: -10%; left: 25%;
-      animation: orb3 7s ease-in-out infinite;
+      animation: orb3 2.3s ease-in-out infinite;
     }
     .bg-orb-4 {
       width: 400px; height: 400px;
       background: radial-gradient(circle, rgba(240,165,0,0.04) 0%, transparent 65%);
       top: 60%; left: 5%;
-      animation: orb4 13s ease-in-out infinite;
+      animation: orb4 4.3s ease-in-out infinite;
     }
     @keyframes orb1 {
       0%,100% { transform: translate(0,0) scale(1); }
@@ -220,13 +220,15 @@
       gap: 18px; flex-wrap: wrap; justify-content: center;
     }
     .logo-item { display: flex; align-items: center; gap: 10px; }
+    /* ANCE: peso 600 + spaziatura più aperta */
     .logo-ance {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 26px; font-weight: 700;
-      color: var(--w); letter-spacing: 3px; line-height: 1;
+      font-size: 26px; font-weight: 600;
+      color: var(--w); letter-spacing: 6px; line-height: 1;
     }
+    /* GIOVANI: leggermente più grande */
     .logo-ance .giovani {
-      display: block; font-size: 13px; font-weight: 700;
+      display: block; font-size: 15px; font-weight: 700;
       letter-spacing: 4px; color: var(--gold);
       text-transform: uppercase; text-align: right; margin-top: 3px;
     }
@@ -234,19 +236,21 @@
       width: 2px; height: 36px;
       background: var(--gold); border-radius: 1px;
     }
+    /* REGIONE: aumentata da 18 a 21px */
     .logo-region {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 18px; font-weight: 700;
+      font-size: 21px; font-weight: 700;
       color: var(--w); text-transform: uppercase;
       letter-spacing: 2px; line-height: 1.3;
     }
+    /* PIEMONTE e FRIULI: su 2 righe, leggermente più piccoli */
     .logo-region-sm { font-size: 14px; letter-spacing: 1.5px; }
     .logo-sep {
       width: 1px; height: 40px;
       background: var(--w15);
     }
 
-    /* ── NAV ── */
+    /* ── NAV — tab ingranditi ── */
     .nav-tabs {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       background: rgba(7,14,26,0.90);
@@ -257,7 +261,7 @@
     .nav-tab {
       height: 60px; padding: 0 36px;
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 22px; font-weight: 700;
+      font-size: 26px; font-weight: 700;
       letter-spacing: 3px; text-transform: uppercase;
       color: var(--w60); background: none; border: none;
       border-bottom: 3px solid transparent;
@@ -331,12 +335,12 @@
     }
     .hero-card .date {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(16px, 2.8vw, 24px);
+      font-size: clamp(18px, 2.8vw, 26px);
       font-weight: 800; color: var(--w);
       letter-spacing: 0.5px; margin-bottom: 4px;
     }
     .hero-card .time {
-      font-size: 13px; font-weight: 600;
+      font-size: 14px; font-weight: 600;
       color: var(--gold); font-style: italic; letter-spacing: 2px;
     }
     .hero-tagline {
@@ -505,9 +509,10 @@
       font-weight: 900; color: var(--gold);
       letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px;
     }
+    /* Date sezioni: aumentata da 24px a 30px */
     .section-header-card .date {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 24px; font-weight: 700; color: var(--w);
+      font-size: 30px; font-weight: 700; color: var(--w);
     }
 
     /* ── DAY SWITCHER ── */
@@ -759,34 +764,34 @@
     .hotel-book-btn:hover { background: #d99400; transform: translateY(-1px); }
     .hotel-book-btn:active { transform: scale(0.97); }
 
-    /* ── RADIO PLAYER ── */
+    /* ── RADIO PLAYER — ridotto del 25% ── */
     #radio-player {
-      position: fixed; bottom: 24px; right: 24px;
+      position: fixed; bottom: 18px; right: 18px;
       background: rgba(9,18,32,0.94);
       backdrop-filter: blur(20px);
       border: 1px solid var(--gold);
       border-radius: var(--r8);
-      padding: 9px 13px;
-      display: flex; align-items: center; gap: 9px;
+      padding: 7px 10px;
+      display: flex; align-items: center; gap: 7px;
       z-index: 200;
       box-shadow: 0 8px 32px rgba(0,0,0,0.55), 0 0 0 1px rgba(240,165,0,0.1);
     }
     .radio-label {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 10px; font-weight: 700; color: var(--gold);
+      font-size: 9px; font-weight: 700; color: var(--gold);
       letter-spacing: 0.5px;
-      display: flex; align-items: center; gap: 5px;
+      display: flex; align-items: center; gap: 4px;
     }
     #radio-btn {
-      min-width: 57px; min-height: 27px;
+      min-width: 43px; min-height: 20px;
       background: var(--gold); border: none;
       border-radius: var(--r4);
       color: var(--navy);
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 10px; font-weight: 800; letter-spacing: 0.5px;
+      font-size: 9px; font-weight: 800; letter-spacing: 0.5px;
       cursor: pointer;
       touch-action: manipulation;
-      padding: 0 10px;
+      padding: 0 8px;
       transition: background var(--fast), transform var(--fast);
     }
     #radio-btn:hover { background: #d99400; transform: scale(1.04); }
@@ -841,7 +846,7 @@
       .home-layout { grid-template-columns: 1fr; }
     }
     @media (max-width: 768px) {
-      .nav-tab { padding: 0 20px; font-size: 15px; }
+      .nav-tab { padding: 0 20px; font-size: 18px; }
       .hero { padding: 32px 16px 56px; gap: 24px; }
       .hero-card { padding: 28px 24px; }
       .section-header-card { padding: 24px 20px; }
@@ -850,7 +855,7 @@
       .logos-row { gap: 10px; }
       .logo-sep { display: none; }
       .map-wrapper iframe { height: 300px; }
-      #radio-player { bottom: 16px; right: 16px; padding: 10px 14px; }
+      #radio-player { bottom: 12px; right: 12px; padding: 6px 10px; }
     }
     @media (max-width: 600px) {
       .prog-row { grid-template-columns: 80px 1fr; }
@@ -865,27 +870,26 @@
 
     /* ── PREFERS REDUCED MOTION ── */
     @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
 
-/* Mobile: disabilita animazioni pesanti */
-@media (max-width: 768px) {
-  #ethereal-bg, #ethereal-canvas { display: none !important; }
-  .bg-orb { display: none !important; }
-  .hero-card { animation: fadeUp .3s ease-out both !important; }
-  .section.active { animation: none !important; }
-}
-
+    /* Mobile: disabilita animazioni pesanti */
+    @media (max-width: 768px) {
+      #ethereal-bg, #ethereal-canvas { display: none !important; }
+      .bg-orb { display: none !important; }
+      .hero-card { animation: fadeUp .3s ease-out both !important; }
+      .section.active { animation: none !important; }
+    }
   </style>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Vai al contenuto principale</a>
 
-  <!-- ETHEREAL SHADOWS BACKGROUND (inspired by 21st.dev) -->
+  <!-- ETHEREAL SHADOWS BACKGROUND -->
   <div id="ethereal-bg" aria-hidden="true">
     <svg style="position:absolute;width:0;height:0">
       <defs>
@@ -981,7 +985,7 @@
         </div>
       </div>
 
-      <img src="./save-the-date.jpg" alt="Save the Date – XVI Convegno Interregionale Giovani ANCE Area Nord 2026" class="save-date-img">
+      <img src="./save-the-date.jpeg" alt="Save the Date – XVI Convegno Interregionale Giovani ANCE Area Nord 2026" class="save-date-img">
 
       <!-- PROGRAMMA CONVEGNO -->
       <div class="conv-outer">
@@ -1012,12 +1016,12 @@
   <!-- AGENDA -->
   <section class="section" id="sec-programma">
     <div class="prog-outer">
-      <div class="section-header-card">
+      <div class="section-header-card spotlight-target">
         <h1>XVI Convegno Interregionale</h1>
         <div class="date">22–23 Ottobre 2026</div>
       </div>
       <div class="prog-inner">
-        <div class="day-switcher" role="tablist" aria-label="Seleziona giorno">
+        <div class="day-switcher spotlight-target" role="tablist" aria-label="Seleziona giorno">
           <button class="day-btn active" role="tab" aria-selected="true" onclick="switchDay(0)">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
@@ -1099,7 +1103,7 @@
   <!-- HOTEL -->
   <section class="section" id="sec-hotel">
     <div class="prog-outer">
-      <div class="section-header-card">
+      <div class="section-header-card spotlight-target">
         <h1>XVI Convegno Interregionale</h1>
         <div class="date">22–23 Ottobre 2026</div>
       </div>
@@ -1135,7 +1139,7 @@
   <!-- ISCRIZIONI -->
   <section class="section" id="sec-iscrizioni">
     <div class="iscr-outer">
-      <div class="section-header-card">
+      <div class="section-header-card spotlight-target">
         <h1>XVI Convegno Interregionale</h1>
         <div class="date">22–23 Ottobre 2026</div>
       </div>
@@ -1165,7 +1169,7 @@
   <!-- RADIO PLAYER -->
   <div id="radio-player" role="complementary" aria-label="Radio Sonic Universe">
     <div class="radio-label">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
       </svg>
       Sonic Universe
@@ -1288,6 +1292,8 @@
       });
       const el = document.getElementById(contentId);
       el.innerHTML = html; el.style.display = 'block';
+      // Applica spotlight alle righe programma dopo il render
+      applyProgSpotlight();
     }
 
     function getBadgeHtml(badge) {
@@ -1373,6 +1379,8 @@
       });
       const el = document.getElementById('hotel-content');
       el.innerHTML = html; el.style.display = 'block';
+      // Applica spotlight alle hotel card dopo il render
+      applyHotelSpotlight();
     }
 
     function getDemoDay1() {
@@ -1429,6 +1437,8 @@
       });
       html += '</div>';
       document.getElementById('conv-content').innerHTML = html;
+      // Applica spotlight alle righe convegno
+      applyProgSpotlight();
     }
 
     function toggleRadio() {
@@ -1441,6 +1451,7 @@
     loadDay1();
     loadConvegno();
 
+    /* ── COUNTDOWN ── */
     function updateCountdown() {
       const el = document.getElementById('countdown');
       if (!el) return;
@@ -1467,20 +1478,20 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    /* ── ETHEREAL SHADOWS – hue rotation (inspired by 21st.dev) ── */
+    /* ── ETHEREAL SHADOWS – velocità x3 ── */
     (function() {
       const hue = document.getElementById('et-hue');
       if (!hue) return;
       let h = 0;
       function animEthereal() {
-        h = (h + 0.54) % 360;
+        h = (h + 1.62) % 360;
         hue.setAttribute('values', String(h));
         requestAnimationFrame(animEthereal);
       }
       animEthereal();
     })();
 
-    /* ── BEAMS BACKGROUND (ported from 21st.dev BeamsBackground – blue tones) ── */
+    /* ── BEAMS BACKGROUND — velocità x3 ── */
     (function() {
       const canvas = document.getElementById('ethereal-canvas');
       if (!canvas) return;
@@ -1495,11 +1506,11 @@
           width: 30 + Math.random() * 70,
           length: h * 2.5,
           angle: -35 + Math.random() * 10,
-          speed: 1.05 + Math.random() * 2.25,
+          speed: 3.15 + Math.random() * 6.75,
           opacity: 0.13 + Math.random() * 0.18,
           hue: 200 + Math.random() * 55,
           pulse: Math.random() * Math.PI * 2,
-          pulseSpeed: 0.018 + Math.random() * 0.025
+          pulseSpeed: 0.054 + Math.random() * 0.075
         };
       }
 
@@ -1508,7 +1519,7 @@
         beam.y = h + 120;
         beam.x = col * spacing + spacing / 2 + (Math.random() - 0.5) * spacing * 0.5;
         beam.width = 70 + Math.random() * 90;
-        beam.speed = 1.05 + Math.random() * 1.65;
+        beam.speed = 3.15 + Math.random() * 4.95;
         beam.hue = 200 + (i * 55) / BEAM_COUNT;
         beam.opacity = 0.12 + Math.random() * 0.18;
       }
@@ -1555,60 +1566,50 @@
       animate();
     })();
 
-    /* ── SPOTLIGHT CARD – mouse tracking ── */
+    /* ── SPOTLIGHT — su tutti i target ── */
+    function attachSpotlight(el, color) {
+      if (el.dataset.spotlight) return;
+      el.dataset.spotlight = '1';
+      el.classList.add('spotlight-target');
+      el.addEventListener('mousemove', function(e) {
+        const r = el.getBoundingClientRect();
+        el.style.setProperty('--sx', (e.clientX - r.left) + 'px');
+        el.style.setProperty('--sy', (e.clientY - r.top) + 'px');
+        el.style.setProperty('--so', '1');
+      });
+      el.addEventListener('mouseleave', function() {
+        el.style.setProperty('--so', '0');
+      });
+    }
+
+    function applyHotelSpotlight() {
+      document.querySelectorAll('.hotel-card').forEach(function(card) {
+        attachSpotlight(card, 'rgba(60,120,220,0.22)');
+      });
+    }
+
+    function applyProgSpotlight() {
+      document.querySelectorAll('.prog-row, .conv-row').forEach(function(row) {
+        attachSpotlight(row, 'rgba(80,160,255,0.18)');
+      });
+    }
+
+    // Spotlight su elementi statici
     (function() {
-      function attachSpotlight(el, color) {
-        el.classList.add('spotlight-target');
-        el.addEventListener('mousemove', function(e) {
-          const r = el.getBoundingClientRect();
-          el.style.setProperty('--sx', (e.clientX - r.left) + 'px');
-          el.style.setProperty('--sy', (e.clientY - r.top) + 'px');
-          el.style.setProperty('--so', '1');
-          if (color) el.style.setProperty('--spotlight-color', color);
-        });
-        el.addEventListener('mouseleave', function() {
-          el.style.setProperty('--so', '0');
-        });
-      }
-      // Hero card – gold spotlight
       const heroCard = document.querySelector('.hero-card');
       if (heroCard) attachSpotlight(heroCard, 'rgba(240,165,0,0.28)');
 
-      // Section header cards (Agenda, Hotel, Iscrizioni) – blue-gold spotlight
       document.querySelectorAll('.section-header-card').forEach(function(card) {
         attachSpotlight(card, 'rgba(240,165,0,0.22)');
       });
 
-      // Day switcher container
       const daySwitcher = document.querySelector('.day-switcher');
       if (daySwitcher) attachSpotlight(daySwitcher, 'rgba(80,160,255,0.2)');
-
-      // Hotel cards – blue spotlight (applied after render via MutationObserver)
-      function applyHotelSpotlight() {
-        document.querySelectorAll('.hotel-card:not(.spotlight-target)').forEach(function(card) {
-          attachSpotlight(card, 'rgba(60,120,220,0.22)');
-        });
-      }
-      const obs = new MutationObserver(applyHotelSpotlight);
-      const hotelContainer = document.getElementById('hotel-list');
-      if (hotelContainer) obs.observe(hotelContainer, { childList: true, subtree: true });
-
-      // Program rows – blue spotlight (applied after render)
-      function applyProgSpotlight() {
-        document.querySelectorAll('.prog-row:not(.spotlight-target), .conv-row:not(.spotlight-target)').forEach(function(row) {
-          attachSpotlight(row, 'rgba(80,160,255,0.18)');
-        });
-      }
-      const obsDay1 = new MutationObserver(applyProgSpotlight);
-      const obsDay2 = new MutationObserver(applyProgSpotlight);
-      const day1 = document.getElementById('prog-day1');
-      const day2 = document.getElementById('prog-day2');
-      if (day1) obsDay1.observe(day1, { childList: true, subtree: true });
-      if (day2) obsDay2.observe(day2, { childList: true, subtree: true });
     })();
   </script>
 </body>
 </html>
+
 
 
 
