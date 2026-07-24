@@ -92,10 +92,7 @@
       font-size: 15px;
       line-height: 1.6;
       color: var(--w);
-      background:
-        linear-gradient(180deg, rgba(0,72,140,0.46) 0%, rgba(0,52,102,0.58) 55%, rgba(0,40,82,0.70) 100%),
-        url('./sfondo-diorama.jpg') center top / cover no-repeat fixed,
-        #0056A0;
+      background: #0056A0;
       padding-top: 56px;
       min-height: 100vh;
       overflow-x: hidden;
@@ -205,12 +202,21 @@
       pointer-events: none;
       display: none;
     }
+    /* Sfondo diorama su layer FISSO (senza background-attachment: fixed → niente scatti) */
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: -1;
+      background:
+        linear-gradient(180deg, rgba(0,72,140,0.46) 0%, rgba(0,52,102,0.58) 55%, rgba(0,40,82,0.70) 100%),
+        url('./sfondo-diorama.jpg') center top / cover no-repeat;
+      pointer-events: none;
+    }
 
     /* ── TOPBAR ── */
     .topbar {
       position: relative; z-index: 60;
-      background: rgba(6,50,88,0.90);
-      backdrop-filter: blur(12px);
+      background: rgba(6,50,88,0.94);
+      backdrop-filter: blur(6px);
       border-bottom: 1px solid var(--w08);
       padding: 0 24px;
       height: 34px;
@@ -225,8 +231,8 @@
 
     /* ── HEADER & LOGOS ── */
     .header {
-      background: rgba(9,68,116,0.70);
-      backdrop-filter: blur(18px);
+      background: rgba(9,68,116,0.82);
+      backdrop-filter: blur(8px);
       border-bottom: 3px solid var(--gold);
       padding: 16px 24px;
       display: flex; align-items: center; justify-content: center;
@@ -270,8 +276,8 @@
     /* ── NAV — tab ingranditi ── */
     .nav-tabs {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(6,55,98,0.92);
-      backdrop-filter: blur(20px) saturate(1.4);
+      background: rgba(6,55,98,0.95);
+      backdrop-filter: blur(8px) saturate(1.2);
       display: flex; justify-content: center;
       border-bottom: 2px solid var(--gold);
     }
@@ -1502,7 +1508,8 @@
     /* ── ETHEREAL SHADOWS – velocità x3 ── */
     (function() {
       const hue = document.getElementById('et-hue');
-      if (!hue) return;
+      const etBg = document.getElementById('ethereal-bg');
+      if (!hue || (etBg && getComputedStyle(etBg).display === 'none')) return;
       let h = 0;
       function animEthereal() {
         h = (h + 1.62) % 360;
@@ -1515,7 +1522,7 @@
     /* ── BEAMS BACKGROUND — velocità x3 ── */
     (function() {
       const canvas = document.getElementById('ethereal-canvas');
-      if (!canvas) return;
+      if (!canvas || getComputedStyle(canvas).display === 'none') return;
       const ctx = canvas.getContext('2d');
       const BEAM_COUNT = 30;
       let beams = [];
