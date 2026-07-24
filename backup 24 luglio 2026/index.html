@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="XVI Convegno Area Nord Giovani Imprenditori Edili ANCE 2026, Torino 22-23 Ottobre 2026">
-  <title>XVI Convegno Area Nord Giovani Imprenditori Edili ANCE 2026</title>
+  <meta name="description" content="XVI Convegno Interregionale Giovani ANCE – Area Nord 2026, Torino 22-23 Ottobre 2026">
+  <title>XVI Convegno Interregionale Giovani ANCE – Area Nord 2026</title>
 
   <!-- Open Graph – anteprima WhatsApp / Telegram / LinkedIn -->
   <meta property="og:type"         content="website" />
   <meta property="og:url"          content="https://ancegiovaniareanord2026.vercel.app/" />
-  <meta property="og:title"        content="XVI Convegno Area Nord Giovani Imprenditori Edili ANCE 2026" />
-  <meta property="og:description"  content="Costruire Bellezza, Generare Futuro · Torino | Polo del ‘900 Via del Carmine 14 · Venerdì 23 Ottobre · Ore 14.00 – 17.00" />
+  <meta property="og:title"        content="XVI Convegno Interregionale Giovani ANCE – Area Nord 2026" />
+  <meta property="og:description"  content="Costruire Bellezza, Generare Futuro · Torino | Polo del ‘900 Via del Carmine 13 · Venerdì 23 Ottobre · Ore 14:30 · Venerdì 23 Ottobre · Ore 14:30" />
   <meta property="og:image"        content="https://ancegiovaniareanord2026.vercel.app/save-the-date.jpeg" />
-  <meta property="og:image:alt"    content="Save the Date – XVI Convegno Area Nord Giovani Imprenditori Edili ANCE 2026" />
+  <meta property="og:image:alt"    content="Save the Date – XVI Convegno Interregionale Giovani ANCE Area Nord 2026" />
   <meta property="og:locale"       content="it_IT" />
   <meta property="og:site_name"    content="ANCE Giovani Area Nord" />
 
   <!-- Twitter/X Card -->
   <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="XVI Convegno Area Nord Giovani Imprenditori Edili ANCE 2026" />
+  <meta name="twitter:title"       content="XVI Convegno Interregionale Giovani ANCE – Area Nord 2026" />
   <meta name="twitter:description" content="Costruire Bellezza, Generare Futuro · 23 Ottobre 2026 · Torino" />
   <meta name="twitter:image"       content="https://ancegiovaniareanord2026.vercel.app/save-the-date.jpeg" />
 
@@ -28,30 +28,20 @@
   <style>
     /* ── VARIABLES ── */
     :root {
-      /* ── PALETTE ITALIANDIORAMA ── */
-      --navy:     #0056A0;   /* cerulean: superfici profonde, testo su accento */
-      --navy-mid: #0077C0;   /* cobalto: barre titoli blocchi / mappe */
-      --navy-hi:  #40A0E0;
-      --cerulean: #0056A0;
-      --cobalt:   #0077C0;
-      --blue-40:  #40A0E0;
-      --blue-80:  #80C8F0;
-      --blue-c0:  #C0E8F8;
-      --cream:    #FFF8E0;   /* fondo contenuti chiaro */
-      --terra:    #B03020;   /* call-to-action */
-      --terra-hi: #902010;   /* call-to-action hover */
-      --gold:     #FF8C00;   /* pop arancio (accento principale) */
-      --gold2:    #FFD700;   /* pop giallo */
-      --gold-dim: rgba(255,140,0,0.14);
-      --gold-border: rgba(255,140,0,0.36);
+      --navy:     #0d1c2e;
+      --navy-mid: #1a2e4a;
+      --navy-hi:  #2a4a73;
+      --gold:     #f0a500;
+      --gold-dim: rgba(240,165,0,0.12);
+      --gold-border: rgba(240,165,0,0.3);
       --w:    #ffffff;
-      --w80:  rgba(255,255,255,0.86);
-      --w60:  rgba(255,255,255,0.70);
-      --w30:  rgba(255,255,255,0.46);
-      --w15:  rgba(255,255,255,0.22);
-      --w08:  rgba(255,255,255,0.12);
-      --glass: rgba(0,70,135,0.60);
-      --glass-light: #FFF8E0;
+      --w80:  rgba(255,255,255,0.80);
+      --w60:  rgba(255,255,255,0.60);
+      --w30:  rgba(255,255,255,0.30);
+      --w15:  rgba(255,255,255,0.15);
+      --w08:  rgba(255,255,255,0.08);
+      --glass: rgba(13,28,46,0.60);
+      --glass-light: rgba(255,255,255,0.95);
       --fast: 150ms ease-out;
       --med:  250ms ease-out;
       --slow: 300ms ease-out;
@@ -92,10 +82,7 @@
       font-size: 15px;
       line-height: 1.6;
       color: var(--w);
-      background:
-        linear-gradient(180deg, rgba(0,72,140,0.46) 0%, rgba(0,52,102,0.58) 55%, rgba(0,40,82,0.70) 100%),
-        url('./sfondo-diorama.jpg') center top / cover no-repeat fixed,
-        #0056A0;
+      background: var(--navy);
       padding-top: 56px;
       min-height: 100vh;
       overflow-x: hidden;
@@ -106,23 +93,21 @@
       position: fixed; inset: -120px;
       z-index: -3; pointer-events: none;
       overflow: hidden;
-      display: none;
     }
     #ethereal-blob {
       width: 100%; height: 100%;
       background:
-        radial-gradient(ellipse 70% 55% at 20% 30%, rgba(90,190,245,0.55) 0%, transparent 70%),
-        radial-gradient(ellipse 55% 65% at 80% 70%, rgba(20,120,195,0.55) 0%, transparent 65%),
-        radial-gradient(ellipse 45% 40% at 50% 10%, rgba(120,205,250,0.45) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at 15% 80%, rgba(12,85,150,0.55) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 45% at 85% 20%, rgba(245,166,35,0.12) 0%, transparent 60%);
+        radial-gradient(ellipse 70% 55% at 20% 30%, rgba(26,62,115,0.75) 0%, transparent 70%),
+        radial-gradient(ellipse 55% 65% at 80% 70%, rgba(10,30,70,0.85) 0%, transparent 65%),
+        radial-gradient(ellipse 45% 40% at 50% 10%, rgba(36,82,150,0.5) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 15% 80%, rgba(6,20,48,0.9) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 45% at 85% 20%, rgba(240,165,0,0.06) 0%, transparent 60%);
       filter: url(#ethereal-filter) blur(6px);
       will-change: filter;
     }
     #ethereal-canvas {
       position: fixed; inset: 0; z-index: -2;
       pointer-events: none; opacity: 0.85;
-      display: none;
     }
 
     /* Spotlight card effect */
@@ -149,29 +134,28 @@
       z-index: -1;
       pointer-events: none;
       will-change: transform;
-      display: none;
     }
     .bg-orb-1 {
       width: 900px; height: 900px;
-      background: radial-gradient(circle, rgba(120,205,250,0.40) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(42,74,115,0.45) 0%, transparent 65%);
       top: -25%; left: -20%;
       animation: orb1 3s ease-in-out infinite;
     }
     .bg-orb-2 {
       width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(245,166,35,0.10) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(240,165,0,0.06) 0%, transparent 65%);
       top: 30%; right: -15%;
       animation: orb2 3.7s ease-in-out infinite;
     }
     .bg-orb-3 {
       width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(20,120,195,0.45) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(10,25,48,0.75) 0%, transparent 65%);
       bottom: -10%; left: 25%;
       animation: orb3 2.3s ease-in-out infinite;
     }
     .bg-orb-4 {
       width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(245,166,35,0.07) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(240,165,0,0.04) 0%, transparent 65%);
       top: 60%; left: 5%;
       animation: orb4 4.3s ease-in-out infinite;
     }
@@ -203,13 +187,12 @@
         linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
       background-size: 64px 64px;
       pointer-events: none;
-      display: none;
     }
 
     /* ── TOPBAR ── */
     .topbar {
       position: relative; z-index: 60;
-      background: rgba(6,50,88,0.90);
+      background: rgba(5,12,22,0.88);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--w08);
       padding: 0 24px;
@@ -225,7 +208,7 @@
 
     /* ── HEADER & LOGOS ── */
     .header {
-      background: rgba(9,68,116,0.70);
+      background: rgba(13,26,48,0.78);
       backdrop-filter: blur(18px);
       border-bottom: 3px solid var(--gold);
       padding: 16px 24px;
@@ -270,7 +253,7 @@
     /* ── NAV — tab ingranditi ── */
     .nav-tabs {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(6,55,98,0.92);
+      background: rgba(7,14,26,0.90);
       backdrop-filter: blur(20px) saturate(1.4);
       display: flex; justify-content: center;
       border-bottom: 2px solid var(--gold);
@@ -771,20 +754,20 @@
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 12px; font-weight: 800;
       letter-spacing: 0.5px; text-transform: uppercase;
-      color: #fff; background: var(--terra);
+      color: var(--navy); background: var(--gold);
       text-decoration: none; padding: 0 18px;
       border-radius: var(--r4); margin-left: auto;
       cursor: pointer;
       touch-action: manipulation;
       transition: background var(--med), transform var(--fast);
     }
-    .hotel-book-btn:hover { background: var(--terra-hi); transform: translateY(-1px); }
+    .hotel-book-btn:hover { background: #d99400; transform: translateY(-1px); }
     .hotel-book-btn:active { transform: scale(0.97); }
 
     /* ── RADIO PLAYER — ridotto del 25% ── */
     #radio-player {
       position: fixed; bottom: 18px; right: 18px;
-      background: rgba(6,50,88,0.94);
+      background: rgba(9,18,32,0.94);
       backdrop-filter: blur(20px);
       border: 1px solid var(--gold);
       border-radius: var(--r8);
@@ -827,7 +810,7 @@
 
     /* ── FOOTER ── */
     footer {
-      background: rgba(6,44,78,0.94);
+      background: rgba(4,10,20,0.92);
       backdrop-filter: blur(16px);
       border-top: 1px solid var(--w08);
       color: var(--w30); text-align: center;
@@ -986,13 +969,13 @@
   </nav>
 
   <!-- HOME -->
-  <section class="section active" id="sec-home">
-    <div class="hero" id="main-content">
+  <section class="section active" id="sec-home" id="main-content">
+    <div class="hero">     
       <div class="hero-card">
-        <h1>XVI Convegno Area Nord<br>
-          Giovani Imprenditori Edili ANCE</h1>
+        <h1>XVI Convegno Interregionale<br> 
+          Giovani ANCE – Area Nord</h1>
         <div class="date">23 Ottobre 2026 · Torino</div>
-        <div class="time">Venerdì · Ore 14.00 – 17.00</div>
+        <div class="time">Venerdì · Ore 14:30</div>
         <div class="hero-tagline">
           <div class="main">COSTRUIRE BELLEZZA, GENERARE FUTURO</div>
           <div class="sub">Quando la qualità del costruito diventa motore di investimenti e sviluppo</div>
@@ -1003,7 +986,7 @@
         </div>
       </div>
 
-      <img src="./save-the-date.jpeg" alt="Save the Date – XVI Convegno Area Nord Giovani Imprenditori Edili ANCE 2026" class="save-date-img">
+      <img src="./save-the-date.jpeg" alt="Save the Date – XVI Convegno Interregionale Giovani ANCE Area Nord 2026" class="save-date-img">
 
       <!-- PROGRAMMA CONVEGNO -->
       <div class="conv-outer">
@@ -1014,7 +997,7 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
             </svg>
-            Torino | Polo del ‘900 Via del Carmine 14 · Venerdì 23 Ottobre · Ore 14.00 – 17.00
+            Torino | Polo del ‘900 Via del Carmine 13 · Venerdì 23 Ottobre · Ore 14:30
           </a>
         </div>
         <div id="conv-loading" class="loading" style="display:none">
@@ -1026,7 +1009,7 @@
 
       <!-- SPONSOR -->
       <div class="sponsor-outer">
-        <img src="./sponsor.jpg" alt="Sponsor XVI Convegno Area Nord Giovani Imprenditori Edili ANCE 2026">
+        <img src="./sponsor.jpg" alt="Sponsor XVI Convegno Interregionale Giovani ANCE Area Nord 2026">
       </div>
     </div>
   </section>
@@ -1035,8 +1018,8 @@
   <section class="section" id="sec-programma">
     <div class="prog-outer">
       <div class="section-header-card spotlight-target">
-        <h1>XVI Convegno Area Nord<br>
-          Giovani Imprenditori Edili ANCE · 2026</h1>
+        <h1>XVI Convegno Interregionale<br>
+          Giovani ANCE – Area Nord 2026</h1>
         <div class="date">22–23 Ottobre 2026</div>
       </div>
       <div class="prog-inner">
@@ -1123,8 +1106,8 @@
   <section class="section" id="sec-hotel">
     <div class="prog-outer">
       <div class="section-header-card spotlight-target">
-        <h1>XVI Convegno Area Nord<br>
-          Giovani Imprenditori Edili ANCE · 2026</h1>
+        <h1>XVI Convegno Interregionale<br>
+          Giovani ANCE – Area Nord 2026</h1>
         <div class="date">22–23 Ottobre 2026</div>
       </div>
       <div class="prog-inner">
@@ -1160,8 +1143,8 @@
   <section class="section" id="sec-iscrizioni">
     <div class="iscr-outer">
       <div class="section-header-card spotlight-target">
-        <h1>XVI Convegno Area Nord<br>
-          Giovani Imprenditori Edili ANCE · 2026</h1>
+        <h1>XVI Convegno Interregionale<br>
+          Giovani ANCE – Area Nord 2026</h1>
         <div class="date">22–23 Ottobre 2026</div>
       </div>
       <div class="iscr-frame-wrap">
@@ -1177,7 +1160,7 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-title">XVI Convegno Area Nord Giovani Imprenditori Edili ANCE 2026</div>
+    <div class="footer-title">XVI Convegno Interregionale Giovani ANCE – Area Nord 2026</div>
     <div class="footer-regions">Liguria · Lombardia · Piemonte e Valle d'Aosta · Veneto · Friuli-Venezia Giulia</div>
     <div class="footer-links">
       <a href="#">Privacy Policy</a>
@@ -1418,7 +1401,7 @@
       return [
         ['Ore 10:00','Consiglio ANCE Giovani Allargato','CAMERA – Centro Italiano per la Fotografia, Via delle Rosine 18, Torino','https://maps.google.com/?q=CAMERA+Via+delle+Rosine+18+Torino','','80 persone','MATTINA'],
         ['Ore 13:00','Buffet','CAMERA – Centro Italiano per la Fotografia','https://maps.google.com/?q=CAMERA+Via+delle+Rosine+18+Torino','','','MATTINA'],
-        ['14.00–17.00',"Costruire Bellezza: Edilizia e Turismo per la Valorizzazione dei Territori dell'Italia Settentrionale",'NH Collection Torino Piazza Carlina – Piazza Carlo Emanuele II, 15','https://maps.google.com/?q=NH+Collection+Torino+Piazza+Carlina','','100 persone','POMERIGGIO'],
+        ['14:30–17:00',"Costruire Bellezza: Edilizia e Turismo per la Valorizzazione dei Territori dell'Italia Settentrionale",'NH Collection Torino Piazza Carlina – Piazza Carlo Emanuele II, 15','https://maps.google.com/?q=NH+Collection+Torino+Piazza+Carlina','','100 persone','POMERIGGIO'],
         ['Ore 20:00','Aperitivo','NH Collection Torino Piazza Carlina','https://maps.google.com/?q=NH+Collection+Torino+Piazza+Carlina','','100 persone','SERA'],
         ['20:30–23:00','Cena','NH Collection Torino Piazza Carlina','https://maps.google.com/?q=NH+Collection+Torino+Piazza+Carlina','','100 persone','SERA'],
       ];
@@ -1476,7 +1459,7 @@
     function updateCountdown() {
       const el = document.getElementById('countdown');
       if (!el) return;
-      const event = new Date('2026-10-23T14:00:00+02:00');
+      const event = new Date('2026-10-23T14:30:00+02:00');
       const now = new Date();
       const diff = event - now;
       if (diff <= 0) {
