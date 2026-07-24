@@ -413,8 +413,6 @@
     /* Desktop: titolo verticale FISSO a sinistra, visibile in TUTTE le sezioni */
     @media (min-width: 900px) {
       .hero-titlegroup .hero-vertical { display: none; }   /* nasconde la versione in-flow */
-      /* riserva la fascia a sinistra in ogni sezione */
-      .hero, .prog-outer, .iscr-outer { padding-left: clamp(150px, 16vw, 260px); }
       .hero-vertical-fixed {
         display: flex;
         position: fixed; left: 0; top: 56px;
@@ -429,6 +427,11 @@
         background: linear-gradient(90deg, rgba(0,38,76,0.60) 0%, rgba(0,38,76,0.22) 62%, transparent 100%);
       }
       .hero-vertical .v-word { font-size: clamp(52px, min(11.5vh, 8vw), 140px); }
+    }
+    /* Solo su desktop più stretti riservo spazio a sinistra (per non sovrapporre
+       il titolo verticale); su schermi larghi il contenuto resta centrato come i loghi. */
+    @media (min-width: 900px) and (max-width: 1339px) {
+      .hero, .prog-outer, .iscr-outer { padding-left: clamp(150px, 16vw, 240px); }
     }
     /* la hero-card ora affianca il titolo verticale */
     .hero-titlegroup .hero-card {
