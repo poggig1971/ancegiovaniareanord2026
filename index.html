@@ -537,8 +537,10 @@
       letter-spacing: 1.5px; text-transform: uppercase;
     }
     .conv-subtitle {
-      font-size: 13px; color: var(--w60);
-      text-align: center; font-style: italic; margin-bottom: 18px;
+      font-size: clamp(18px, 2.6vw, 28px);
+      color: #fff; font-weight: 700;
+      text-align: center; line-height: 1.3;
+      margin-bottom: 20px;
     }
     .conv-location-pill {
       text-align: center; margin-bottom: 20px;
@@ -1131,7 +1133,6 @@
 
       <!-- PROGRAMMA CONVEGNO -->
       <div class="conv-outer">
-        <h3 class="conv-title">BOZZA PROGRAMMA · COSTRUIRE BELLEZZA, GENERARE FUTURO</h3>
         <p class="conv-subtitle">Quando la qualità del costruito diventa motore di investimenti e sviluppo</p>
         <div class="conv-location-pill">
           <a href="https://maps.app.goo.gl/yG6Y9GM9SGRJUs3K9" target="_blank" rel="noopener">
