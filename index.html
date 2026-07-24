@@ -385,7 +385,7 @@
     .hero-titlegroup {
       display: flex; align-items: stretch;
       gap: clamp(8px, 2vw, 22px);
-      width: 100%; max-width: 920px;
+      width: 100%; max-width: 840px;
       justify-content: center;
       animation: fadeUp .6s 0ms ease-out both;
     }
@@ -414,12 +414,12 @@
     @media (min-width: 900px) {
       .hero-titlegroup .hero-vertical { display: none; }   /* nasconde la versione in-flow */
       /* riserva la fascia a sinistra in ogni sezione */
-      .hero, .prog-outer, .iscr-outer { padding-left: clamp(170px, 21vw, 340px); }
+      .hero, .prog-outer, .iscr-outer { padding-left: clamp(150px, 16vw, 260px); }
       .hero-vertical-fixed {
         display: flex;
         position: fixed; left: 0; top: 56px;
         height: calc(100vh - 56px);
-        width: clamp(170px, 21vw, 340px);
+        width: clamp(150px, 16vw, 260px);
         align-items: center; justify-content: center;
         gap: clamp(6px, 1.2vw, 22px);
         z-index: 4; pointer-events: none;
@@ -428,7 +428,7 @@
         content: ''; position: absolute; inset: 0; z-index: -1;
         background: linear-gradient(90deg, rgba(0,38,76,0.60) 0%, rgba(0,38,76,0.22) 62%, transparent 100%);
       }
-      .hero-vertical .v-word { font-size: clamp(56px, 12.5vh, 150px); }
+      .hero-vertical .v-word { font-size: clamp(52px, min(11.5vh, 8vw), 140px); }
     }
     /* la hero-card ora affianca il titolo verticale */
     .hero-titlegroup .hero-card {
