@@ -231,7 +231,8 @@
 
     /* ── HEADER & LOGOS ── */
     .header {
-      background: rgba(9,68,116,0.82);
+      position: relative; z-index: 6;
+      background: rgba(9,68,116,0.96);
       backdrop-filter: blur(8px);
       border-bottom: 3px solid var(--gold);
       padding: 16px 24px;
@@ -406,20 +407,28 @@
     .hero-vertical .v-costruire { color: var(--w); }
     .hero-vertical .v-bellezza  { color: var(--gold); }
 
-    /* Desktop: titolo verticale FISSO a sinistra (resta fermo allo scroll) */
+    /* clone fisso nascosto di default (su mobile si usa la versione in-flow) */
+    .hero-vertical-fixed { display: none; }
+
+    /* Desktop: titolo verticale FISSO a sinistra, visibile in TUTTE le sezioni */
     @media (min-width: 900px) {
-      .hero { padding-left: clamp(170px, 21vw, 320px); }
-      .hero-vertical {
+      .hero-titlegroup .hero-vertical { display: none; }   /* nasconde la versione in-flow */
+      /* riserva la fascia a sinistra in ogni sezione */
+      .hero, .prog-outer, .iscr-outer { padding-left: clamp(170px, 21vw, 340px); }
+      .hero-vertical-fixed {
+        display: flex;
         position: fixed; left: 0; top: 56px;
         height: calc(100vh - 56px);
-        width: clamp(170px, 21vw, 320px);
+        width: clamp(170px, 21vw, 340px);
         align-items: center; justify-content: center;
-        gap: clamp(4px, 1vw, 18px);
+        gap: clamp(6px, 1.2vw, 22px);
         z-index: 4; pointer-events: none;
       }
-      .hero-vertical .v-word {
-        font-size: clamp(96px, 19vh, 240px);
+      .hero-vertical-fixed::before {
+        content: ''; position: absolute; inset: 0; z-index: -1;
+        background: linear-gradient(90deg, rgba(0,38,76,0.60) 0%, rgba(0,38,76,0.22) 62%, transparent 100%);
       }
+      .hero-vertical .v-word { font-size: clamp(56px, 12.5vh, 150px); }
     }
     /* la hero-card ora affianca il titolo verticale */
     .hero-titlegroup .hero-card {
@@ -998,8 +1007,14 @@
     }
   </style>
 </head>
-<body>
+<body class="is-home">
   <a href="#main-content" class="skip-link">Vai al contenuto principale</a>
+
+  <!-- TITOLO VERTICALE FISSO A SINISTRA (desktop, solo Home) -->
+  <div class="hero-vertical hero-vertical-fixed" aria-hidden="true">
+    <span class="v-word v-costruire">COSTRUIRE</span>
+    <span class="v-word v-bellezza">BELLEZZA</span>
+  </div>
 
   <!-- ETHEREAL SHADOWS BACKGROUND -->
   <div id="ethereal-bg" aria-hidden="true">
