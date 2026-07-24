@@ -544,17 +544,20 @@
       text-align: center; margin-bottom: 20px;
     }
     .conv-location-pill a {
-      display: inline-flex; align-items: center; gap: 7px;
-      color: var(--gold); font-size: 13px; font-weight: 600;
-      text-decoration: none; letter-spacing: 0.5px;
-      padding: 9px 18px;
-      background: var(--gold-dim);
-      border: 1px solid var(--gold-border);
+      display: inline-flex; align-items: center; gap: 8px;
+      color: #fff; font-size: 13px; font-weight: 700;
+      text-decoration: none; letter-spacing: 0.4px;
+      padding: 10px 20px;
+      background: rgba(6,44,78,0.94);
+      border: 1px solid var(--gold);
       border-radius: 100px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.30);
+      backdrop-filter: blur(6px);
       transition: background var(--fast), border-color var(--fast);
     }
+    .conv-location-pill a svg { color: var(--gold); flex-shrink: 0; }
     .conv-location-pill a:hover {
-      background: rgba(240,165,0,0.2);
+      background: rgba(9,60,104,0.97);
       border-color: var(--gold);
     }
     .conv-table {
