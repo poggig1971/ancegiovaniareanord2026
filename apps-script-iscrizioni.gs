@@ -137,7 +137,7 @@ function sigla_(v) {
 /** Causale: chi paga, per quale evento e per quali attività. */
 function causale_(cognome, nome, sigle) {
   const chi = (String(cognome || '') + ' ' + String(nome || '')).trim().toUpperCase();
-  return (chi + ' CONVEGNO AN 2026' + (sigle.length ? ' ' + sigle.join(' ') : '')).trim();
+  return (chi + ' Convegno Area Nord OTT26' + (sigle.length ? ' ' + sigle.join(' ') : '')).trim();
 }
 
 /* ============================== SETUP ============================== */

@@ -2132,10 +2132,10 @@
       return (chiave.toUpperCase() + giorno).trim();
     }
 
-    /** Causale completa: chi paga, per cosa e per quale evento. */
+    /** Causale completa: chi paga, per quale evento e per quali attività. */
     function causale_(cognome, nome, sigle) {
       const chi = ((cognome || '') + ' ' + (nome || '')).trim().toUpperCase() || '[COGNOME] [NOME]';
-      return (chi + ' CONVEGNO AN 2026' + (sigle.length ? ' ' + sigle.join(' ') : '')).trim();
+      return (chi + ' Convegno Area Nord OTT26' + (sigle.length ? ' ' + sigle.join(' ') : '')).trim();
     }
 
     function costruisciModulo(voci) {
