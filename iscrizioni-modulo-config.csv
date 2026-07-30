@@ -17,9 +17,14 @@
 160,serata23,sino,"23 ottobre 2026, ore 19:00 — Aperitivo e Cena, a seguire serata al Centralino Club","NH Carlina, P.za Carlo Emanuele II 15 — Centralino Club, Via delle Rosine 16, Torino",,100,SI,SI
 170,museo24,sino,"24 ottobre 2026, ore 11:00 — Visita al Museo (facoltativa)",Sede da definire,,18,SI,SI
 180,pranzo24,sino,24 ottobre 2026 — Pranzo (facoltativo),"Sede da definire — da saldare sul posto, non compreso nel bonifico",,Pagamento in Loco,SI,SI
-190,,titolo,Pernottamento,"La prenotazione è a cura del singolo partecipante, direttamente presso la struttura. L'informazione è richiesta ai soli fini organizzativi",,,,SI
-200,hotel,select,Hotel prenotato direttamente,,NH Collection Santo Stefano|Best Western Hotel Genio|Best Western Hotel Piemontese|Hotel CX Turin Marconi|Altra struttura|Non pernotto a Torino,,SI,SI
-210,,informativa,Dati per il bonifico,"Beneficiario: Ance Veneto Progetti Srl
+190,,titolo,Pernottamento,La prenotazione alberghiera è a carico del singolo partecipante e va effettuata direttamente presso la struttura. Il soggiorno si salda alla struttura e NON è compreso nel bonifico richiesto da questo modulo.,,,,SI
+195,,informativa,Come prenotare,"Selezionando la struttura qui sotto comparirà il collegamento diretto per prenotare.
+Tariffe, recapiti e moduli sono riportati nella sezione Hotel del sito: https://ancegiovaniareanord2026.vercel.app/#hotel
+Le convenzioni scadono fra il 23 agosto e il 7 settembre 2026: si raccomanda di prenotare per tempo.
+Per i componenti del Consiglio di Presidenza il pernottamento presso NH Collection Santo Stefano è già prenotato e saldato: nessun adempimento richiesto.",,,,SI
+200,hotel,select,Struttura prescelta per il pernottamento,Indicare la struttura presso cui si è prenotato o si intende prenotare. Dato richiesto ai soli fini organizzativi.,NH Collection Santo Stefano|Best Western Hotel Genio|Best Western Hotel Piemontese|Hotel CX Turin Marconi|Altra struttura|Non pernotto a Torino,,SI,SI
+210,,informativa,Dati per il bonifico delle sole attività,"Il bonifico riguarda esclusivamente le attività a pagamento selezionate. Il soggiorno alberghiero non vi è compreso.
+Beneficiario: Ance Veneto Progetti Srl
 Banca: Monte dei Paschi di Siena
 IBAN: IT89O0103012190000061547884 (il quinto carattere è la lettera «O», non la cifra zero)",,,,SI
 220,contabile,file,Distinta del bonifico,"Obbligatoria in presenza di attività a pagamento. Formati ammessi: PDF, JPG, PNG — dimensione massima 5 MB",,,NO,SI

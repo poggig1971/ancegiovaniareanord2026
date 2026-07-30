@@ -1262,6 +1262,22 @@
     .bb-copia:hover { background: var(--cobalt); }
     .bb-copia.copiato { background: #1d7a35; border-color: #6fe08a; }
 
+    /* collegamento di prenotazione della struttura scelta */
+    .iscr-hotel-link { display: none; margin-top: 10px; }
+    .iscr-hotel-link a {
+      display: inline-flex; align-items: center; min-height: 44px;
+      padding: 0 18px; border-radius: var(--r4);
+      background: var(--cerulean); color: #fff; text-decoration: none;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase;
+      transition: background var(--fast);
+    }
+    .iscr-hotel-link a:hover { background: var(--cobalt); }
+    .iscr-hotel-nota {
+      display: block; font-size: 13.5px; color: var(--w80);
+      margin-top: 7px; line-height: 1.5;
+    }
+
     /* consensi */
     .iscr-consenso {
       display: flex; align-items: flex-start; gap: 11px;
@@ -1813,6 +1829,14 @@
     }
     function nl2br(s) { return esc(s).replace(/\n/g, '<br>'); }
 
+    /* come nl2br, ma rende cliccabili indirizzi web e di posta elettronica */
+    function nl2brLink(s) {
+      return nl2br(s)
+        .replace(/(https?:\/\/[^\s<]+)/g,
+                 '<a href="$1" target="_blank" rel="noopener">$1</a>')
+        .replace(/([\w.+-]+@[\w-]+\.[\w.]+)/g, '<a href="mailto:$1">$1</a>');
+    }
+
     let day1Loaded = false, day2Loaded = false;
 
     async function loadDay1() {
@@ -2069,7 +2093,33 @@
        Incollare qui sotto l'URL della distribuzione Apps Script (…/exec). */
     const ISCRIZIONI_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzxghO7A77ySV2PwDTeY5qzSqCIb7z2oq3gqPOTRvqXERornMMWd4YjyPtlT8ijb3o/exec';
 
-    let iscrVoci = null, iscrInviato = false;
+    let iscrVoci = null, iscrInviato = false, hotelElenco = null;
+
+    /* Elenco delle strutture con il relativo link di prenotazione, letto dallo
+       stesso foglio che alimenta la sezione Hotel: nessuna duplicazione di dati. */
+    async function caricaElencoHotel_() {
+      if (hotelElenco) return hotelElenco;
+      try {
+        const r = await fetch(CONFIG.SHEET_HOTEL_URL + '&t=' + Date.now());
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const righe = parseCSV(await r.text());
+        const indice = {}, elenco = [];
+        righe.forEach(x => {
+          const nome = (x[0] || '').trim();
+          if (!nome) return;
+          /* fra più righe della stessa struttura si privilegia quella a carico
+             del partecipante: è la sola rilevante per chi si iscrive */
+          const perPartecipante = /PARTECIPANTE/i.test(x[11] || '');
+          const voce = { nome: nome, prenota: (x[14] || '').trim(),
+                         mappa: (x[13] || '').trim(), scadenza: (x[8] || '').trim(),
+                         perPartecipante: perPartecipante };
+          if (indice[nome] === undefined) { indice[nome] = elenco.length; elenco.push(voce); }
+          else if (perPartecipante && !elenco[indice[nome]].perPartecipante) elenco[indice[nome]] = voce;
+        });
+        hotelElenco = elenco.length ? elenco : null;
+      } catch (e) { hotelElenco = null; }
+      return hotelElenco;
+    }
 
     const eur = n => '€ ' + Number(n || 0).toFixed(2).replace('.', ',');
 
@@ -2092,6 +2142,7 @@
         const j = await r.json();
         if (!j.ok) throw new Error(j.errore || 'configurazione non disponibile');
         iscrVoci = j.voci || [];
+        await caricaElencoHotel_();      /* facoltativo: se fallisce si usano le opzioni del foglio */
         costruisciModulo(iscrVoci);
         load.style.display = 'none';
         form.style.display = 'block';
@@ -2173,7 +2224,7 @@
           case 'informativa':
             h += `<div class="iscr-informativa">
                     <div class="tit">${esc(v.etichetta)}</div>
-                    <div class="txt">${nl2br(v.descrizione)}</div>
+                    <div class="txt">${nl2brLink(v.descrizione)}</div>
                   </div>`;
             break;
           case 'testo': case 'email': case 'tel': {
@@ -2185,10 +2236,20 @@
             break;
           }
           case 'select': {
+            /* per la struttura alberghiera l'elenco proviene dal foglio hotel,
+               così nomi e link di prenotazione restano allineati al sito */
+            const daFoglio = (v.id === 'hotel' && hotelElenco);
+            const voci = daFoglio
+              ? hotelElenco.map(x => x.nome).concat(['Altra struttura', 'Non pernotto a Torino'])
+              : v.opzioni;
             let opts = '<option value="">— selezionare —</option>';
-            v.opzioni.forEach(o => { opts += `<option value="${esc(o)}">${esc(o)}</option>`; });
+            voci.forEach(o => { opts += `<option value="${esc(o)}">${esc(o)}</option>`; });
+            const extra = (v.id === 'hotel')
+              ? `<div class="iscr-hotel-link" id="iscr-hotel-link"></div>` : '';
             h += `<div class="iscr-campo" data-id="${v.id}">${lbl}${aiuto}
-                    <select id="f-${v.id}" name="${v.id}">${opts}</select></div>`;
+                    <select id="f-${v.id}" name="${v.id}"
+                      ${v.id === 'hotel' ? 'onchange="mostraLinkHotel()"' : ''}>${opts}</select>
+                    ${extra}</div>`;
             break;
           }
           case 'checkbox': {
@@ -2339,6 +2400,27 @@
       if (campoAltro) campoAltro.style.display = altroSel ? 'block' : 'none';
 
       return totale;
+    }
+
+    /** Mostra il collegamento per prenotare la struttura selezionata. */
+    function mostraLinkHotel() {
+      const box = document.getElementById('iscr-hotel-link');
+      const sel = document.querySelector('[name="hotel"]');
+      if (!box || !sel) return;
+      const scelto = (hotelElenco || []).filter(x => x.nome === sel.value)[0];
+      if (scelto && scelto.prenota) {
+        /* alcune strutture richiedono un modulo da compilare anziché la prenotazione online */
+        const modulo = /drive\.google|\.pdf(\?|$)|docs\.google/i.test(scelto.prenota);
+        const etichetta = modulo ? 'Scarica il modulo di prenotazione' : 'Prenota online';
+        const scad = (scelto.scadenza && /\d/.test(scelto.scadenza)) ? scelto.scadenza : '';
+        box.innerHTML =
+          `<a href="${encodeURI(scelto.prenota)}" target="_blank" rel="noopener">${etichetta}</a>` +
+          `<span class="iscr-hotel-nota">` +
+            (scad ? `<strong>${esc(scad.charAt(0).toUpperCase() + scad.slice(1))}</strong> — ` : '') +
+            `prenotazione e pagamento del soggiorno avvengono direttamente presso la struttura.` +
+          `</span>`;
+        box.style.display = 'block';
+      } else { box.innerHTML = ''; box.style.display = 'none'; }
     }
 
     /** Copia la causale negli appunti, per incollarla nel bonifico. */

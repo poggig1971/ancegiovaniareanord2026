@@ -356,6 +356,10 @@ function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNo
         '<div style="margin-top:10px;font-size:14px;color:#333">Causale: <strong>' + esc(causale) + '</strong></div>' +
         (fileNome ? '<div style="margin-top:10px;font-size:13px;color:#1a5e1a">' +
                     'Contabile ricevuta correttamente (' + esc(fileNome) + ').</div>' : '') +
+        '<div style="margin-top:10px;font-size:13px;color:#8a6d00">' +
+        'L\'importo riguarda esclusivamente le attività selezionate. Il soggiorno alberghiero ' +
+        'non vi è compreso: la prenotazione è a carico del partecipante e si salda direttamente ' +
+        'alla struttura.</div>' +
       '</div>'
     : '<div style="margin:22px 0;padding:14px 18px;background:#eef6ff;border-left:4px solid #0077C0;font-size:14px;color:#333">' +
       'Le attività selezionate non prevedono alcun costo: non è richiesto alcun bonifico.</div>';
