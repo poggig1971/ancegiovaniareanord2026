@@ -206,6 +206,14 @@ function doPost(e) {
     const email = String(risposte.email || '').trim();
     if (!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(email)) throw new Error('Indirizzo e-mail non valido.');
 
+    /* se fra le esigenze alimentari è indicato «Altro», la specificazione è dovuta */
+    const alimSelezionate = Array.isArray(risposte.alimentari) ? risposte.alimentari
+                            : String(risposte.alimentari || '').split(';');
+    const haAltro = alimSelezionate.some(function (a) { return /altro/i.test(String(a)); });
+    if (haAltro && !String(risposte.alimentariAltro || '').trim()) {
+      throw new Error('Avendo indicato «Altro» fra le esigenze alimentari, occorre specificarlo.');
+    }
+
     /* ---------- totale calcolato dai prezzi del foglio ---------- */
     let totale = 0; const sigle = [];
     campi.forEach(function (v) {

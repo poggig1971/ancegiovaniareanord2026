@@ -2209,7 +2209,9 @@
           }
         } else if (gruppoAperto) { h += '</div>'; gruppoAperto = false; dataCorrente = ''; }
 
-        const req = v.obbligatoria ? '<span class="req" aria-hidden="true">*</span>' : '';
+        /* il segno di obbligatorietà è sempre presente ma nascosto quando non serve:
+           alcuni campi lo diventano in corso di compilazione (contabile, «Altro») */
+        const req = `<span class="req" aria-hidden="true"${v.obbligatoria ? '' : ' style="display:none"'}>*</span>`;
         const aiuto = v.descrizione ? `<div class="iscr-aiuto">${esc(v.descrizione)}</div>` : '';
         const lbl = `<label class="iscr-label" for="f-${v.id}">${esc(v.etichetta)}${req}</label>`;
 
@@ -2393,11 +2395,19 @@
       const cAlim = document.getElementById('campo-consensoAlimentari');
       if (cAlim) cAlim.style.display = alim ? 'flex' : 'none';
 
-      /* «Altro» specificare: solo se selezionato */
+      /* «Altro» specificare: compare ed è obbligatorio solo se «Altro» è selezionato */
       const altroSel = [...document.querySelectorAll('[name="alimentari"]:checked')]
         .some(c => /altro/i.test(c.value));
       const campoAltro = document.querySelector('.iscr-campo[data-id="alimentariAltro"]');
-      if (campoAltro) campoAltro.style.display = altroSel ? 'block' : 'none';
+      if (campoAltro) {
+        campoAltro.style.display = altroSel ? 'block' : 'none';
+        campoAltro.dataset.obbligatorio = altroSel ? '1' : '';
+        const segno = campoAltro.querySelector('.iscr-label .req');
+        if (segno) segno.style.display = altroSel ? 'inline' : 'none';
+        const inp = campoAltro.querySelector('input');
+        if (inp) { inp.required = altroSel; if (!altroSel) inp.value = ''; }
+        if (!altroSel) campoAltro.classList.remove('errore');
+      }
 
       return totale;
     }
@@ -2485,7 +2495,10 @@
           risposte[v.id] = el ? el.value.trim() : '';
         }
 
-        if (v.obbligatoria && !nascosto && v.tipo !== 'file') {
+        /* obbligatorio da configurazione oppure divenuto tale in corso di compilazione */
+        const richiesto = v.obbligatoria ||
+                          (campo && campo.dataset && campo.dataset.obbligatorio === '1');
+        if (richiesto && !nascosto && v.tipo !== 'file') {
           const val = risposte[v.id];
           const vuoto = val === '' || val === false || (Array.isArray(val) && !val.length);
           if (vuoto) { mancanti.push(v.etichetta); if (campo) campo.classList.add('errore'); }
