@@ -630,12 +630,18 @@
     }
     .conv-row:last-child { border-bottom: none; }
     .conv-row.tipo-registrazione,
+    .conv-row.tipo-registrazione-partecipanti,
     .conv-row.tipo-chiusura,
+    .conv-row.tipo-conclusioni,
+    .conv-row.tipo-modera,
     .conv-row.tipo-moderazione { background: rgba(255,255,255,0.03); }
     .conv-row.tipo-tavola-rotonda-i,
-    .conv-row.tipo-tavola-rotonda-ii { background: rgba(240,165,0,0.08); }
+    .conv-row.tipo-tavola-rotonda-ii,
+    .conv-row.tipo-1-tavola-rotonda,
+    .conv-row.tipo-2-tavola-rotonda { background: rgba(255,140,0,0.10); }
     .conv-row.tipo-intervento,
-    .conv-row.tipo-intervista { background: rgba(255,255,255,0.05); }
+    .conv-row.tipo-intervista,
+    .conv-row.tipo-apertura-dei-lavori { background: rgba(255,255,255,0.05); }
     .conv-ora {
       padding: 14px 10px;
       font-family: 'Barlow Condensed', sans-serif;
@@ -1410,21 +1416,38 @@
       if (idx === 1) loadDay2();
     }
 
+    /* Parser CSV conforme a RFC 4180:
+       gestisce celle tra virgolette contenenti virgole, virgolette doppie ("")
+       e RITORNI A CAPO interni (fondamentale per le celle multi-riga del foglio). */
     function parseCSV(csv) {
-      const lines = csv.split('\n').filter(l => l.trim());
-      return lines.slice(1).map(line => {
-        const cols = [];
-        let current = '', inQuotes = false;
-        for (let i = 0; i < line.length; i++) {
-          const ch = line[i];
-          if (ch === '"') { inQuotes = !inQuotes; }
-          else if (ch === ',' && !inQuotes) { cols.push(current.trim()); current = ''; }
-          else { current += ch; }
+      const text = String(csv).replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+      const rows = [];
+      let row = [], cur = '', inQ = false;
+      for (let i = 0; i < text.length; i++) {
+        const ch = text[i];
+        if (inQ) {
+          if (ch === '"') {
+            if (text[i + 1] === '"') { cur += '"'; i++; }   // virgoletta sfuggita
+            else { inQ = false; }
+          } else { cur += ch; }
+        } else {
+          if (ch === '"') { inQ = true; }
+          else if (ch === ',') { row.push(cur.trim()); cur = ''; }
+          else if (ch === '\n') { row.push(cur.trim()); rows.push(row); row = []; cur = ''; }
+          else { cur += ch; }
         }
-        cols.push(current.trim());
-        return cols;
-      }).filter(r => r[0]);
+      }
+      if (cur !== '' || row.length) { row.push(cur.trim()); rows.push(row); }
+      // salta l'intestazione e scarta solo le righe completamente vuote
+      return rows.slice(1).filter(r => r.some(c => c && c.trim()));
     }
+
+    /* utilità: mette in sicurezza il testo e converte i ritorni a capo in <br> */
+    function esc(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+    function nl2br(s) { return esc(s).replace(/\n/g, '<br>'); }
 
     let day1Loaded = false, day2Loaded = false;
 
@@ -1488,10 +1511,10 @@
           const [orario, titolo, luogo, mapLink, note, badge] = r;
           const badgeHtml = badge ? getBadgeHtml(badge) : '';
           const luogoHtml = luogo ? (mapLink
-            ? `<div class="location"><a href="${mapLink}" target="_blank" rel="noopener">📍 ${luogo}</a></div>`
-            : `<div class="location"><span>📍 ${luogo}</span></div>`) : '';
-          const noteHtml = note ? `<div class="note">${note}</div>` : '';
-          html += `<div class="prog-row"><div class="prog-time">${orario}</div><div class="prog-content"><div class="title">${titolo}${badgeHtml}</div>${luogoHtml}${noteHtml}</div></div>`;
+            ? `<div class="location"><a href="${encodeURI(mapLink)}" target="_blank" rel="noopener">📍 ${nl2br(luogo)}</a></div>`
+            : `<div class="location"><span>📍 ${nl2br(luogo)}</span></div>`) : '';
+          const noteHtml = note ? `<div class="note">${nl2br(note)}</div>` : '';
+          html += `<div class="prog-row"><div class="prog-time">${nl2br(orario)}</div><div class="prog-content"><div class="title">${nl2br(titolo)}${badgeHtml}</div>${luogoHtml}${noteHtml}</div></div>`;
         });
         html += `</div></div>`;
       });
@@ -1631,12 +1654,13 @@
         const [ora, sessione, titolo, relatore, ruolo] = r;
         const tipoClass = 'tipo-' + (sessione||'').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
         html += `<div class="conv-row ${tipoClass}">
-          <div class="conv-ora">${ora||''}</div>
+          <div class="conv-ora">${nl2br(ora)}</div>
           <div class="conv-detail">
-            <div class="conv-sessione">${sessione||''}</div>
-            <div class="conv-titolo">${titolo||''}</div>
-            ${relatore ? `<div class="conv-relatore">${relatore}</div>` : ''}
-            ${ruolo ? `<div class="conv-ruolo">${ruolo}</div>` : ''}
+            ${titolo && titolo.trim()
+              ? `<div class="conv-sessione">${esc(sessione)}</div><div class="conv-titolo">${nl2br(titolo)}</div>`
+              : `<div class="conv-titolo">${nl2br(sessione)}</div>`}
+            ${relatore ? `<div class="conv-relatore">${nl2br(relatore)}</div>` : ''}
+            ${ruolo ? `<div class="conv-ruolo">${nl2br(ruolo)}</div>` : ''}
           </div>
         </div>`;
       });
