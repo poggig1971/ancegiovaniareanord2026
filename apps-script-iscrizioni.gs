@@ -109,6 +109,37 @@ function titoloColonna_(v) {
   return t;
 }
 
+const PAROLE_VUOTE = { di:1, del:1, dello:1, della:1, dei:1, delle:1, al:1, allo:1, alla:1,
+                       ai:1, agli:1, alle:1, il:1, lo:1, la:1, i:1, gli:1, le:1, un:1, una:1,
+                       e:1, ed:1, a:1, in:1, per:1, con:1, su:1, da:1, presso:1 };
+
+/**
+ * Sigla sintetica dell'attività, per la causale del bonifico.
+ * «22 ottobre 2026, ore 20:00 — Cena al Ristorante Arcadia» → CENA22
+ * Non è impiegato alcun carattere barra, che taluni sistemi bancari rifiutano.
+ */
+function sigla_(v) {
+  const et = String(v.etichetta || '');
+  const g = et.match(/^\s*(\d{1,2})\s+[A-Za-zàèéìòù]+\s+\d{4}/);
+  const giorno = g ? g[1] : '';
+  const resto = et.replace(/^\s*\d{1,2}\s+[A-Za-zàèéìòù]+\s+\d{4}\s*,?\s*/, '')
+                  .replace(/^ore\s+[\d.:]+\s*[—–-]?\s*/i, '')
+                  .replace(/^[—–-]\s*/, '');
+  const parole = resto.replace(/[^0-9A-Za-zÀ-ÿ\s]/g, ' ').split(/\s+/).filter(function (s) { return s; });
+  let chiave = '';
+  for (let i = 0; i < parole.length; i++) {
+    if (!PAROLE_VUOTE[parole[i].toLowerCase()]) { chiave = parole[i]; break; }
+  }
+  chiave = chiave.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^A-Za-z0-9]/g, '');
+  return (chiave.toUpperCase() + giorno).trim();
+}
+
+/** Causale: chi paga, per quale evento e per quali attività. */
+function causale_(cognome, nome, sigle) {
+  const chi = (String(cognome || '') + ' ' + String(nome || '')).trim().toUpperCase();
+  return (chi + ' CONVEGNO AN 2026' + (sigle.length ? ' ' + sigle.join(' ') : '')).trim();
+}
+
 /* ============================== SETUP ============================== */
 
 function setup() {
@@ -176,9 +207,11 @@ function doPost(e) {
     if (!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(email)) throw new Error('Indirizzo e-mail non valido.');
 
     /* ---------- totale calcolato dai prezzi del foglio ---------- */
-    let totale = 0;
+    let totale = 0; const sigle = [];
     campi.forEach(function (v) {
-      if (v.prezzo > 0 && String(risposte[v.id]).toUpperCase() === 'SI') totale += v.prezzo;
+      if (v.prezzo > 0 && String(risposte[v.id]).toUpperCase() === 'SI') {
+        totale += v.prezzo; sigle.push(sigla_(v));
+      }
     });
 
     const haFile = !!(d.file && d.file.dati);
@@ -196,7 +229,7 @@ function doPost(e) {
       const numero = CONFIG.ANNO + '-' + Utilities.formatString('%03d', sh.getLastRow());
       const cognome = String(risposte.cognome || '').trim().toUpperCase();
       const nome = String(risposte.nome || '').trim();
-      const causale = (cognome + ' ' + nome.toUpperCase()).trim() + ' - CONVEGNO AREA NORD 2026';
+      const causale = causale_(cognome, nome, sigle);
 
       let fileNome = '', fileUrl = '';
       if (haFile) {

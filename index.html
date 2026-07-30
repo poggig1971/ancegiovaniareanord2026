@@ -2039,6 +2039,32 @@
         .replace(/^[—–-]\s*/, '').trim();
     }
 
+    /* Sigla sintetica dell'attività per la causale del bonifico:
+       «22 ottobre 2026, ore 20:00 — Cena al Ristorante Arcadia» → CENA22
+       Nessun carattere barra, così da non creare problemi ai sistemi bancari. */
+    const PAROLE_VUOTE = { di:1, del:1, dello:1, della:1, dei:1, delle:1, al:1, allo:1, alla:1,
+                           ai:1, agli:1, alle:1, il:1, lo:1, la:1, i:1, gli:1, le:1, un:1, una:1,
+                           e:1, ed:1, a:1, in:1, per:1, con:1, su:1, da:1, presso:1 };
+    function sigla_(v) {
+      const et = String(v.etichetta || '');
+      const g = et.match(/^\s*(\d{1,2})\s+[A-Za-zàèéìòù]+\s+\d{4}/);
+      const giorno = g ? g[1] : '';
+      const resto = senzaData_(et).replace(/^ore\s+[\d.:]+\s*[—–-]?\s*/i, '').replace(/^[—–-]\s*/, '');
+      const parole = resto.replace(/[^0-9A-Za-zÀ-ÿ\s]/g, ' ').split(/\s+/).filter(Boolean);
+      let chiave = '';
+      for (let i = 0; i < parole.length; i++) {
+        if (!PAROLE_VUOTE[parole[i].toLowerCase()]) { chiave = parole[i]; break; }
+      }
+      chiave = chiave.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^A-Za-z0-9]/g, '');
+      return (chiave.toUpperCase() + giorno).trim();
+    }
+
+    /** Causale completa: chi paga, per cosa e per quale evento. */
+    function causale_(cognome, nome, sigle) {
+      const chi = ((cognome || '') + ' ' + (nome || '')).trim().toUpperCase() || '[COGNOME] [NOME]';
+      return (chi + ' CONVEGNO AN 2026' + (sigle.length ? ' ' + sigle.join(' ') : '')).trim();
+    }
+
     function costruisciModulo(voci) {
       const box = document.getElementById('iscr-campi');
       let h = '', dataCorrente = '', gruppoAperto = false;
@@ -2112,19 +2138,32 @@
           }
           case 'sino': {
             /* Colonna Prezzo del foglio: un numero concorre al totale;
-               un testo (es. «sul posto») è mostrato come nota, senza addebito. */
+               un testo (es. «Pagamento in Loco») è mostrato come nota, senza addebito.
+               In assenza del testo si desume dalla descrizione. */
             const pt = (v.prezzoTesto || '').trim();
+            const inLoco = /sul\s+posto|in\s+loco/i.test(v.descrizione || '');
             const costo = v.prezzo > 0
               ? `<span class="iscr-prezzo">${eur(v.prezzo)}</span>`
               : (pt && !/^[0-9.,]+$/.test(pt)
                   ? `<span class="iscr-nota-costo">${esc(pt)}</span>`
-                  : `<span class="iscr-gratuito">gratuito</span>`);
+                  : (inLoco
+                      ? `<span class="iscr-nota-costo">Pagamento in Loco</span>`
+                      : `<span class="iscr-gratuito">gratuito</span>`));
+            /* separa l'orario dal titolo per una lettura più ordinata */
+            const nudo = senzaData_(v.etichetta);
+            const mo = nudo.match(/^ore\s+([\d.:]+)\s*[—–-]\s*(.+)$/i);
+            const ora = mo ? mo[1] : '';
+            const titolo = mo ? mo[2] : nudo;
             h += `<div class="iscr-campo iscr-attivita" data-id="${v.id}">
                     <div class="iscr-att-testo">
-                      <div class="iscr-label">${esc(senzaData_(v.etichetta))}${costo}${req}</div>
-                      ${aiuto}
+                      <div class="iscr-att-titolo">
+                        ${ora ? `<span class="iscr-ora">${esc(ora)}</span>` : ''}
+                        <span class="iscr-tit">${esc(titolo)}</span>
+                      </div>
+                      ${v.descrizione ? `<div class="iscr-att-luogo">${esc(v.descrizione)}</div>` : ''}
                     </div>
-                    <div class="iscr-scelte">
+                    <div class="iscr-att-costo">${costo}</div>
+                    <div class="iscr-scelte" role="radiogroup" aria-label="${esc(titolo)}">
                       <label class="iscr-scelta"><input type="radio" name="${v.id}" value="SI"
                               onchange="aggiornaIscr()"> Sì, partecipo</label>
                       <label class="iscr-scelta"><input type="radio" name="${v.id}" value="NO"
@@ -2160,7 +2199,7 @@
         return el ? (el.type === 'checkbox' ? el.checked : el.value) : '';
       };
 
-      let totale = 0;
+      let totale = 0; const sigle = [];
       iscrVoci.forEach(v => {
         if (v.tipo !== 'sino') return;
         const sel = document.querySelector(`[name="${v.id}"]:checked`);
@@ -2169,7 +2208,7 @@
           if (w) w.classList.toggle('sel-si', r.checked && r.value === 'SI'),
                  w.classList.toggle('sel-no', r.checked && r.value === 'NO');
         });
-        if (sel && sel.value === 'SI' && v.prezzo > 0) totale += v.prezzo;
+        if (sel && sel.value === 'SI' && v.prezzo > 0) { totale += v.prezzo; sigle.push(sigla_(v)); }
       });
 
       document.getElementById('iscr-totale').textContent = eur(totale);
@@ -2180,8 +2219,7 @@
       const wrap = document.getElementById('iscr-causale-wrap');
       if (totale > 0) {
         wrap.style.display = 'block';
-        document.getElementById('iscr-causale').textContent =
-          ((cognome + ' ' + nome).trim().toUpperCase() || '[COGNOME] [NOME]') + ' - CONVEGNO AREA NORD 2026';
+        document.getElementById('iscr-causale').textContent = causale_(cognome, nome, sigle);
       } else { wrap.style.display = 'none'; }
 
       /* la contabile è richiesta solo in presenza di importo */
