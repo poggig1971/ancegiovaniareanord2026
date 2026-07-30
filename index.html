@@ -449,6 +449,8 @@
     }
     .hero-vertical .v-costruire { color: var(--w); }
     .hero-vertical .v-bellezza  { color: var(--gold); }
+    .hero-vertical .v-generare  { color: var(--w); }
+    .hero-vertical .v-futuro    { color: var(--gold); }
 
     /* clone fisso nascosto di default (su mobile si usa la versione in-flow) */
     .hero-vertical-fixed { display: none; }
@@ -469,12 +471,20 @@
         content: ''; position: absolute; inset: 0; z-index: -1;
         background: linear-gradient(90deg, rgba(0,38,76,0.60) 0%, rgba(0,38,76,0.22) 62%, transparent 100%);
       }
+      /* blocco di destra: specchiato rispetto a quello di sinistra */
+      .hero-vertical-right { left: auto; right: 0; }
+      .hero-vertical-right::before {
+        background: linear-gradient(270deg, rgba(0,38,76,0.60) 0%, rgba(0,38,76,0.22) 62%, transparent 100%);
+      }
       .hero-vertical .v-word { font-size: clamp(52px, min(11.5vh, 8vw), 140px); }
     }
     /* Solo su desktop più stretti riservo spazio a sinistra (per non sovrapporre
        il titolo verticale); su schermi larghi il contenuto resta centrato come i loghi. */
-    @media (min-width: 900px) and (max-width: 1339px) {
-      .hero, .prog-outer, .iscr-outer { padding-left: clamp(150px, 16vw, 240px); }
+    @media (min-width: 900px) and (max-width: 1599px) {
+      .hero, .prog-outer, .iscr-outer {
+        padding-left: clamp(140px, 15vw, 230px);
+        padding-right: clamp(140px, 15vw, 230px);
+      }
     }
     /* la hero-card ora affianca il titolo verticale */
     .hero-titlegroup .hero-card {
@@ -504,9 +514,11 @@
       font-size: clamp(42px, 7vw, 86px); letter-spacing: 1px;
     }
     .hero-sub {
-      font-size: clamp(12px, 1.5vw, 15px);
-      color: var(--w80); font-style: italic;
-      line-height: 1.5; margin-bottom: 18px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(17px, 2.3vw, 30px);
+      font-weight: 800; color: var(--gold);
+      text-transform: uppercase; letter-spacing: 0.5px;
+      line-height: 1.1; margin-bottom: 20px;
     }
     .hero-meta { margin-bottom: 4px; }
     .hero-titlegroup .countdown-wrap { align-self: stretch; }
@@ -1063,10 +1075,14 @@
 <body class="is-home">
   <a href="#main-content" class="skip-link">Vai al contenuto principale</a>
 
-  <!-- TITOLO VERTICALE FISSO A SINISTRA (desktop, solo Home) -->
+  <!-- TITOLI VERTICALI FISSI AI LATI (desktop) -->
   <div class="hero-vertical hero-vertical-fixed" aria-hidden="true">
     <span class="v-word v-costruire">COSTRUIRE</span>
     <span class="v-word v-bellezza">BELLEZZA</span>
+  </div>
+  <div class="hero-vertical hero-vertical-fixed hero-vertical-right" aria-hidden="true">
+    <span class="v-word v-generare">GENERARE</span>
+    <span class="v-word v-futuro">FUTURO</span>
   </div>
 
   <!-- ETHEREAL SHADOWS BACKGROUND -->
@@ -1155,14 +1171,12 @@
         <div class="hero-vertical">
           <span class="v-word v-costruire">COSTRUIRE</span>
           <span class="v-word v-bellezza">BELLEZZA</span>
+          <span class="v-word v-generare">GENERARE</span>
+          <span class="v-word v-futuro">FUTURO</span>
         </div>
         <div class="hero-card">
-          <div class="hero-eyebrow">XVI Convegno Area Nord · Giovani Imprenditori Edili ANCE</div>
-          <h1 class="hero-headline">
-            <span class="hl-1">GENERARE</span>
-            <span class="hl-2">FUTURO</span>
-          </h1>
-          <p class="hero-sub">Quando la qualità del costruito diventa motore di investimenti e sviluppo</p>
+          <h1 class="hero-eyebrow">XVI Convegno Area Nord · Giovani Imprenditori Edili ANCE</h1>
+          <p class="hero-sub">Quando la qualità del costruito diventa<br>motore di investimenti e sviluppo</p>
           <div class="hero-meta">
             <div class="date">23 Ottobre 2026 · Torino</div>
             <div class="time">Venerdì · Ore 14.00 – 17.00</div>
