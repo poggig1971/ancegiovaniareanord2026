@@ -70,6 +70,7 @@ function leggiConfigurazione_() {
       opzioni: String(r[COL.OPZIONI] || '').split('|').map(function (s) { return s.trim(); })
                  .filter(function (s) { return s; }),
       prezzo: Number(String(r[COL.PREZZO] || '0').toString().replace(',', '.')) || 0,
+      prezzoTesto: String(r[COL.PREZZO] == null ? '' : r[COL.PREZZO]).trim(),
       obbligatoria: String(r[COL.OBBLIGATORIA] || 'NO').trim().toUpperCase() === 'SI'
     });
   }
@@ -301,13 +302,11 @@ function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNo
     : '<div style="margin:22px 0;padding:14px 18px;background:#eef6ff;border-left:4px solid #0077C0;font-size:14px;color:#333">' +
       'Le attività selezionate non prevedono alcun costo: non è richiesto alcun bonifico.</div>';
 
-  const titolo = (voci.filter(function (v) { return v.tipo === 'titolo'; })[0] || {});
-
   const html =
     '<div style="font-family:Arial,Helvetica,sans-serif;max-width:640px;margin:0 auto;color:#222">' +
       '<div style="background:#0056A0;padding:22px 24px;color:#fff">' +
-        '<div style="font-size:19px;font-weight:700">' + esc(titolo.etichetta || 'XVI Convegno Area Nord GIE ANCE') + '</div>' +
-        '<div style="font-size:14px;margin-top:6px;opacity:.92">' + esc(titolo.descrizione || 'Torino, 22-23 ottobre 2026') + '</div>' +
+        '<div style="font-size:19px;font-weight:700">XVI Convegno Area Nord GIE ANCE</div>' +
+        '<div style="font-size:14px;margin-top:6px;opacity:.92">Torino, 22-23 ottobre 2026</div>' +
       '</div>' +
       '<div style="padding:24px">' +
         '<p style="font-size:15px">Gentile ' + esc(risposte.nome) + ' ' + esc(String(risposte.cognome).toUpperCase()) + ',</p>' +

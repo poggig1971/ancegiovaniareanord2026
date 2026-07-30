@@ -1043,24 +1043,72 @@
     .iscr-frame-wrap iframe { display: block; border: none; }
 
     /* ── MODULO ISCRIZIONI ── */
-    .iscr-stato { text-align: center; padding: 48px 20px; color: var(--w80); font-size: 14px; }
-    .iscr-form { padding: 26px 28px 32px; }
+    .iscr-stato { text-align: center; padding: 48px 20px; color: var(--w80); font-size: 16px; }
+    .iscr-form { padding: 28px 30px 34px; font-size: 17px; }
     .iscr-blocco-titolo {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 22px; font-weight: 800; color: var(--gold);
+      font-size: 27px; font-weight: 800; color: var(--gold);
       text-transform: uppercase; letter-spacing: 1px;
-      margin: 30px 0 4px; padding-bottom: 8px;
+      margin: 34px 0 6px; padding-bottom: 9px;
       border-bottom: 2px solid var(--gold-border);
     }
     .iscr-blocco-titolo:first-child { margin-top: 0; }
-    .iscr-blocco-sub { font-size: 14px; color: var(--w80); line-height: 1.6; margin-bottom: 16px; }
-    .iscr-campo { margin-bottom: 18px; }
+    .iscr-blocco-sub { font-size: 16.5px; color: var(--w80); line-height: 1.6; margin-bottom: 18px; }
+    .iscr-campo { margin-bottom: 20px; }
     .iscr-label {
-      display: block; font-size: 14.5px; font-weight: 700;
-      color: #fff; margin-bottom: 4px; line-height: 1.45;
+      display: block; font-size: 17px; font-weight: 700;
+      color: #fff; margin-bottom: 5px; line-height: 1.45;
     }
     .iscr-label .req { color: var(--gold); margin-left: 3px; }
-    .iscr-aiuto { font-size: 13px; color: var(--w80); line-height: 1.55; margin-bottom: 8px; }
+    .iscr-aiuto { font-size: 15px; color: var(--w80); line-height: 1.55; margin-bottom: 9px; }
+
+    /* ── raggruppamento delle attività per data ── */
+    .iscr-data-testata {
+      display: flex; align-items: center; gap: 9px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px; font-weight: 800; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--navy);
+      background: var(--gold);
+      padding: 10px 16px; margin: 22px 0 0;
+      border-radius: var(--r8) var(--r8) 0 0;
+    }
+    .iscr-data-gruppo {
+      border: 1px solid var(--gold-border); border-top: none;
+      border-radius: 0 0 var(--r8) var(--r8);
+      background: rgba(0,0,0,0.16);
+      padding: 16px 18px 4px; margin-bottom: 20px;
+    }
+    .iscr-data-gruppo .iscr-attivita { margin-bottom: 16px; }
+    .iscr-data-gruppo .iscr-attivita + .iscr-attivita {
+      border-top: 1px solid rgba(255,255,255,0.14); padding-top: 16px;
+    }
+
+    /* ── sezione richiudibile (esigenze alimentari) ── */
+    .iscr-collassa {
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: var(--r8); background: rgba(255,255,255,0.07);
+    }
+    .iscr-collassa > summary {
+      cursor: pointer; padding: 15px 18px;
+      font-size: 17px; font-weight: 700; color: #fff;
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      list-style: none; min-height: 50px;
+    }
+    .iscr-collassa > summary::-webkit-details-marker { display: none; }
+    .iscr-collassa > summary::before {
+      content: '+'; flex-shrink: 0;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 24px; font-weight: 800; color: var(--gold);
+      width: 26px; height: 26px; line-height: 24px; text-align: center;
+      border: 2px solid var(--gold); border-radius: 50%;
+    }
+    .iscr-collassa[open] > summary::before { content: '−'; }
+    .iscr-collassa-hint {
+      font-size: 13.5px; font-weight: 600; color: var(--gold);
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .iscr-collassa[open] .iscr-collassa-hint { display: none; }
+    .iscr-collassa-corpo { padding: 0 18px 18px; }
     .iscr-campo input[type=text],
     .iscr-campo input[type=email],
     .iscr-campo input[type=tel],
@@ -1075,33 +1123,44 @@
     .iscr-campo input:focus, .iscr-campo select:focus {
       outline: 2px solid var(--gold); outline-offset: 1px;
     }
-    .iscr-campo input[type=file] { padding: 9px 12px; background: rgba(255,248,224,0.92); }
+    .iscr-campo input[type=file] { padding: 11px 13px; background: rgba(255,248,224,0.92); font-size: 15px; }
     /* scelte Sì/No e caselle */
-    .iscr-scelte { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+    .iscr-scelte { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
     .iscr-scelta {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 9px 16px; min-height: 44px;
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 11px 19px; min-height: 48px;
       background: rgba(255,255,255,0.10);
       border: 1px solid rgba(255,255,255,0.28);
       border-radius: 100px; cursor: pointer;
-      font-size: 14px; font-weight: 600; color: #fff;
+      font-size: 16px; font-weight: 600; color: #fff;
       transition: background var(--fast), border-color var(--fast);
     }
     .iscr-scelta:hover { background: rgba(255,255,255,0.18); }
-    .iscr-scelta input { accent-color: var(--gold); width: 17px; height: 17px; }
-    .iscr-scelta.sel-si { background: rgba(40,140,40,0.30); border-color: rgba(120,220,120,0.65); }
+    .iscr-scelta input { accent-color: var(--gold); width: 19px; height: 19px; }
+    .iscr-scelta.sel-si { background: rgba(40,140,40,0.34); border-color: rgba(120,220,120,0.70); }
     .iscr-scelta.sel-no { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.20); }
+    /* costo dell'attività: ben visibile */
     .iscr-prezzo {
-      display: inline-block; margin-left: 8px;
+      display: inline-block; margin-left: 10px;
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 15px; font-weight: 800; color: var(--gold);
+      font-size: 22px; font-weight: 900; color: var(--navy);
+      background: var(--gold); border-radius: 100px;
+      padding: 2px 14px; vertical-align: middle;
+      font-variant-numeric: tabular-nums;
     }
     .iscr-gratuito {
-      display: inline-block; margin-left: 8px; font-size: 12px;
-      font-weight: 700; color: rgba(255,255,255,0.75); text-transform: uppercase;
-      letter-spacing: 0.5px;
+      display: inline-block; margin-left: 10px; font-size: 13px;
+      font-weight: 800; color: #bfe8bf; text-transform: uppercase;
+      letter-spacing: 1px; border: 1px solid rgba(150,220,150,0.5);
+      border-radius: 100px; padding: 2px 12px; vertical-align: middle;
     }
-    .iscr-caselle { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+    .iscr-nota-costo {
+      display: inline-block; margin-left: 10px; font-size: 13px;
+      font-weight: 800; color: #ffe08a; text-transform: uppercase;
+      letter-spacing: 0.8px; border: 1px solid rgba(255,200,80,0.55);
+      border-radius: 100px; padding: 2px 12px; vertical-align: middle;
+    }
+    .iscr-caselle { display: flex; flex-direction: column; gap: 9px; margin-top: 6px; }
     /* informativa (dati bonifico) */
     .iscr-informativa {
       background: rgba(255,248,224,0.95); color: #16283d;
@@ -1111,17 +1170,17 @@
     }
     .iscr-informativa .tit {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 18px; font-weight: 800; color: var(--cerulean);
-      text-transform: uppercase; margin-bottom: 6px;
+      font-size: 21px; font-weight: 800; color: var(--cerulean);
+      text-transform: uppercase; margin-bottom: 7px;
     }
-    .iscr-informativa .txt { font-size: 14px; line-height: 1.8; }
+    .iscr-informativa .txt { font-size: 16px; line-height: 1.85; }
     /* consensi */
     .iscr-consenso {
-      display: flex; align-items: flex-start; gap: 10px;
-      font-size: 13.5px; color: var(--w80); line-height: 1.55;
-      margin-bottom: 12px; cursor: pointer;
+      display: flex; align-items: flex-start; gap: 11px;
+      font-size: 15.5px; color: var(--w80); line-height: 1.55;
+      margin-bottom: 14px; cursor: pointer;
     }
-    .iscr-consenso input { accent-color: var(--gold); width: 18px; height: 18px; margin-top: 2px; flex-shrink: 0; }
+    .iscr-consenso input { accent-color: var(--gold); width: 20px; height: 20px; margin-top: 2px; flex-shrink: 0; }
     .iscr-consenso a { color: var(--gold); }
     /* riepilogo importo */
     .iscr-riepilogo {
@@ -1130,20 +1189,20 @@
     }
     .iscr-riepilogo-riga {
       display: flex; justify-content: space-between; align-items: baseline;
-      font-size: 15px; color: #fff; gap: 12px;
+      font-size: 18px; font-weight: 700; color: #fff; gap: 12px;
     }
     .iscr-riepilogo-riga strong {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 30px; font-weight: 900; color: var(--gold);
+      font-size: 40px; font-weight: 900; color: var(--gold);
       font-variant-numeric: tabular-nums;
     }
-    .iscr-causale { font-size: 13px; color: var(--w80); margin-top: 8px; }
+    .iscr-causale { font-size: 15px; color: var(--w80); margin-top: 9px; }
     .iscr-causale strong { color: #fff; }
     /* invio */
     .iscr-submit {
-      width: 100%; min-height: 52px; margin-top: 18px;
+      width: 100%; min-height: 58px; margin-top: 20px;
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 19px; font-weight: 800; letter-spacing: 1.5px;
+      font-size: 23px; font-weight: 800; letter-spacing: 1.5px;
       text-transform: uppercase; color: #fff;
       background: var(--terra); border: none; border-radius: var(--r8);
       cursor: pointer; touch-action: manipulation;
@@ -1152,11 +1211,11 @@
     .iscr-submit:hover:not(:disabled) { background: var(--terra-hi); }
     .iscr-submit:active:not(:disabled) { transform: scale(0.99); }
     .iscr-submit:disabled { opacity: 0.6; cursor: progress; }
-    .iscr-nota-invio { font-size: 12px; color: var(--w60); text-align: center; margin-top: 10px; }
+    .iscr-nota-invio { font-size: 14px; color: var(--w60); text-align: center; margin-top: 11px; }
     .iscr-errore {
-      background: rgba(176,48,32,0.22); border: 1px solid rgba(255,120,100,0.55);
-      color: #ffd9d2; border-radius: var(--r8);
-      padding: 13px 16px; margin-top: 16px; font-size: 14px; line-height: 1.55;
+      background: rgba(176,48,32,0.26); border: 1px solid rgba(255,120,100,0.55);
+      color: #ffe2dc; border-radius: var(--r8);
+      padding: 15px 18px; margin-top: 16px; font-size: 16px; line-height: 1.6;
     }
     .iscr-campo.errore input, .iscr-campo.errore select { border-color: #ff8a75; }
     /* esito finale */
@@ -1167,14 +1226,14 @@
     }
     .iscr-esito h3 {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 26px; font-weight: 800; color: #fff;
+      font-size: 30px; font-weight: 800; color: #fff;
       text-transform: uppercase; margin-bottom: 10px;
     }
-    .iscr-esito p { font-size: 14.5px; color: var(--w80); line-height: 1.7; margin-bottom: 10px; }
+    .iscr-esito p { font-size: 16.5px; color: var(--w80); line-height: 1.7; margin-bottom: 11px; }
     .iscr-esito .box {
       background: rgba(255,248,224,0.95); color: #16283d;
-      border-radius: var(--r8); padding: 16px 18px; margin: 16px 0;
-      font-size: 14px; line-height: 1.8;
+      border-radius: var(--r8); padding: 17px 19px; margin: 16px 0;
+      font-size: 16px; line-height: 1.85;
     }
     @media (max-width: 600px) {
       .iscr-form { padding: 20px 16px 26px; }
@@ -1607,17 +1666,28 @@
       PREZZI: { hotel_victoria: 180, hotel_sitea: 220, cena17: 80, cena18: 90 }
     };
 
-    function showSection(name) {
+    function showSection(name, silenzioso) {
+      if (!document.getElementById('sec-' + name)) name = 'home';
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
       document.getElementById('sec-' + name).classList.add('active');
       const map = { home: 0, programma: 1, hotel: 2, iscrizioni: 3 };
       if (map[name] !== undefined) document.querySelectorAll('.nav-tab')[map[name]].classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      /* indirizzo diretto alla sezione: …/#iscrizioni */
+      if (history.replaceState) history.replaceState(null, '', '#' + name);
+      if (!silenzioso) window.scrollTo({ top: 0, behavior: 'smooth' });
       if (name === 'programma') loadDay1();
       if (name === 'hotel') loadHotel();
       if (name === 'iscrizioni') initIscrizioni();
     }
+
+    /* apertura diretta della sezione richiesta nell'indirizzo */
+    function apriDaIndirizzo() {
+      const h = (location.hash || '').replace('#', '').toLowerCase();
+      const ammesse = ['home', 'programma', 'hotel', 'iscrizioni'];
+      if (ammesse.indexOf(h) !== -1) showSection(h, true);
+    }
+    window.addEventListener('hashchange', apriDaIndirizzo);
 
     function switchDay(idx) {
       document.querySelectorAll('.day-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
@@ -1946,10 +2016,37 @@
       }
     }
 
+    /* estrae la data iniziale dall'etichetta, es. «23 ottobre 2026, ore 10:00 — …» */
+    function dataDa_(testo) {
+      const m = String(testo).match(/^\s*(\d{1,2}\s+[A-Za-zàèéìòù]+\s+\d{4})/);
+      return m ? m[1] : '';
+    }
+    function senzaData_(testo) {
+      return String(testo)
+        .replace(/^\s*\d{1,2}\s+[A-Za-zàèéìòù]+\s+\d{4}\s*,?\s*/, '')
+        .replace(/^[—–-]\s*/, '').trim();
+    }
+
     function costruisciModulo(voci) {
       const box = document.getElementById('iscr-campi');
-      let h = '';
+      let h = '', dataCorrente = '', gruppoAperto = false;
       voci.forEach(v => {
+        /* raggruppamento delle attività per data */
+        if (v.tipo === 'sino') {
+          const d = dataDa_(v.etichetta);
+          if (d && d !== dataCorrente) {
+            if (gruppoAperto) h += '</div>';
+            dataCorrente = d;
+            h += `<div class="iscr-data-testata">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2.2" aria-hidden="true">
+                      <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
+                      <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>${esc(d)}</div><div class="iscr-data-gruppo">`;
+            gruppoAperto = true;
+          }
+        } else if (gruppoAperto) { h += '</div>'; gruppoAperto = false; dataCorrente = ''; }
+
         const req = v.obbligatoria ? '<span class="req" aria-hidden="true">*</span>' : '';
         const aiuto = v.descrizione ? `<div class="iscr-aiuto">${esc(v.descrizione)}</div>` : '';
         const lbl = `<label class="iscr-label" for="f-${v.id}">${esc(v.etichetta)}${req}</label>`;
@@ -1985,20 +2082,33 @@
           }
           case 'checkbox': {
             let opts = '';
-            v.opzioni.forEach((o, i) => {
+            v.opzioni.forEach(o => {
               opts += `<label class="iscr-scelta"><input type="checkbox" name="${v.id}"
                         value="${esc(o)}" onchange="aggiornaIscr()"> ${esc(o)}</label>`;
             });
-            h += `<div class="iscr-campo" data-id="${v.id}">${lbl}${aiuto}
-                    <div class="iscr-caselle">${opts}</div></div>`;
+            /* sezione richiudibile: si apre solo se il partecipante desidera compilarla */
+            h += `<div class="iscr-campo" data-id="${v.id}">
+                    <details class="iscr-collassa">
+                      <summary>${esc(v.etichetta)}${req}
+                        <span class="iscr-collassa-hint">apri per indicarle</span></summary>
+                      <div class="iscr-collassa-corpo">
+                        ${aiuto}<div class="iscr-caselle">${opts}</div>
+                      </div>
+                    </details>
+                  </div>`;
             break;
           }
           case 'sino': {
+            /* Colonna Prezzo del foglio: un numero concorre al totale;
+               un testo (es. «sul posto») è mostrato come nota, senza addebito. */
+            const pt = (v.prezzoTesto || '').trim();
             const costo = v.prezzo > 0
               ? `<span class="iscr-prezzo">${eur(v.prezzo)}</span>`
-              : `<span class="iscr-gratuito">nessun costo</span>`;
-            h += `<div class="iscr-campo" data-id="${v.id}">
-                    <div class="iscr-label">${esc(v.etichetta)}${costo}${req}</div>
+              : (pt && !/^[0-9.,]+$/.test(pt)
+                  ? `<span class="iscr-nota-costo">${esc(pt)}</span>`
+                  : `<span class="iscr-gratuito">gratuito</span>`);
+            h += `<div class="iscr-campo iscr-attivita" data-id="${v.id}">
+                    <div class="iscr-label">${esc(senzaData_(v.etichetta))}${costo}${req}</div>
                     ${aiuto}
                     <div class="iscr-scelte">
                       <label class="iscr-scelta"><input type="radio" name="${v.id}" value="SI"
@@ -2022,6 +2132,7 @@
             break;
         }
       });
+      if (gruppoAperto) h += '</div>';
       box.innerHTML = h;
       aggiornaIscr();
     }
@@ -2207,6 +2318,7 @@
 
     loadDay1();
     loadConvegno();
+    apriDaIndirizzo();
 
     /* ── COUNTDOWN ── */
     function updateCountdown() {
