@@ -1286,6 +1286,19 @@
     }
     .iscr-consenso input { accent-color: var(--gold); width: 20px; height: 20px; margin-top: 2px; flex-shrink: 0; }
     .iscr-consenso a { color: var(--gold); }
+    /* avviso di partecipazione in qualità di ospite */
+    .iscr-ospite {
+      background: rgba(29,122,53,0.30);
+      border: 2px solid #6fe08a; border-radius: var(--r8);
+      padding: 15px 18px; margin: 22px 0 0;
+      font-size: 15.5px; line-height: 1.6; color: #eaffef;
+    }
+    .iscr-ospite strong {
+      display: block; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 21px; font-weight: 800; letter-spacing: 0.8px;
+      text-transform: uppercase; color: #b6f5c6; margin-bottom: 5px;
+    }
+
     /* riepilogo importo */
     .iscr-riepilogo {
       background: rgba(0,0,0,0.22); border: 1px solid var(--gold-border);
@@ -1715,6 +1728,12 @@
         <form id="iscr-form" class="iscr-form" style="display:none" novalidate onsubmit="inviaIscrizione(event)">
           <div id="iscr-campi"></div>
 
+          <div class="iscr-ospite" id="iscr-ospite" style="display:none">
+            <strong>Partecipazione in qualità di ospite</strong>
+            Non è dovuto alcun importo per le attività prescelte: non occorre effettuare bonifici
+            né allegare alcuna contabile.
+          </div>
+
           <div class="iscr-riepilogo" id="iscr-riepilogo">
             <div class="iscr-riepilogo-riga">
               <span>Totale da bonificare</span>
@@ -2094,6 +2113,31 @@
     const ISCRIZIONI_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzxghO7A77ySV2PwDTeY5qzSqCIb7z2oq3gqPOTRvqXERornMMWd4YjyPtlT8ijb3o/exec';
 
     let iscrVoci = null, iscrInviato = false, hotelElenco = null;
+    let iscrOspite = false, ospiteUltimo = '', ospiteTimer = null;
+
+    /* Verifica se il nominativo rientra fra gli ospiti esenti da pagamento.
+       Al sito non è trasmesso alcun elenco: si riceve soltanto l'esito. */
+    function verificaOspite() {
+      const c = (document.querySelector('[name="cognome"]') || {}).value || '';
+      const n = (document.querySelector('[name="nome"]') || {}).value || '';
+      const chiave = (c + '|' + n).trim();
+      if (chiave === '|' || chiave === ospiteUltimo) return;
+      clearTimeout(ospiteTimer);
+      ospiteTimer = setTimeout(async () => {
+        if (!c.trim() || !n.trim()) return;
+        ospiteUltimo = chiave;
+        try {
+          const r = await fetch(ISCRIZIONI_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ azione: 'ospite', cognome: c, nome: n })
+          });
+          const j = await r.json();
+          iscrOspite = !!(j && j.ospite);
+        } catch (e) { iscrOspite = false; }
+        aggiornaIscr();
+      }, 600);
+    }
 
     /* Elenco delle strutture con il relativo link di prenotazione, letto dallo
        stesso foglio che alimenta la sezione Hotel: nessuna duplicazione di dati. */
@@ -2335,6 +2379,11 @@
       });
       if (gruppoAperto) h += '</div>';
       box.innerHTML = h;
+      /* il riconoscimento dell'ospite si attiva alla compilazione di cognome e nome */
+      ['cognome', 'nome'].forEach(id => {
+        const el = document.querySelector(`[name="${id}"]`);
+        if (el) { el.addEventListener('input', verificaOspite); el.addEventListener('change', verificaOspite); }
+      });
       aggiornaIscr();
     }
 
@@ -2358,6 +2407,11 @@
         });
         if (sel && sel.value === 'SI' && v.prezzo > 0) { totale += v.prezzo; sigle.push(sigla_(v)); }
       });
+
+      /* ospiti: nessun importo dovuto (l'esenzione è comunque riverificata dal servizio) */
+      if (iscrOspite) { totale = 0; sigle.length = 0; }
+      const avviso = document.getElementById('iscr-ospite');
+      if (avviso) avviso.style.display = iscrOspite ? 'block' : 'none';
 
       document.getElementById('iscr-totale').textContent = eur(totale);
 
@@ -2555,7 +2609,12 @@
              Causale: <strong>${esc(j.causale)}</strong><br>
              La contabile trasmessa è stata registrata.
            </div>`
-        : `<div class="box">Le attività selezionate non prevedono alcun costo: non è richiesto alcun bonifico.</div>`;
+        : (j.ospite
+            ? `<div class="box" style="background:#e8f5e9">
+                 <div style="font-weight:800;color:#1b5e20;margin-bottom:6px">Partecipazione in qualità di ospite</div>
+                 Non è dovuto alcun importo: non occorre effettuare bonifici.
+               </div>`
+            : `<div class="box">Le attività selezionate non prevedono alcun costo: non è richiesto alcun bonifico.</div>`);
       box.innerHTML = `
         <h3>Iscrizione registrata</h3>
         <p>Numero di iscrizione</p>

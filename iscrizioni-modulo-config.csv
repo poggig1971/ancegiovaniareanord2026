@@ -26,7 +26,7 @@ IBAN: IT89O0103012190000061547884 (il quinto carattere è la lettera «O», non 
 235,,informativa,Come prenotare,"Selezionando la struttura qui sotto comparirà il collegamento diretto per prenotare.
 Tariffe, recapiti e moduli sono riportati nella sezione Hotel del sito: https://ancegiovaniareanord2026.vercel.app/#hotel
 Le convenzioni scadono fra il 23 agosto e il 7 settembre 2026: si raccomanda di prenotare per tempo.
-Per i componenti del Consiglio di Presidenza il pernottamento presso NH Collection Santo Stefano è già prenotato e saldato: nessun adempimento richiesto.",,,,SI
+Per i componenti del Consiglio di Presidenza nessun adempimento è richiesto.",,,,SI
 240,hotel,select,Struttura prescelta per il pernottamento,Indicare la struttura presso cui si è prenotato o si intende prenotare. Dato richiesto ai soli fini organizzativi.,NH Collection Santo Stefano|Best Western Hotel Genio|Best Western Hotel Piemontese|Hotel CX Turin Marconi|Altra struttura|Non pernotto a Torino,,SI,SI
 250,,titolo,Informativa e consensi,,,,,SI
 260,privacy,consenso,Dichiaro di aver preso visione dell'informativa sul trattamento dei dati personali,,,,SI,SI

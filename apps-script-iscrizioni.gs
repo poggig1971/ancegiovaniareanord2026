@@ -28,6 +28,7 @@ const CONFIG = {
   SHEET_ID:         '10bEs-HFJUwouf7jDV4vbpPeoG8iMtLQ_6-SR8bysecs',
   FOGLIO_MODULO:    'Modulo',
   FOGLIO_RISPOSTE:  'Iscrizioni',
+  FOGLIO_OSPITI:    'Ospiti',
   DRIVE_FOLDER_ID:  '14HeVzp_Bp7gWnvBQW9cQ7gFO72VMS73S',
   MITTENTE_NOME:    'ANCE Giovani Area Nord',
   SEGRETERIA_EMAIL: 'giovani@ancepiemonte.it',
@@ -41,7 +42,7 @@ const COL = { ORDINE: 0, ID: 1, TIPO: 2, ETICHETTA: 3, DESCRIZIONE: 4,
               OPZIONI: 5, PREZZO: 6, OBBLIGATORIA: 7, ATTIVA: 8 };
 
 /** Colonne di servizio aggiunte in coda al foglio «Iscrizioni». */
-const COLONNE_FINALI = ['TOTALE da bonificare', 'Causale bonifico', 'Contabile allegata',
+const COLONNE_FINALI = ['Ospite', 'TOTALE da bonificare', 'Causale bonifico', 'Contabile allegata',
                         'Nome file contabile', 'Link contabile su Drive',
                         'E-mail promemoria inviata', 'Pagamento verificato', 'Note'];
 
@@ -134,6 +135,58 @@ function sigla_(v) {
   return (chiave.toUpperCase() + giorno).trim();
 }
 
+/* ===================== OSPITI (esenti da ogni pagamento) ===================== */
+
+/**
+ * Chiave di confronto di un nominativo, indifferente a:
+ *   - ordine (Rossi Mario = Mario Rossi)
+ *   - maiuscole e minuscole
+ *   - accenti, spazi multipli e segni di punteggiatura
+ * «rossi  mario» e «MARIO ROSSI» producono entrambe «MARIO ROSSI».
+ */
+function chiaviNome_(s) {
+  /* accenti rimossi; apostrofi, punti e trattini uniscono anziché separare,
+     così «D'Amico» e «DAmico» coincidono */
+  const base = String(s == null ? '' : s)
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .toUpperCase()
+    .replace(/['’`´.\-]/g, '');
+  const parti = base.replace(/[^A-Z0-9]+/g, ' ').split(' ')
+                    .filter(function (x) { return x; });
+  return {
+    /* criterio principale: parole ordinate — indifferente all'ordine di scrittura */
+    ordinata: parti.slice().sort().join(' '),
+    /* criterio di riserva: sole lettere ordinate — tollera spaziature difformi */
+    lettere: parti.join('').split('').sort().join('')
+  };
+}
+
+/** Elenco degli ospiti letto dal foglio «Ospiti» (colonne Cognome e Nome). */
+function elencoOspiti_() {
+  const ss = SpreadsheetApp.openById(CONFIG.SHEET_ID);
+  const sh = ss.getSheetByName(CONFIG.FOGLIO_OSPITI);
+  const vuoto = { ordinate: {}, lettere: {}, totale: 0 };
+  if (!sh || sh.getLastRow() < 2) return vuoto;
+  const dati = sh.getDataRange().getValues();
+  const elenco = { ordinate: {}, lettere: {}, totale: 0 };
+  for (let i = 1; i < dati.length; i++) {          // riga 1 = intestazioni
+    const k = chiaviNome_(String(dati[i][0] || '') + ' ' + String(dati[i][1] || ''));
+    if (!k.ordinata) continue;
+    elenco.ordinate[k.ordinata] = true;
+    elenco.lettere[k.lettere] = true;
+    elenco.totale++;
+  }
+  return elenco;
+}
+
+/** Vero se il nominativo compare fra gli ospiti. */
+function eOspite_(cognome, nome) {
+  const elenco = elencoOspiti_();
+  const k = chiaviNome_(String(cognome || '') + ' ' + String(nome || ''));
+  if (!k.ordinata) return false;
+  return !!(elenco.ordinate[k.ordinata] || elenco.lettere[k.lettere]);
+}
+
 /** Causale: chi paga, per quale evento e per quali attività. */
 function causale_(cognome, nome, sigle) {
   const chi = (String(cognome || '') + ' ' + String(nome || '')).trim().toUpperCase();
@@ -145,11 +198,30 @@ function causale_(cognome, nome, sigle) {
 function setup() {
   const voci = leggiConfigurazione_();
   const sh = getFoglioRisposte_(voci);
+  getFoglioOspiti_();
   DriveApp.getFolderById(CONFIG.DRIVE_FOLDER_ID);   // verifica accesso alla cartella
   SpreadsheetApp.flush();
   Logger.log('Voci del modulo lette: %s', voci.length);
   Logger.log('Foglio risposte: %s (righe: %s)', sh.getName(), sh.getLastRow());
+  Logger.log('Ospiti registrati: %s', elencoOspiti_().totale);
   Logger.log('Installazione completata. Procedere con la distribuzione come App web.');
+}
+
+/** Crea, se assente, il foglio degli ospiti esenti da pagamento. */
+function getFoglioOspiti_() {
+  const ss = SpreadsheetApp.openById(CONFIG.SHEET_ID);
+  let sh = ss.getSheetByName(CONFIG.FOGLIO_OSPITI);
+  if (!sh) sh = ss.insertSheet(CONFIG.FOGLIO_OSPITI);
+  if (sh.getLastRow() === 0) {
+    sh.getRange(1, 1, 1, 3).setValues([['Cognome', 'Nome', 'Note']])
+      .setFontWeight('bold').setBackground('#1b5e20').setFontColor('#ffffff');
+    sh.setFrozenRows(1);
+    sh.setColumnWidth(1, 180); sh.setColumnWidth(2, 180); sh.setColumnWidth(3, 320);
+    sh.getRange(2, 3).setValue('Elenco dei partecipanti esenti da ogni pagamento. ' +
+      'L\'ordine fra cognome e nome è indifferente, così come maiuscole, minuscole e accenti.')
+      .setFontStyle('italic').setFontColor('#666666');
+  }
+  return sh;
 }
 
 /** Foglio risposte: le intestazioni sono generate dalla configurazione. */
@@ -189,6 +261,12 @@ function doPost(e) {
     const d = JSON.parse(e.postData.contents);
     const risposte = d.risposte || {};
 
+    /* interrogazione rapida: il nominativo è fra gli ospiti?
+       Non è restituito alcun elenco, soltanto l'esito del confronto. */
+    if (d.azione === 'ospite') {
+      return json_({ ok: true, ospite: eOspite_(d.cognome, d.nome) });
+    }
+
     const voci = leggiConfigurazione_();
     const campi = campiDato_(voci);
 
@@ -222,6 +300,10 @@ function doPost(e) {
       }
     });
 
+    /* ospiti: nessun importo dovuto, qualunque sia l'attività prescelta */
+    const ospite = eOspite_(risposte.cognome, risposte.nome);
+    if (ospite) { totale = 0; sigle.length = 0; }
+
     const haFile = !!(d.file && d.file.dati);
     if (totale > 0 && !haFile) {
       throw new Error('La contabile del bonifico è obbligatoria per le attività a pagamento.');
@@ -237,7 +319,7 @@ function doPost(e) {
       const numero = CONFIG.ANNO + '-' + Utilities.formatString('%03d', sh.getLastRow());
       const cognome = String(risposte.cognome || '').trim().toUpperCase();
       const nome = String(risposte.nome || '').trim();
-      const causale = causale_(cognome, nome, sigle);
+      const causale = ospite ? '' : causale_(cognome, nome, sigle);
 
       let fileNome = '', fileUrl = '';
       if (haFile) {
@@ -255,17 +337,17 @@ function doPost(e) {
           return val;
         })
       ).concat([
-        totale, causale, haFile ? 'SI' : 'NO', fileNome, fileUrl,
+        ospite ? 'SI' : '', totale, causale, haFile ? 'SI' : 'NO', fileNome, fileUrl,
         '', '', ''
       ]);
 
       sh.appendRow(riga);
       const rigaScritta = sh.getLastRow();
-      const colEmail = 2 + campi.length + 6;   // 6ª colonna di servizio
+      const colEmail = 2 + campi.length + COLONNE_FINALI.indexOf('E-mail promemoria inviata') + 1;
 
       let emailEsito;
       try {
-        inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNome);
+        inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNome, ospite);
         emailEsito = 'SI ' + Utilities.formatDate(new Date(), CONFIG.FUSO, 'dd/MM/yyyy HH:mm');
       } catch (err) {
         emailEsito = 'NO — ' + err.message;
@@ -273,7 +355,7 @@ function doPost(e) {
       sh.getRange(rigaScritta, colEmail).setValue(emailEsito);
 
       esito = { ok: true, numero: numero, totale: totale, causale: causale,
-                emailInviata: emailEsito.indexOf('SI') === 0 };
+                ospite: ospite, emailInviata: emailEsito.indexOf('SI') === 0 };
     } finally {
       lock.releaseLock();
     }
@@ -309,7 +391,7 @@ function salvaContabile_(file, numero, cognome, nome) {
   return { nome: nomeFile, url: salvato.getUrl() };
 }
 
-function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNome) {
+function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNome, ospite) {
   const eur = function (n) { return '€ ' + Number(n).toFixed(2).replace('.', ','); };
   const esc = function (s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -369,8 +451,12 @@ function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNo
         'non vi è compreso: la prenotazione è a carico del partecipante e si salda direttamente ' +
         'alla struttura.</div>' +
       '</div>'
-    : '<div style="margin:22px 0;padding:14px 18px;background:#eef6ff;border-left:4px solid #0077C0;font-size:14px;color:#333">' +
-      'Le attività selezionate non prevedono alcun costo: non è richiesto alcun bonifico.</div>';
+    : (ospite
+        ? '<div style="margin:22px 0;padding:16px 18px;background:#e8f5e9;border-left:4px solid #1b5e20;font-size:14px;color:#1b3a1e">' +
+          '<strong style="font-size:15px">Partecipazione in qualità di ospite.</strong><br>' +
+          'Non è dovuto alcun importo per le attività prescelte e non è richiesto alcun bonifico.</div>'
+        : '<div style="margin:22px 0;padding:14px 18px;background:#eef6ff;border-left:4px solid #0077C0;font-size:14px;color:#333">' +
+          'Le attività selezionate non prevedono alcun costo: non è richiesto alcun bonifico.</div>');
 
   const html =
     '<div style="font-family:Arial,Helvetica,sans-serif;max-width:640px;margin:0 auto;color:#222">' +
