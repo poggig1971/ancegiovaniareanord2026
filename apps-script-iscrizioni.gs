@@ -351,7 +351,7 @@ function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNo
   const bonifico = totale > 0
     ? '<div style="margin:22px 0;padding:16px 18px;background:#FFF8E0;border-left:4px solid #FF8C00">' +
         '<div style="font-size:16px;font-weight:700;color:#B03020;margin-bottom:10px">' +
-        'Importo da bonificare: ' + eur(totale) + '</div>' +
+        (fileNome ? 'Bonifico ' + eur(totale) : 'Importo da bonificare: ' + eur(totale)) + '</div>' +
         testoInformativa +
         '<div style="margin-top:10px;font-size:14px;color:#333">Causale: <strong>' + esc(causale) + '</strong></div>' +
         (fileNome ? '<div style="margin-top:10px;font-size:13px;color:#1a5e1a">' +
