@@ -1063,24 +1063,35 @@
     .iscr-aiuto { font-size: 15px; color: var(--w80); line-height: 1.55; margin-bottom: 9px; }
 
     /* ── raggruppamento delle attività per data ── */
+    /* testata della data: testo bianco */
     .iscr-data-testata {
       display: flex; align-items: center; gap: 9px;
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 22px; font-weight: 800; letter-spacing: 1px;
-      text-transform: uppercase; color: var(--navy);
-      background: var(--gold);
-      padding: 10px 16px; margin: 22px 0 0;
+      font-size: 24px; font-weight: 800; letter-spacing: 1.5px;
+      text-transform: uppercase; color: #fff;
+      background: var(--cerulean);
+      border: 1px solid rgba(255,255,255,0.28); border-bottom: none;
+      padding: 11px 17px; margin: 24px 0 0;
       border-radius: var(--r8) var(--r8) 0 0;
     }
     .iscr-data-gruppo {
-      border: 1px solid var(--gold-border); border-top: none;
+      border: 1px solid rgba(255,255,255,0.28); border-top: none;
       border-radius: 0 0 var(--r8) var(--r8);
-      background: rgba(0,0,0,0.16);
-      padding: 16px 18px 4px; margin-bottom: 20px;
+      background: rgba(0,0,0,0.18);
+      padding: 6px 18px; margin-bottom: 22px;
     }
-    .iscr-data-gruppo .iscr-attivita { margin-bottom: 16px; }
+    /* attività: domanda e scelte sulla stessa riga */
+    .iscr-attivita {
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: 10px 18px;
+      margin-bottom: 0; padding: 15px 0;
+    }
+    .iscr-att-testo { flex: 1 1 340px; min-width: 0; }
+    .iscr-att-testo .iscr-label { margin-bottom: 2px; }
+    .iscr-att-testo .iscr-aiuto { margin-bottom: 0; }
+    .iscr-attivita .iscr-scelte { flex: 0 0 auto; margin-top: 0; }
     .iscr-data-gruppo .iscr-attivita + .iscr-attivita {
-      border-top: 1px solid rgba(255,255,255,0.14); padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.16);
     }
 
     /* ── sezione richiudibile (esigenze alimentari) ── */
@@ -1139,14 +1150,15 @@
     .iscr-scelta input { accent-color: var(--gold); width: 19px; height: 19px; }
     .iscr-scelta.sel-si { background: rgba(40,140,40,0.34); border-color: rgba(120,220,120,0.70); }
     .iscr-scelta.sel-no { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.20); }
-    /* costo dell'attività: ben visibile */
+    /* costo dell'attività: testo bianco, ben visibile */
     .iscr-prezzo {
       display: inline-block; margin-left: 10px;
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 22px; font-weight: 900; color: var(--navy);
-      background: var(--gold); border-radius: 100px;
-      padding: 2px 14px; vertical-align: middle;
+      font-size: 23px; font-weight: 900; color: #fff;
+      background: var(--terra); border-radius: 100px;
+      padding: 2px 15px; vertical-align: middle;
       font-variant-numeric: tabular-nums;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.28);
     }
     .iscr-gratuito {
       display: inline-block; margin-left: 10px; font-size: 13px;
@@ -2108,8 +2120,10 @@
                   ? `<span class="iscr-nota-costo">${esc(pt)}</span>`
                   : `<span class="iscr-gratuito">gratuito</span>`);
             h += `<div class="iscr-campo iscr-attivita" data-id="${v.id}">
-                    <div class="iscr-label">${esc(senzaData_(v.etichetta))}${costo}${req}</div>
-                    ${aiuto}
+                    <div class="iscr-att-testo">
+                      <div class="iscr-label">${esc(senzaData_(v.etichetta))}${costo}${req}</div>
+                      ${aiuto}
+                    </div>
                     <div class="iscr-scelte">
                       <label class="iscr-scelta"><input type="radio" name="${v.id}" value="SI"
                               onchange="aggiornaIscr()"> Sì, partecipo</label>

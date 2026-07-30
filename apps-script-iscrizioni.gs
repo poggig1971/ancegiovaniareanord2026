@@ -84,6 +84,31 @@ function campiDato_(voci) {
   return voci.filter(function (v) { return v.id && !descrittivi[v.tipo]; });
 }
 
+const MESI = { gennaio: '01', febbraio: '02', marzo: '03', aprile: '04', maggio: '05',
+               giugno: '06', luglio: '07', agosto: '08', settembre: '09', ottobre: '10',
+               novembre: '11', dicembre: '12' };
+
+/**
+ * Intestazione compatta per il foglio delle risposte.
+ * «23 ottobre 2026, ore 10:00 — Consiglio Nazionale…» diventa «23/10 Consiglio Nazionale…».
+ * ATTENZIONE: se si modifica questa regola cambiano le intestazioni generate.
+ */
+function titoloColonna_(v) {
+  let t = String(v.etichetta || v.id || '').trim();
+  const m = t.match(/^\s*(\d{1,2})\s+([A-Za-zàèéìòù]+)\s+(\d{4})\s*,?\s*/);
+  if (m) {
+    const gg = ('0' + m[1]).slice(-2);
+    const mm = MESI[m[2].toLowerCase()] || '';
+    t = t.substring(m[0].length)
+         .replace(/^ore\s+[\d.:]+\s*[—–-]?\s*/i, '')
+         .replace(/^[—–-]\s*/, '').trim();
+    t = gg + '/' + mm + ' ' + t;
+  }
+  if (v.tipo === 'consenso') t = 'Consenso: ' + t;
+  if (t.length > 58) t = t.substring(0, 55).trim() + '…';
+  return t;
+}
+
 /* ============================== SETUP ============================== */
 
 function setup() {
@@ -104,7 +129,7 @@ function getFoglioRisposte_(voci) {
 
   if (sh.getLastRow() === 0) {
     const testate = ['N. iscrizione', 'Data e ora invio']
-      .concat(campiDato_(voci).map(function (v) { return v.etichetta || v.id; }))
+      .concat(campiDato_(voci).map(titoloColonna_))
       .concat(COLONNE_FINALI);
     sh.getRange(1, 1, 1, testate.length).setValues([testate])
       .setFontWeight('bold').setBackground('#0056A0').setFontColor('#ffffff');
