@@ -10,13 +10,13 @@
 90,alimentari,checkbox,Esigenze alimentari,,Vegetariano|Vegano|Celiaco|Intolleranza al lattosio|Altro,,NO,SI
 100,alimentariAltro,testo,"Se «Altro», specificare",,,,NO,SI
 110,,titolo,Adesione alle attività,Indicare per ciascuna attività la propria partecipazione,,,,SI
-120,cena22,sino,"22 ottobre 2026, ore 20:00 — Cena al Ristorante Arcadia","Galleria Subalpina 16, 10123 Torino — costo a carico del partecipante",,60,SI,SI
+120,cena22,sino,"22 ottobre 2026, ore 20:00 — Cena al Ristorante Arcadia","Ristorante Arcadia — Galleria Subalpina 16, 10123 Torino",,60,SI,SI
 130,consiglio,sino,"23 ottobre 2026, ore 10:00 — Consiglio Nazionale Giovani GIE ANCE","Polo del '900, Via del Carmine 14, Torino",,0,SI,SI
 140,lunch,sino,"23 ottobre 2026, ore 13:00 — Light Lunch","Polo del '900, Via del Carmine 14, Torino",,0,SI,SI
 150,convegno,sino,"23 ottobre 2026, ore 14:00 — XVI Convegno Area Nord GIE ANCE","Polo del '900, Via del Carmine 14, Torino",,0,SI,SI
-160,serata23,sino,"23 ottobre 2026, ore 19:00 — Aperitivo e Cena, a seguire serata al Centralino Club","NH Carlina, P.za Carlo Emanuele II 15 — Centralino Club, Via delle Rosine 16, Torino — costo complessivo a carico del partecipante",,100,SI,SI
-170,museo24,sino,"24 ottobre 2026, ore 11:00 — Visita al Museo (facoltativa)",Sede da definire — costo a carico del partecipante,,18,SI,SI
-180,pranzo24,sino,24 ottobre 2026 — Pranzo (facoltativo),"Sede da definire — costo a carico del partecipante, da regolare sul posto: NON è compreso nel bonifico",,Pagamento in Loco,SI,SI
+160,serata23,sino,"23 ottobre 2026, ore 19:00 — Aperitivo e Cena, a seguire serata al Centralino Club","NH Carlina, P.za Carlo Emanuele II 15 — Centralino Club, Via delle Rosine 16, Torino",,100,SI,SI
+170,museo24,sino,"24 ottobre 2026, ore 11:00 — Visita al Museo (facoltativa)",Sede da definire,,18,SI,SI
+180,pranzo24,sino,24 ottobre 2026 — Pranzo (facoltativo),"Sede da definire — da saldare sul posto, non compreso nel bonifico",,Pagamento in Loco,SI,SI
 190,,titolo,Pernottamento,"La prenotazione è a cura del singolo partecipante, direttamente presso la struttura. L'informazione è richiesta ai soli fini organizzativi",,,,SI
 200,hotel,select,Hotel prenotato direttamente,,NH Collection Santo Stefano|Best Western Hotel Genio|Best Western Hotel Piemontese|Hotel CX Turin Marconi|Altra struttura|Non pernotto a Torino,,SI,SI
 210,,informativa,Dati per il bonifico,"Beneficiario: Ance Veneto Progetti Srl
