@@ -1,0 +1,28 @@
+﻿Ordine,ID,Tipo,Etichetta,Descrizione,Opzioni,Prezzo,Obbligatoria,Attiva
+10,,titolo,XVI CONVEGNO AREA NORD GIE ANCE,"Torino, 22-23 ottobre 2026 — Le adesioni dovranno pervenire entro il 10 settembre 2026",,,,SI
+20,,titolo,Dati del partecipante,,,,,SI
+30,cognome,testo,Cognome,,,,SI,SI
+40,nome,testo,Nome,,,,SI,SI
+50,associazione,testo,Associazione territoriale di appartenenza,"Indicare la sola Associazione territoriale, ad esempio: ANCE Roma",,,SI,SI
+60,cellulare,tel,Cellulare,,,,SI,SI
+70,email,email,E-mail,Sarà utilizzata per l'invio del promemoria di iscrizione,,,SI,SI
+80,,titolo,Esigenze alimentari,Sezione facoltativa: compilare solo in presenza di specifiche esigenze,,,,SI
+90,alimentari,checkbox,Esigenze alimentari,,Vegetariano|Vegano|Celiaco|Intolleranza al lattosio|Altro,,NO,SI
+100,alimentariAltro,testo,"Se «Altro», specificare",,,,NO,SI
+110,,titolo,Adesione alle attività,Indicare per ciascuna attività la propria partecipazione,,,,SI
+120,cena22,sino,"22 ottobre 2026, ore 20:00 — Cena al Ristorante Arcadia","Galleria Subalpina 16, 10123 Torino — costo a carico del partecipante",,60,SI,SI
+130,consiglio,sino,"23 ottobre 2026, ore 10:00 — Consiglio Nazionale Giovani GIE ANCE","Polo del '900, Via del Carmine 14, Torino",,0,SI,SI
+140,lunch,sino,"23 ottobre 2026, ore 13:00 — Light Lunch","Polo del '900, Via del Carmine 14, Torino",,0,SI,SI
+150,convegno,sino,"23 ottobre 2026, ore 14:00 — XVI Convegno Area Nord GIE ANCE","Polo del '900, Via del Carmine 14, Torino",,0,SI,SI
+160,serata23,sino,"23 ottobre 2026, ore 19:00 — Aperitivo e Cena, a seguire serata al Centralino Club","NH Carlina, P.za Carlo Emanuele II 15 — Centralino Club, Via delle Rosine 16, Torino — costo complessivo a carico del partecipante",,100,SI,SI
+170,museo24,sino,"24 ottobre 2026, ore 11:00 — Visita al Museo (facoltativa)",Sede da definire — costo a carico del partecipante,,18,SI,SI
+180,pranzo24,sino,24 ottobre 2026 — Pranzo (facoltativo),"Sede da definire — costo a carico del partecipante, da regolare sul posto: NON è compreso nel bonifico",,0,SI,SI
+190,,titolo,Pernottamento,"La prenotazione è a cura del singolo partecipante, direttamente presso la struttura. L'informazione è richiesta ai soli fini organizzativi",,,,SI
+200,hotel,select,Hotel prenotato direttamente,,NH Collection Santo Stefano|Best Western Hotel Genio|Best Western Hotel Piemontese|Hotel CX Turin Marconi|Altra struttura|Non pernotto a Torino,,SI,SI
+210,,informativa,Dati per il bonifico,"Beneficiario: Ance Veneto Progetti Srl
+Banca: Monte dei Paschi di Siena
+IBAN: IT89O0103012190000061547884 (il quinto carattere è la lettera «O», non la cifra zero)",,,,SI
+220,contabile,file,Distinta del bonifico,"Obbligatoria in presenza di attività a pagamento. Formati ammessi: PDF, JPG, PNG — dimensione massima 5 MB",,,NO,SI
+230,,titolo,Informativa e consensi,,,,,SI
+240,privacy,consenso,Dichiaro di aver preso visione dell'informativa sul trattamento dei dati personali,,,,SI,SI
+250,consensoAlimentari,consenso,Acconsento al trattamento delle informazioni relative alle esigenze alimentari indicate,Da confermare soltanto se sono state segnalate esigenze alimentari,,,NO,SI

@@ -1042,6 +1042,147 @@
     }
     .iscr-frame-wrap iframe { display: block; border: none; }
 
+    /* ── MODULO ISCRIZIONI ── */
+    .iscr-stato { text-align: center; padding: 48px 20px; color: var(--w80); font-size: 14px; }
+    .iscr-form { padding: 26px 28px 32px; }
+    .iscr-blocco-titolo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px; font-weight: 800; color: var(--gold);
+      text-transform: uppercase; letter-spacing: 1px;
+      margin: 30px 0 4px; padding-bottom: 8px;
+      border-bottom: 2px solid var(--gold-border);
+    }
+    .iscr-blocco-titolo:first-child { margin-top: 0; }
+    .iscr-blocco-sub { font-size: 14px; color: var(--w80); line-height: 1.6; margin-bottom: 16px; }
+    .iscr-campo { margin-bottom: 18px; }
+    .iscr-label {
+      display: block; font-size: 14.5px; font-weight: 700;
+      color: #fff; margin-bottom: 4px; line-height: 1.45;
+    }
+    .iscr-label .req { color: var(--gold); margin-left: 3px; }
+    .iscr-aiuto { font-size: 13px; color: var(--w80); line-height: 1.55; margin-bottom: 8px; }
+    .iscr-campo input[type=text],
+    .iscr-campo input[type=email],
+    .iscr-campo input[type=tel],
+    .iscr-campo select,
+    .iscr-campo input[type=file] {
+      width: 100%; font-family: inherit; font-size: 15px;
+      padding: 11px 14px; border-radius: var(--r8);
+      border: 1px solid rgba(255,255,255,0.35);
+      background: var(--cream); color: #16283d;
+      min-height: 44px;
+    }
+    .iscr-campo input:focus, .iscr-campo select:focus {
+      outline: 2px solid var(--gold); outline-offset: 1px;
+    }
+    .iscr-campo input[type=file] { padding: 9px 12px; background: rgba(255,248,224,0.92); }
+    /* scelte Sì/No e caselle */
+    .iscr-scelte { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+    .iscr-scelta {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 16px; min-height: 44px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 100px; cursor: pointer;
+      font-size: 14px; font-weight: 600; color: #fff;
+      transition: background var(--fast), border-color var(--fast);
+    }
+    .iscr-scelta:hover { background: rgba(255,255,255,0.18); }
+    .iscr-scelta input { accent-color: var(--gold); width: 17px; height: 17px; }
+    .iscr-scelta.sel-si { background: rgba(40,140,40,0.30); border-color: rgba(120,220,120,0.65); }
+    .iscr-scelta.sel-no { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.20); }
+    .iscr-prezzo {
+      display: inline-block; margin-left: 8px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px; font-weight: 800; color: var(--gold);
+    }
+    .iscr-gratuito {
+      display: inline-block; margin-left: 8px; font-size: 12px;
+      font-weight: 700; color: rgba(255,255,255,0.75); text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .iscr-caselle { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+    /* informativa (dati bonifico) */
+    .iscr-informativa {
+      background: rgba(255,248,224,0.95); color: #16283d;
+      border-left: 4px solid var(--gold);
+      border-radius: 0 var(--r8) var(--r8) 0;
+      padding: 16px 18px; margin: 22px 0 18px;
+    }
+    .iscr-informativa .tit {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px; font-weight: 800; color: var(--cerulean);
+      text-transform: uppercase; margin-bottom: 6px;
+    }
+    .iscr-informativa .txt { font-size: 14px; line-height: 1.8; }
+    /* consensi */
+    .iscr-consenso {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 13.5px; color: var(--w80); line-height: 1.55;
+      margin-bottom: 12px; cursor: pointer;
+    }
+    .iscr-consenso input { accent-color: var(--gold); width: 18px; height: 18px; margin-top: 2px; flex-shrink: 0; }
+    .iscr-consenso a { color: var(--gold); }
+    /* riepilogo importo */
+    .iscr-riepilogo {
+      background: rgba(0,0,0,0.22); border: 1px solid var(--gold-border);
+      border-radius: var(--r8); padding: 16px 18px; margin: 24px 0 6px;
+    }
+    .iscr-riepilogo-riga {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: 15px; color: #fff; gap: 12px;
+    }
+    .iscr-riepilogo-riga strong {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 30px; font-weight: 900; color: var(--gold);
+      font-variant-numeric: tabular-nums;
+    }
+    .iscr-causale { font-size: 13px; color: var(--w80); margin-top: 8px; }
+    .iscr-causale strong { color: #fff; }
+    /* invio */
+    .iscr-submit {
+      width: 100%; min-height: 52px; margin-top: 18px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 19px; font-weight: 800; letter-spacing: 1.5px;
+      text-transform: uppercase; color: #fff;
+      background: var(--terra); border: none; border-radius: var(--r8);
+      cursor: pointer; touch-action: manipulation;
+      transition: background var(--med), transform var(--fast);
+    }
+    .iscr-submit:hover:not(:disabled) { background: var(--terra-hi); }
+    .iscr-submit:active:not(:disabled) { transform: scale(0.99); }
+    .iscr-submit:disabled { opacity: 0.6; cursor: progress; }
+    .iscr-nota-invio { font-size: 12px; color: var(--w60); text-align: center; margin-top: 10px; }
+    .iscr-errore {
+      background: rgba(176,48,32,0.22); border: 1px solid rgba(255,120,100,0.55);
+      color: #ffd9d2; border-radius: var(--r8);
+      padding: 13px 16px; margin-top: 16px; font-size: 14px; line-height: 1.55;
+    }
+    .iscr-campo.errore input, .iscr-campo.errore select { border-color: #ff8a75; }
+    /* esito finale */
+    .iscr-esito { padding: 34px 30px; }
+    .iscr-esito .ok-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 40px; font-weight: 900; color: var(--gold); line-height: 1;
+    }
+    .iscr-esito h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 26px; font-weight: 800; color: #fff;
+      text-transform: uppercase; margin-bottom: 10px;
+    }
+    .iscr-esito p { font-size: 14.5px; color: var(--w80); line-height: 1.7; margin-bottom: 10px; }
+    .iscr-esito .box {
+      background: rgba(255,248,224,0.95); color: #16283d;
+      border-radius: var(--r8); padding: 16px 18px; margin: 16px 0;
+      font-size: 14px; line-height: 1.8;
+    }
+    @media (max-width: 600px) {
+      .iscr-form { padding: 20px 16px 26px; }
+      .iscr-esito { padding: 26px 18px; }
+      .iscr-scelte { flex-direction: column; }
+      .iscr-scelta { width: 100%; }
+    }
+
     /* ── FOOTER ── */
     footer {
       background: rgba(6,44,78,0.94);
@@ -1397,12 +1538,37 @@
         <div class="date">22–23 Ottobre 2026</div>
       </div>
       <div class="iscr-frame-wrap">
-        <iframe
-          src="https://docs.google.com/forms/d/e/1FAIpQLSebPwgp_FCgh7cv2G0vcSj5x2IYTMLUdM8F04iId3GDgFit3w/viewform?embedded=true"
-          width="100%" height="2400"
-          title="Modulo di iscrizione XVI Convegno">
-          Caricamento…
-        </iframe>
+        <div id="iscr-loading" class="iscr-stato">
+          <div class="spinner"></div>
+          <div>Caricamento del modulo…</div>
+        </div>
+
+        <div id="iscr-errore-init" class="error-msg" style="display:none">
+          Non è stato possibile caricare il modulo di iscrizione.
+          <a href="#" onclick="initIscrizioni(true);return false">Riprova</a> oppure scrivere a
+          <a href="mailto:giovani@ancepiemonte.it">giovani@ancepiemonte.it</a>.
+        </div>
+
+        <form id="iscr-form" class="iscr-form" style="display:none" novalidate onsubmit="inviaIscrizione(event)">
+          <div id="iscr-campi"></div>
+
+          <div class="iscr-riepilogo" id="iscr-riepilogo">
+            <div class="iscr-riepilogo-riga">
+              <span>Totale da bonificare</span>
+              <strong id="iscr-totale">€ 0,00</strong>
+            </div>
+            <div class="iscr-causale" id="iscr-causale-wrap" style="display:none">
+              Causale da indicare: <strong id="iscr-causale">—</strong>
+            </div>
+          </div>
+
+          <div id="iscr-errore" class="iscr-errore" style="display:none"></div>
+
+          <button type="submit" class="iscr-submit" id="iscr-submit">Invia l'iscrizione</button>
+          <p class="iscr-nota-invio">I dati contrassegnati con l'asterisco sono obbligatori.</p>
+        </form>
+
+        <div id="iscr-esito" class="iscr-esito" style="display:none"></div>
       </div>
     </div>
   </section>
@@ -1450,6 +1616,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (name === 'programma') loadDay1();
       if (name === 'hotel') loadHotel();
+      if (name === 'iscrizioni') initIscrizioni();
     }
 
     function switchDay(idx) {
@@ -1738,6 +1905,297 @@
       document.getElementById('conv-content').innerHTML = html;
       // Applica spotlight alle righe convegno
       applyProgSpotlight();
+    }
+
+    /* ════════════════ MODULO ISCRIZIONI ════════════════
+       Titoli, sottotitoli, domande, opzioni e prezzi provengono dal
+       foglio «Modulo» del Google Sheet: per modificarli non occorre
+       intervenire su questa pagina.
+       Incollare qui sotto l'URL della distribuzione Apps Script (…/exec). */
+    const ISCRIZIONI_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzxghO7A77ySV2PwDTeY5qzSqCIb7z2oq3gqPOTRvqXERornMMWd4YjyPtlT8ijb3o/exec';
+
+    let iscrVoci = null, iscrInviato = false;
+
+    const eur = n => '€ ' + Number(n || 0).toFixed(2).replace('.', ',');
+
+    async function initIscrizioni(forza) {
+      if (iscrVoci && !forza) return;
+      const load = document.getElementById('iscr-loading');
+      const errInit = document.getElementById('iscr-errore-init');
+      const form = document.getElementById('iscr-form');
+      load.style.display = 'block'; errInit.style.display = 'none'; form.style.display = 'none';
+
+      if (ISCRIZIONI_ENDPOINT.indexOf('http') !== 0) {
+        load.style.display = 'none';
+        errInit.style.display = 'block';
+        errInit.innerHTML = 'Modulo non ancora configurato: manca l\'indirizzo del servizio di raccolta. ' +
+          'Per informazioni: <a href="mailto:giovani@ancepiemonte.it">giovani@ancepiemonte.it</a>.';
+        return;
+      }
+      try {
+        const r = await fetch(ISCRIZIONI_ENDPOINT + '?azione=config&t=' + Date.now());
+        const j = await r.json();
+        if (!j.ok) throw new Error(j.errore || 'configurazione non disponibile');
+        iscrVoci = j.voci || [];
+        costruisciModulo(iscrVoci);
+        load.style.display = 'none';
+        form.style.display = 'block';
+      } catch (e) {
+        load.style.display = 'none';
+        errInit.style.display = 'block';
+      }
+    }
+
+    function costruisciModulo(voci) {
+      const box = document.getElementById('iscr-campi');
+      let h = '';
+      voci.forEach(v => {
+        const req = v.obbligatoria ? '<span class="req" aria-hidden="true">*</span>' : '';
+        const aiuto = v.descrizione ? `<div class="iscr-aiuto">${esc(v.descrizione)}</div>` : '';
+        const lbl = `<label class="iscr-label" for="f-${v.id}">${esc(v.etichetta)}${req}</label>`;
+
+        switch (v.tipo) {
+          case 'titolo':
+            h += `<div class="iscr-blocco-titolo">${esc(v.etichetta)}</div>`;
+            if (v.descrizione) h += `<div class="iscr-blocco-sub">${nl2br(v.descrizione)}</div>`;
+            break;
+          case 'sottotitolo':
+            h += `<div class="iscr-blocco-sub">${nl2br(v.descrizione || v.etichetta)}</div>`;
+            break;
+          case 'informativa':
+            h += `<div class="iscr-informativa">
+                    <div class="tit">${esc(v.etichetta)}</div>
+                    <div class="txt">${nl2br(v.descrizione)}</div>
+                  </div>`;
+            break;
+          case 'testo': case 'email': case 'tel': {
+            const t = v.tipo === 'testo' ? 'text' : v.tipo;
+            const auto = v.tipo === 'email' ? 'email' : (v.tipo === 'tel' ? 'tel' : 'on');
+            h += `<div class="iscr-campo" data-id="${v.id}">${lbl}${aiuto}
+                    <input type="${t}" id="f-${v.id}" name="${v.id}" autocomplete="${auto}"
+                           ${v.obbligatoria ? 'required' : ''}></div>`;
+            break;
+          }
+          case 'select': {
+            let opts = '<option value="">— selezionare —</option>';
+            v.opzioni.forEach(o => { opts += `<option value="${esc(o)}">${esc(o)}</option>`; });
+            h += `<div class="iscr-campo" data-id="${v.id}">${lbl}${aiuto}
+                    <select id="f-${v.id}" name="${v.id}">${opts}</select></div>`;
+            break;
+          }
+          case 'checkbox': {
+            let opts = '';
+            v.opzioni.forEach((o, i) => {
+              opts += `<label class="iscr-scelta"><input type="checkbox" name="${v.id}"
+                        value="${esc(o)}" onchange="aggiornaIscr()"> ${esc(o)}</label>`;
+            });
+            h += `<div class="iscr-campo" data-id="${v.id}">${lbl}${aiuto}
+                    <div class="iscr-caselle">${opts}</div></div>`;
+            break;
+          }
+          case 'sino': {
+            const costo = v.prezzo > 0
+              ? `<span class="iscr-prezzo">${eur(v.prezzo)}</span>`
+              : `<span class="iscr-gratuito">nessun costo</span>`;
+            h += `<div class="iscr-campo" data-id="${v.id}">
+                    <div class="iscr-label">${esc(v.etichetta)}${costo}${req}</div>
+                    ${aiuto}
+                    <div class="iscr-scelte">
+                      <label class="iscr-scelta"><input type="radio" name="${v.id}" value="SI"
+                              onchange="aggiornaIscr()"> Sì, partecipo</label>
+                      <label class="iscr-scelta"><input type="radio" name="${v.id}" value="NO"
+                              onchange="aggiornaIscr()"> No, non partecipo</label>
+                    </div></div>`;
+            break;
+          }
+          case 'file':
+            h += `<div class="iscr-campo" id="campo-file" data-id="${v.id}">${lbl}${aiuto}
+                    <input type="file" id="f-${v.id}" name="${v.id}"
+                           accept=".pdf,.jpg,.jpeg,.png" onchange="aggiornaIscr()"></div>`;
+            break;
+          case 'consenso':
+            h += `<label class="iscr-consenso" id="campo-${v.id}">
+                    <input type="checkbox" name="${v.id}" onchange="aggiornaIscr()">
+                    <span>${esc(v.etichetta)}${req}${v.descrizione
+                      ? `<br><span style="opacity:.75;font-size:12.5px">${esc(v.descrizione)}</span>` : ''}</span>
+                  </label>`;
+            break;
+        }
+      });
+      box.innerHTML = h;
+      aggiornaIscr();
+    }
+
+    /** Ricalcola il totale, la causale e le dipendenze fra i campi. */
+    function aggiornaIscr() {
+      if (!iscrVoci) return;
+      const val = id => {
+        const el = document.querySelector(`[name="${id}"]:checked`) ||
+                   document.querySelector(`[name="${id}"]`);
+        return el ? (el.type === 'checkbox' ? el.checked : el.value) : '';
+      };
+
+      let totale = 0;
+      iscrVoci.forEach(v => {
+        if (v.tipo !== 'sino') return;
+        const sel = document.querySelector(`[name="${v.id}"]:checked`);
+        document.querySelectorAll(`[name="${v.id}"]`).forEach(r => {
+          const w = r.closest('.iscr-scelta');
+          if (w) w.classList.toggle('sel-si', r.checked && r.value === 'SI'),
+                 w.classList.toggle('sel-no', r.checked && r.value === 'NO');
+        });
+        if (sel && sel.value === 'SI' && v.prezzo > 0) totale += v.prezzo;
+      });
+
+      document.getElementById('iscr-totale').textContent = eur(totale);
+
+      /* causale generata da cognome e nome */
+      const cognome = (document.querySelector('[name="cognome"]') || {}).value || '';
+      const nome = (document.querySelector('[name="nome"]') || {}).value || '';
+      const wrap = document.getElementById('iscr-causale-wrap');
+      if (totale > 0) {
+        wrap.style.display = 'block';
+        document.getElementById('iscr-causale').textContent =
+          ((cognome + ' ' + nome).trim().toUpperCase() || '[COGNOME] [NOME]') + ' - CONVEGNO AREA NORD 2026';
+      } else { wrap.style.display = 'none'; }
+
+      /* la contabile è richiesta solo in presenza di importo */
+      const campoFile = document.getElementById('campo-file');
+      if (campoFile) {
+        campoFile.style.display = totale > 0 ? 'block' : 'none';
+        const lab = campoFile.querySelector('.iscr-label .req');
+        if (lab) lab.style.display = totale > 0 ? 'inline' : 'none';
+      }
+
+      /* il consenso alimentare compare solo se sono indicate esigenze */
+      const alim = document.querySelectorAll('[name="alimentari"]:checked').length > 0;
+      const cAlim = document.getElementById('campo-consensoAlimentari');
+      if (cAlim) cAlim.style.display = alim ? 'flex' : 'none';
+
+      /* «Altro» specificare: solo se selezionato */
+      const altroSel = [...document.querySelectorAll('[name="alimentari"]:checked')]
+        .some(c => /altro/i.test(c.value));
+      const campoAltro = document.querySelector('.iscr-campo[data-id="alimentariAltro"]');
+      if (campoAltro) campoAltro.style.display = altroSel ? 'block' : 'none';
+
+      return totale;
+    }
+
+    function leggiFile_(input) {
+      return new Promise((res, rej) => {
+        const f = input && input.files && input.files[0];
+        if (!f) return res(null);
+        if (f.size > 5 * 1024 * 1024) return rej(new Error('Il file supera 5 MB.'));
+        const fr = new FileReader();
+        fr.onload = () => res({ nome: f.name, tipo: f.type,
+                                dati: String(fr.result).split(',')[1] });
+        fr.onerror = () => rej(new Error('Lettura del file non riuscita.'));
+        fr.readAsDataURL(f);
+      });
+    }
+
+    async function inviaIscrizione(ev) {
+      ev.preventDefault();
+      if (iscrInviato) return;
+      const btn = document.getElementById('iscr-submit');
+      const errBox = document.getElementById('iscr-errore');
+      errBox.style.display = 'none';
+      document.querySelectorAll('.iscr-campo.errore').forEach(c => c.classList.remove('errore'));
+
+      const totale = aggiornaIscr();
+      const risposte = {};
+      const mancanti = [];
+
+      iscrVoci.forEach(v => {
+        if (!v.id || ['titolo', 'sottotitolo', 'informativa'].includes(v.tipo)) return;
+        const campo = document.querySelector(`.iscr-campo[data-id="${v.id}"]`) ||
+                      document.getElementById('campo-' + v.id);
+        const nascosto = campo && campo.style.display === 'none';
+
+        if (v.tipo === 'checkbox') {
+          risposte[v.id] = [...document.querySelectorAll(`[name="${v.id}"]:checked`)].map(c => c.value);
+        } else if (v.tipo === 'sino') {
+          const s = document.querySelector(`[name="${v.id}"]:checked`);
+          risposte[v.id] = s ? s.value : '';
+        } else if (v.tipo === 'consenso') {
+          const c = document.querySelector(`[name="${v.id}"]`);
+          risposte[v.id] = !!(c && c.checked);
+        } else if (v.tipo !== 'file') {
+          const el = document.querySelector(`[name="${v.id}"]`);
+          risposte[v.id] = el ? el.value.trim() : '';
+        }
+
+        if (v.obbligatoria && !nascosto && v.tipo !== 'file') {
+          const val = risposte[v.id];
+          const vuoto = val === '' || val === false || (Array.isArray(val) && !val.length);
+          if (vuoto) { mancanti.push(v.etichetta); if (campo) campo.classList.add('errore'); }
+        }
+      });
+
+      /* consenso alimentare obbligatorio solo se sono indicate esigenze */
+      if ((risposte.alimentari || []).length && !risposte.consensoAlimentari) {
+        mancanti.push('Consenso al trattamento delle esigenze alimentari');
+      }
+
+      const inputFile = document.querySelector('#campo-file input[type=file]');
+      if (totale > 0 && !(inputFile && inputFile.files.length)) {
+        mancanti.push('Distinta del bonifico');
+        const c = document.getElementById('campo-file');
+        if (c) c.classList.add('errore');
+      }
+
+      if (mancanti.length) {
+        errBox.style.display = 'block';
+        errBox.innerHTML = '<strong>Verificare i seguenti campi:</strong><br>• ' +
+          mancanti.map(esc).join('<br>• ');
+        errBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      btn.disabled = true; btn.textContent = 'Invio in corso…';
+      try {
+        const file = totale > 0 ? await leggiFile_(inputFile) : null;
+        const r = await fetch(ISCRIZIONI_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ risposte: risposte, file: file })
+        });
+        const j = await r.json();
+        if (!j.ok) throw new Error(j.errore || 'errore imprevisto');
+        iscrInviato = true;
+        mostraEsito(j, risposte);
+      } catch (e) {
+        btn.disabled = false; btn.textContent = "Invia l'iscrizione";
+        errBox.style.display = 'block';
+        errBox.innerHTML = '<strong>Invio non riuscito.</strong><br>' + esc(e.message) +
+          '<br>Si prega di riprovare; se l\'inconveniente persiste scrivere a ' +
+          '<a href="mailto:giovani@ancepiemonte.it" style="color:#ffd">giovani@ancepiemonte.it</a>.';
+      }
+    }
+
+    function mostraEsito(j, risposte) {
+      document.getElementById('iscr-form').style.display = 'none';
+      const box = document.getElementById('iscr-esito');
+      const bonifico = j.totale > 0
+        ? `<div class="box">
+             <div style="font-weight:800;color:#0056A0;margin-bottom:6px">Bonifico da effettuare: ${eur(j.totale)}</div>
+             Causale: <strong>${esc(j.causale)}</strong><br>
+             La contabile trasmessa è stata registrata.
+           </div>`
+        : `<div class="box">Le attività selezionate non prevedono alcun costo: non è richiesto alcun bonifico.</div>`;
+      box.innerHTML = `
+        <h3>Iscrizione registrata</h3>
+        <p>Numero di iscrizione</p>
+        <div class="ok-num">${esc(j.numero)}</div>
+        <p style="margin-top:14px">Gentile ${esc(risposte.nome)} ${esc(String(risposte.cognome).toUpperCase())},
+        la Sua adesione è stata registrata correttamente.
+        ${j.emailInviata
+          ? `Un promemoria con il riepilogo è stato inviato a <strong>${esc(risposte.email)}</strong>.`
+          : `Il riepilogo non è stato recapitato via posta elettronica: si prega di annotare il numero di iscrizione.`}</p>
+        ${bonifico}
+        <p>Per ogni comunicazione: <a href="mailto:giovani@ancepiemonte.it" style="color:var(--gold)">giovani@ancepiemonte.it</a></p>`;
+      box.style.display = 'block';
+      box.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function toggleRadio() {
