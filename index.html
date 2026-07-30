@@ -1220,6 +1220,48 @@
       text-transform: uppercase; margin-bottom: 7px;
     }
     .iscr-informativa .txt { font-size: 16px; line-height: 1.85; }
+    /* ── riquadro importo + causale, prima della distinta ── */
+    .iscr-bonifico-box {
+      background: rgba(0,0,0,0.28);
+      border: 2px solid var(--gold);
+      border-radius: var(--r8);
+      padding: 16px 18px; margin: 4px 0 20px;
+    }
+    .iscr-bonifico-box .bb-riga {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 12px; padding-bottom: 12px; margin-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.22);
+      font-size: 17px; font-weight: 700; color: #fff;
+    }
+    .iscr-bonifico-box .bb-riga strong {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 34px; font-weight: 900; color: var(--gold);
+      font-variant-numeric: tabular-nums; line-height: 1;
+    }
+    .bb-causale-lbl {
+      font-size: 13.5px; font-weight: 700; letter-spacing: 0.5px;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 7px;
+    }
+    .bb-causale-riga { display: flex; align-items: stretch; gap: 10px; flex-wrap: wrap; }
+    .bb-causale-riga code {
+      flex: 1 1 260px; min-width: 0;
+      font-family: 'Barlow', monospace; font-size: 16.5px; font-weight: 700;
+      color: #16283d; background: var(--cream);
+      border-radius: var(--r4); padding: 11px 14px;
+      word-break: break-word; line-height: 1.4;
+    }
+    .bb-copia {
+      flex: 0 0 auto; min-height: 46px; padding: 0 20px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px; font-weight: 800; letter-spacing: 1px;
+      text-transform: uppercase; cursor: pointer;
+      color: #fff; background: var(--cerulean);
+      border: 1px solid rgba(255,255,255,0.35); border-radius: var(--r4);
+      transition: background var(--fast);
+    }
+    .bb-copia:hover { background: var(--cobalt); }
+    .bb-copia.copiato { background: #1d7a35; border-color: #6fe08a; }
+
     /* consensi */
     .iscr-consenso {
       display: flex; align-items: flex-start; gap: 11px;
@@ -1661,9 +1703,6 @@
             <div class="iscr-riepilogo-riga">
               <span>Totale da bonificare</span>
               <strong id="iscr-totale">€ 0,00</strong>
-            </div>
-            <div class="iscr-causale" id="iscr-causale-wrap" style="display:none">
-              Causale da indicare: <strong id="iscr-causale">—</strong>
             </div>
           </div>
 
@@ -2206,7 +2245,19 @@
             break;
           }
           case 'file':
-            h += `<div class="iscr-campo" id="campo-file" data-id="${v.id}">${lbl}${aiuto}
+            /* riquadro con importo e causale, immediatamente prima della distinta */
+            h += `<div class="iscr-bonifico-box" id="iscr-bonifico-box" style="display:none">
+                    <div class="bb-riga">
+                      <span>Importo da bonificare</span>
+                      <strong id="bb-totale">€ 0,00</strong>
+                    </div>
+                    <div class="bb-causale-lbl">Causale da indicare nel bonifico</div>
+                    <div class="bb-causale-riga">
+                      <code id="bb-causale">—</code>
+                      <button type="button" class="bb-copia" onclick="copiaCausale(this)">Copia</button>
+                    </div>
+                  </div>
+                  <div class="iscr-campo" id="campo-file" data-id="${v.id}">${lbl}${aiuto}
                     <input type="file" id="f-${v.id}" name="${v.id}"
                            accept=".pdf,.jpg,.jpeg,.png" onchange="aggiornaIscr()"></div>`;
             break;
@@ -2247,14 +2298,26 @@
 
       document.getElementById('iscr-totale').textContent = eur(totale);
 
-      /* causale generata da cognome e nome */
+      /* causale generata da cognome, nome e attività pagate */
       const cognome = (document.querySelector('[name="cognome"]') || {}).value || '';
       const nome = (document.querySelector('[name="nome"]') || {}).value || '';
+      const testoCausale = causale_(cognome, nome, sigle);
+
       const wrap = document.getElementById('iscr-causale-wrap');
-      if (totale > 0) {
-        wrap.style.display = 'block';
-        document.getElementById('iscr-causale').textContent = causale_(cognome, nome, sigle);
-      } else { wrap.style.display = 'none'; }
+      if (wrap) {
+        wrap.style.display = totale > 0 ? 'block' : 'none';
+        const el = document.getElementById('iscr-causale');
+        if (el) el.textContent = testoCausale;
+      }
+      /* riquadro sopra la distinta del bonifico */
+      const bb = document.getElementById('iscr-bonifico-box');
+      if (bb) {
+        bb.style.display = totale > 0 ? 'block' : 'none';
+        const t = document.getElementById('bb-totale');
+        const c = document.getElementById('bb-causale');
+        if (t) t.textContent = eur(totale);
+        if (c) c.textContent = testoCausale;
+      }
 
       /* la contabile è richiesta solo in presenza di importo */
       const campoFile = document.getElementById('campo-file');
@@ -2276,6 +2339,24 @@
       if (campoAltro) campoAltro.style.display = altroSel ? 'block' : 'none';
 
       return totale;
+    }
+
+    /** Copia la causale negli appunti, per incollarla nel bonifico. */
+    function copiaCausale(btn) {
+      const testo = (document.getElementById('bb-causale') || {}).textContent || '';
+      const fatto = () => {
+        const orig = btn.textContent;
+        btn.textContent = 'Copiata'; btn.classList.add('copiato');
+        setTimeout(() => { btn.textContent = orig; btn.classList.remove('copiato'); }, 1800);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(testo).then(fatto).catch(() => {});
+      } else {
+        const t = document.createElement('textarea');
+        t.value = testo; document.body.appendChild(t); t.select();
+        try { document.execCommand('copy'); fatto(); } catch (e) {}
+        document.body.removeChild(t);
+      }
     }
 
     function leggiFile_(input) {
