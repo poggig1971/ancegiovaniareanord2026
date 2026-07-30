@@ -656,9 +656,27 @@
       letter-spacing: 1.5px; text-transform: uppercase;
       color: rgba(255,255,255,0.80); margin-bottom: 3px;
     }
-    .conv-titolo { font-size: 15px; font-weight: 700; color: var(--w); }
-    .conv-relatore { font-size: 13px; color: var(--w60); margin-top: 2px; }
-    .conv-ruolo { font-size: 12px; color: var(--w30); font-style: italic; margin-top: 1px; }
+    .conv-titolo { font-size: 16.5px; font-weight: 700; color: var(--w); line-height: 1.35; }
+    .conv-relatore { font-size: 15px; color: var(--w80); margin-top: 2px; }
+    .conv-ruolo { font-size: 14px; color: var(--w60); font-style: italic; margin-top: 1px; }
+
+    /* ── RELATORI: nome + carica sulla stessa riga ── */
+    .conv-persone { margin-top: 9px; display: flex; flex-direction: column; gap: 5px; }
+    .conv-persona {
+      display: flex; flex-wrap: wrap;
+      align-items: baseline; gap: 3px 10px;
+    }
+    .conv-persona .p-nome {
+      font-size: 15.5px; font-weight: 700; color: #fff;
+    }
+    .conv-persona .p-ruolo {
+      font-size: 14px; font-style: italic;
+      color: rgba(255,255,255,0.80);
+    }
+    .conv-persona .p-nome + .p-ruolo::before {
+      content: '·'; margin-right: 8px;
+      color: var(--gold); font-style: normal; font-weight: 700;
+    }
 
     /* ── SPONSOR ── */
     .sponsor-outer {
@@ -1649,18 +1667,46 @@
         document.getElementById('conv-content').innerHTML = '<div style="text-align:center;color:rgba(255,255,255,0.4);font-size:12px;padding:20px;">Programma in fase di definizione</div>';
         return;
       }
-      let html = '<div class="conv-table">';
+      /* 1) Normalizza: accorpa le righe di "continuazione" del foglio,
+            cioè quelle con Ora/Sessione/Titolo vuoti che aggiungono solo
+            un altro relatore + la sua carica alla voce precedente.
+            Gestisce sia questo caso sia le celle multi-riga. */
+      const voci = [];
       rows.forEach(r => {
-        const [ora, sessione, titolo, relatore, ruolo] = r;
-        const tipoClass = 'tipo-' + (sessione||'').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+        const c = i => (r[i] == null ? '' : String(r[i])).trim();
+        const righe = v => v ? v.split('\n').map(s => s.trim()) : [];
+        const continua = !c(0) && !c(1) && !c(2) && (c(3) || c(4));
+        if (continua && voci.length) {
+          const p = voci[voci.length - 1];
+          const nomi = righe(c(3)), cariche = righe(c(4));
+          const n = Math.max(nomi.length, cariche.length);
+          for (let i = 0; i < n; i++) { p.rel.push(nomi[i] || ''); p.ruo.push(cariche[i] || ''); }
+          return;
+        }
+        voci.push({ ora: c(0), sess: c(1), tit: c(2), rel: righe(c(3)), ruo: righe(c(4)) });
+      });
+
+      /* 2) Render: ogni nome accostato alla propria carica sulla stessa riga */
+      let html = '<div class="conv-table">';
+      voci.forEach(v => {
+        const tipoClass = 'tipo-' + v.sess.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+        let persone = '';
+        const n = Math.max(v.rel.length, v.ruo.length);
+        for (let i = 0; i < n; i++) {
+          const nome = v.rel[i] || '', carica = v.ruo[i] || '';
+          if (!nome && !carica) continue;
+          persone += `<div class="conv-persona">` +
+            (nome ? `<span class="p-nome">${esc(nome)}</span>` : '') +
+            (carica ? `<span class="p-ruolo">${esc(carica)}</span>` : '') +
+            `</div>`;
+        }
         html += `<div class="conv-row ${tipoClass}">
-          <div class="conv-ora">${nl2br(ora)}</div>
+          <div class="conv-ora">${nl2br(v.ora)}</div>
           <div class="conv-detail">
-            ${titolo && titolo.trim()
-              ? `<div class="conv-sessione">${esc(sessione)}</div><div class="conv-titolo">${nl2br(titolo)}</div>`
-              : `<div class="conv-titolo">${nl2br(sessione)}</div>`}
-            ${relatore ? `<div class="conv-relatore">${nl2br(relatore)}</div>` : ''}
-            ${ruolo ? `<div class="conv-ruolo">${nl2br(ruolo)}</div>` : ''}
+            ${v.tit
+              ? `<div class="conv-sessione">${esc(v.sess)}</div><div class="conv-titolo">${nl2br(v.tit)}</div>`
+              : `<div class="conv-titolo">${nl2br(v.sess)}</div>`}
+            ${persone ? `<div class="conv-persone">${persone}</div>` : ''}
           </div>
         </div>`;
       });
