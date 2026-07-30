@@ -683,10 +683,16 @@
       max-width: 840px; width: 100%;
       animation: fadeUp .6s 320ms ease-out both;
     }
+    /* raggio allineato a quello dell'immagine sponsor: ritaglia gli angoli bianchi
+       del JPEG (che non può avere trasparenza) ed elimina il bordino chiaro */
     .sponsor-outer img {
-      width: 100%; border-radius: var(--r12);
-      border: 1px solid var(--w08);
+      width: 100%; display: block;
+      border-radius: 30px;
+      border: none;
       box-shadow: var(--sd);
+    }
+    @media (max-width: 700px) {
+      .sponsor-outer img { border-radius: 22px; }
     }
 
     /* ── SHARED SECTION WRAPPER ── */
