@@ -906,13 +906,26 @@
     /* ── HOTEL CARDS ── */
     .hotel-group-title {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 21px; font-weight: 800; color: var(--w);
+      font-size: 24px; font-weight: 800; color: var(--w);
       margin: 28px 0 6px; padding-bottom: 8px;
       border-bottom: 2px solid var(--gold);
       display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
     }
     .hotel-group-title:first-child { margin-top: 0; }
-    .hotel-stelle { color: var(--gold); font-size: 14px; }
+    .hotel-stelle { color: var(--gold); font-size: 16px; }
+
+    /* riga indirizzo + contatti (sopra le schede, su fondo blu) */
+    .hotel-address-line {
+      font-size: 14px; font-weight: 600;
+      color: #fff; margin: -6px 0 12px;
+      line-height: 1.6;
+    }
+    .hotel-address-line a {
+      color: #fff; text-decoration: none; font-weight: 600;
+      border-bottom: 1px solid rgba(255,255,255,0.35);
+      transition: color var(--fast), border-color var(--fast);
+    }
+    .hotel-address-line a:hover { color: var(--gold); border-color: var(--gold); }
     .hotel-card {
       background: rgba(255,248,224,0.90);
       backdrop-filter: blur(4px);
@@ -929,30 +942,35 @@
     .hotel-info { flex: 1; min-width: 200px; }
     .hotel-nome {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 17px; font-weight: 800; color: #1a2e4a;
+      font-size: 19px; font-weight: 800; color: #1a2e4a;
     }
-    .hotel-indirizzo { font-size: 12px; color: #777; margin-top: 3px; }
-    .hotel-dettagli { font-size: 12px; color: #555; margin-top: 6px; line-height: 1.7; }
-    .hotel-dettagli span { display: inline-block; margin-right: 12px; white-space: nowrap; }
-    .hotel-note { font-size: 11px; color: #999; font-style: italic; margin-top: 4px; }
+    .hotel-indirizzo { font-size: 13px; color: #666; margin-top: 3px; }
+    .hotel-dettagli { font-size: 14px; color: #3a3a3a; margin-top: 6px; line-height: 1.8; }
+    .hotel-dettagli span { display: inline-block; margin-right: 14px; white-space: nowrap; }
+    /* termine/condizione dell'opzione: grassetto blu, ben visibile */
+    .hotel-dettagli .hotel-opzione {
+      font-weight: 800; color: var(--cerulean);
+      white-space: normal;
+    }
+    .hotel-note { font-size: 12.5px; color: #6b6b6b; font-style: italic; margin-top: 5px; }
     .hotel-tag {
       display: inline-block;
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
-      padding: 3px 10px; border-radius: 100px;
-      margin-top: 6px; text-transform: uppercase;
+      font-size: 11.5px; font-weight: 700; letter-spacing: 0.5px;
+      padding: 4px 12px; border-radius: 100px;
+      margin-top: 7px; text-transform: uppercase;
     }
     .hotel-tag.associazione { background: #e8f5e9; color: #1b5e20; }
     .hotel-tag.partecipante { background: #fff8e1; color: #5d4037; }
     .hotel-prezzo {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 28px; font-weight: 900; color: #1a2e4a;
+      font-size: 31px; font-weight: 900; color: #1a2e4a;
       white-space: nowrap; text-align: right;
       font-variant-numeric: tabular-nums;
     }
     .hotel-prezzo small {
       display: block; font-family: 'Barlow', sans-serif;
-      font-size: 10px; font-weight: 600; color: #888;
+      font-size: 11px; font-weight: 600; color: #777;
     }
     .hotel-links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
     .hotel-link {
@@ -1601,19 +1619,19 @@
         const contatto = righe[0][12] || '';
         const linkMaps = righe[0][13] || '';
         const indirizzoHtml = linkMaps
-          ? `<a href="${linkMaps}" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.5);text-decoration:none;font-weight:600">📍 ${indirizzo}</a>`
-          : `📍 ${indirizzo}`;
-        const contattoHtml = contatto ? ` · ${contatto}` : '';
-        html += `<div style="font-size:12px;color:rgba(255,255,255,0.5);margin:-8px 0 12px;">${indirizzoHtml}${contattoHtml}</div>`;
+          ? `<a href="${encodeURI(linkMaps)}" target="_blank" rel="noopener">📍 ${esc(indirizzo)}</a>`
+          : `<span>📍 ${esc(indirizzo)}</span>`;
+        const contattoHtml = contatto ? ` · ${esc(contatto)}` : '';
+        html += `<div class="hotel-address-line">${indirizzoHtml}${contattoHtml}</div>`;
         righe.forEach(r => {
           const [,,, camere, prezzo, notti, tassa, totale, opzione, cancellazione, note, linkDoc] = r;
           const linkDocStr = (linkDoc || '').toUpperCase();
           let tagHtml = '';
           if (linkDocStr.includes('ASSOCIAZIONE')) tagHtml = '<span class="hotel-tag associazione">CONSIGLIO NAZIONALE</span>';
           else if (linkDocStr.includes('PARTECIPANTE')) tagHtml = '<span class="hotel-tag partecipante">A CARICO del PARTECIPANTE</span>';
-          const noteHtml = note ? `<div class="hotel-note">${note}</div>` : '';
-          const cancHtml = cancellazione ? `<span>🔄 ${cancellazione}</span>` : '';
-          const opzHtml = opzione ? `<span>📋 ${opzione}</span>` : '';
+          const noteHtml = note ? `<div class="hotel-note">${esc(note)}</div>` : '';
+          const cancHtml = cancellazione ? `<span>🔄 ${esc(cancellazione)}</span>` : '';
+          const opzHtml = opzione ? `<span class="hotel-opzione">📋 ${esc(opzione)}</span>` : '';
           html += `<div class="hotel-card">
             <div class="hotel-info">
               <div class="hotel-dettagli">
