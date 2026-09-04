@@ -378,7 +378,7 @@ function doPost(e) {
     let esito;
     try {
       const sh = getFoglioRisposte_(voci);
-      const numero = CONFIG.ANNO + '-' + Utilities.formatString('%03d', sh.getLastRow());
+      const numero = prossimoNumero_(sh);
       const cognome = String(risposte.cognome || '').trim().toUpperCase();
       const nome = String(risposte.nome || '').trim();
       const causale = totale > 0 ? causale_(cognome, nome, sigle, sigleAcc) : '';
@@ -435,6 +435,25 @@ function doPost(e) {
 }
 
 /* ========================= FUNZIONI DI SERVIZIO ========================= */
+
+/**
+ * Numero di iscrizione progressivo.
+ * È ricavato dal massimo numero già assegnato, non dal conteggio delle righe:
+ * la cancellazione di una riga non fa quindi arretrare la numerazione, che
+ * altrimenti produrrebbe numeri duplicati.
+ */
+function prossimoNumero_(sh) {
+  const ultima = sh.getLastRow();
+  let massimo = 0;
+  if (ultima > 1) {
+    const valori = sh.getRange(2, 1, ultima - 1, 1).getValues();
+    for (let i = 0; i < valori.length; i++) {
+      const m = String(valori[i][0] == null ? '' : valori[i][0]).match(/(\d+)\s*$/);
+      if (m) { const v = Number(m[1]); if (v > massimo) massimo = v; }
+    }
+  }
+  return CONFIG.ANNO + '-' + Utilities.formatString('%03d', massimo + 1);
+}
 
 function salvaContabile_(file, numero, cognome, nome) {
   const ammessi = ['pdf', 'jpg', 'jpeg', 'png', 'heic'];
