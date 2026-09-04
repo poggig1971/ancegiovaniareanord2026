@@ -3,7 +3,7 @@
 20,,titolo,Dati del partecipante,,,,,SI,
 30,cognome,testo,Cognome,,,,SI,SI,
 40,nome,testo,Nome,,,,SI,SI,
-50,associazione,testo,Associazione territoriale di appartenenza,"Indicare la sola Associazione territoriale, ad esempio: ANCE Roma",,,SI,SI,
+50,associazione,testo,Associazione Territoriale di appartenenza,Indicare la sola AT ad esempio: ANCE Roma,,,SI,SI,
 60,cellulare,tel,Cellulare,,,,SI,SI,
 70,email,email,E-mail,Sarà utilizzata per l'invio del promemoria di iscrizione,,,SI,SI,
 72,accompagnatore,flag,Partecipa un accompagnatore,"Da selezionare in presenza di un accompagnatore. La quota dell'accompagnatore è sempre dovuta, anche qualora il partecipante sia ospite.",,,NO,SI,
