@@ -496,7 +496,13 @@ function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNo
     if (!siPart && !siAcc) return;
     const unitario = v.prezzo > 0 ? v.prezzo : 0;
     const persone = (siPart ? 1 : 0) + (siAcc ? 1 : 0);
-    const costo = unitario > 0 ? eur(unitario * persone) : 'nessun costo';
+    /* un prezzo espresso a parole (es. «Pagamento in Loco») non concorre al bonifico
+       ma va riportato: dirlo «senza costo» indurrebbe in errore */
+    const pt = String(v.prezzoTesto || '').trim();
+    const aParole = !!(pt && !/^[0-9.,]+$/.test(pt));
+    const costo = unitario > 0
+      ? eur(unitario * persone)
+      : (aParole ? esc(pt) + (persone > 1 ? ' &times; 2' : '') : 'nessun costo');
     const chi = siPart && siAcc ? 'partecipante e accompagnatore'
               : (siAcc ? 'solo accompagnatore' : 'partecipante');
     righeAttivita +=
@@ -522,7 +528,8 @@ function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNo
     if (val === false) return;
     if (val === undefined || val === null || val === '') return;
     righeDati +=
-      '<tr><td style="padding:6px 0;color:#666;width:40%">' + esc(v.etichetta) + '</td>' +
+      '<tr><td style="padding:6px 14px 6px 0;color:#666;width:40%;vertical-align:top">' +
+        esc(v.etichetta) + '</td>' +
       '<td style="padding:6px 0">' + esc(val) + '</td></tr>';
   });
 
