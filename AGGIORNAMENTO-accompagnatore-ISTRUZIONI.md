@@ -27,9 +27,13 @@ scelta, «Sì, ACCOMPAGNATORE», accanto a «Sì, partecipo» e «No, non partec
 | 23 ott. — Aperitivo, Cena e Centralino Club | € 100,00 | € 100,00 |
 | 24 ott. — Visita al Museo | € 18,00 | € 18,00 |
 | 24 ott. — Pranzo | pagamento in loco | pagamento in loco |
+| 23 ott. — Light Lunch | gratuito | gratuito |
+| 23 ott. — XVI Convegno Area Nord | gratuito | gratuito |
 
-Le attività istituzionali del 23 ottobre (Consiglio Nazionale, Light Lunch,
-Convegno) non ammettono l'accompagnatore e restano invariate.
+Il Light Lunch e il Convegno del 23 ottobre ammettono l'accompagnatore a titolo
+gratuito: la scelta è registrata nella colonna «Attività accompagnatore» del
+foglio, senza concorrere al bonifico. Il solo Consiglio Nazionale Giovani, in
+quanto organo statutario, non lo ammette.
 
 **Ospiti** — l'esenzione riguarda il solo partecipante: la quota dell'eventuale
 accompagnatore resta dovuta. In tal caso il modulo richiede il bonifico della sola
