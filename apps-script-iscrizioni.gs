@@ -39,10 +39,13 @@ const CONFIG = {
 
 /** Colonne attese nel foglio «Modulo». */
 const COL = { ORDINE: 0, ID: 1, TIPO: 2, ETICHETTA: 3, DESCRIZIONE: 4,
-              OPZIONI: 5, PREZZO: 6, OBBLIGATORIA: 7, ATTIVA: 8 };
+              OPZIONI: 5, PREZZO: 6, OBBLIGATORIA: 7, ATTIVA: 8,
+              ACCOMPAGNATORE: 9 };
 
 /** Colonne di servizio aggiunte in coda al foglio «Iscrizioni». */
-const COLONNE_FINALI = ['Ospite', 'TOTALE da bonificare', 'Causale bonifico', 'Contabile allegata',
+const COLONNE_FINALI = ['Ospite', 'Attività accompagnatore',
+                        'Quota partecipante', 'Quota accompagnatore',
+                        'TOTALE da bonificare', 'Causale bonifico', 'Contabile allegata',
                         'Nome file contabile', 'Link contabile su Drive',
                         'E-mail promemoria inviata', 'Pagamento verificato', 'Note'];
 
@@ -72,11 +75,32 @@ function leggiConfigurazione_() {
                  .filter(function (s) { return s; }),
       prezzo: Number(String(r[COL.PREZZO] || '0').toString().replace(',', '.')) || 0,
       prezzoTesto: String(r[COL.PREZZO] == null ? '' : r[COL.PREZZO]).trim(),
-      obbligatoria: String(r[COL.OBBLIGATORIA] || 'NO').trim().toUpperCase() === 'SI'
+      obbligatoria: String(r[COL.OBBLIGATORIA] || 'NO').trim().toUpperCase() === 'SI',
+      /* la colonna «Accompagnatore» indica se l'attivita ammette l'accompagnatore;
+         in sua assenza si desume dal prezzo (attivita a pagamento o da saldare in loco) */
+      accompagnatore: ammetteAcc_(r)
     });
   }
   voci.sort(function (a, b) { return a.ordine - b.ordine; });
   return voci;
+}
+
+/**
+ * Stabilisce se l'attivita ammette l'iscrizione di un accompagnatore.
+ * Vale la colonna «Accompagnatore» del foglio; se non compilata si applica il
+ * criterio automatico: sono ammesse le sole attivita a pagamento, comprese
+ * quelle il cui importo si salda in loco.
+ */
+function ammetteAcc_(r) {
+  const dichiarato = String(r[COL.ACCOMPAGNATORE] == null ? '' : r[COL.ACCOMPAGNATORE]).trim().toUpperCase();
+  if (dichiarato === 'SI') return true;
+  if (dichiarato === 'NO') return false;
+  const tipo = String(r[COL.TIPO] || '').trim().toLowerCase();
+  if (tipo !== 'sino') return false;
+  const testo = String(r[COL.PREZZO] == null ? '' : r[COL.PREZZO]).trim();
+  const importo = Number(testo.replace(',', '.')) || 0;
+  if (importo > 0) return true;
+  return !!(testo && !/^[0-9.,]+$/.test(testo));   // es. «Pagamento in Loco»
 }
 
 /** Sole voci che raccolgono un dato (escluse quelle puramente descrittive). */
@@ -187,10 +211,16 @@ function eOspite_(cognome, nome) {
   return !!(elenco.ordinate[k.ordinata] || elenco.lettere[k.lettere]);
 }
 
-/** Causale: chi paga, per quale evento e per quali attività. */
-function causale_(cognome, nome, sigle) {
+/**
+ * Causale: chi paga, per quale evento e per quali attività.
+ * Le attività dell'eventuale accompagnatore seguono la sigla «ACC».
+ * Es. «ROSSI MARIO Convegno Area Nord OTT26 CENA22 SERATA23 ACC SERATA23»
+ */
+function causale_(cognome, nome, sigle, sigleAcc) {
   const chi = (String(cognome || '') + ' ' + String(nome || '')).trim().toUpperCase();
-  return (chi + ' Convegno Area Nord OTT26' + (sigle.length ? ' ' + sigle.join(' ') : '')).trim();
+  const acc = (sigleAcc && sigleAcc.length) ? ' ACC ' + sigleAcc.join(' ') : '';
+  return (chi + ' Convegno Area Nord OTT26' +
+          (sigle.length ? ' ' + sigle.join(' ') : '') + acc).trim();
 }
 
 /* ============================== SETUP ============================== */
@@ -284,6 +314,15 @@ function doPost(e) {
     const email = String(risposte.email || '').trim();
     if (!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(email)) throw new Error('Indirizzo e-mail non valido.');
 
+    /* ---------- accompagnatore ---------- */
+    const conAcc = risposte.accompagnatore === true ||
+                   String(risposte.accompagnatore || '').toUpperCase() === 'SI';
+    if (conAcc) {
+      if (!String(risposte.accCognome || '').trim() || !String(risposte.accNome || '').trim()) {
+        throw new Error('Avendo segnalato un accompagnatore, occorre indicarne cognome e nome.');
+      }
+    }
+
     /* se fra le esigenze alimentari è indicato «Altro», la specificazione è dovuta */
     const alimSelezionate = Array.isArray(risposte.alimentari) ? risposte.alimentari
                             : String(risposte.alimentari || '').split(';');
@@ -292,17 +331,40 @@ function doPost(e) {
       throw new Error('Avendo indicato «Altro» fra le esigenze alimentari, occorre specificarlo.');
     }
 
-    /* ---------- totale calcolato dai prezzi del foglio ---------- */
-    let totale = 0; const sigle = [];
-    campi.forEach(function (v) {
-      if (v.prezzo > 0 && String(risposte[v.id]).toUpperCase() === 'SI') {
-        totale += v.prezzo; sigle.push(sigla_(v));
-      }
-    });
+    const accAlimSel = Array.isArray(risposte.accAlimentari) ? risposte.accAlimentari
+                       : String(risposte.accAlimentari || '').split(';');
+    const accHaAltro = conAcc && accAlimSel.some(function (a) { return /altro/i.test(String(a)); });
+    if (accHaAltro && !String(risposte.accAlimentariAltro || '').trim()) {
+      throw new Error('Avendo indicato «Altro» fra le esigenze alimentari dell\'accompagnatore, occorre specificarlo.');
+    }
 
-    /* ospiti: nessun importo dovuto, qualunque sia l'attività prescelta */
+    /* ---------- totali calcolati dai prezzi del foglio ---------- */
+    let quotaPart = 0; const sigle = [];
+    let quotaAcc = 0; const sigleAcc = []; const attivitaAcc = [];
+    campi.forEach(function (v) {
+      if (v.tipo !== 'sino' && !(v.prezzo > 0)) return;
+      if (v.prezzo > 0 && String(risposte[v.id]).toUpperCase() === 'SI') {
+        quotaPart += v.prezzo; sigle.push(sigla_(v));
+      }
+      /* l'accompagnatore è ammesso alle sole attività che lo prevedono;
+         la sua quota è pari a quella del partecipante ed è sempre dovuta */
+      if (!v.accompagnatore) return;
+      const sceltoAcc = conAcc &&
+        (risposte['acc_' + v.id] === true ||
+         String(risposte['acc_' + v.id] || '').toUpperCase() === 'SI');
+      if (!sceltoAcc) return;
+      attivitaAcc.push(titoloColonna_(v));
+      if (v.prezzo > 0) { quotaAcc += v.prezzo; sigleAcc.push(sigla_(v)); }
+    });
+    if (conAcc && !attivitaAcc.length) {
+      throw new Error('Avendo segnalato un accompagnatore, occorre indicare almeno un\'attività cui questi prenderà parte.');
+    }
+
+    /* ospiti: la sola quota del partecipante è azzerata;
+       quella dell'eventuale accompagnatore resta comunque dovuta */
     const ospite = eOspite_(risposte.cognome, risposte.nome);
-    if (ospite) { totale = 0; sigle.length = 0; }
+    if (ospite) { quotaPart = 0; sigle.length = 0; }
+    const totale = quotaPart + quotaAcc;
 
     const haFile = !!(d.file && d.file.dati);
     if (totale > 0 && !haFile) {
@@ -319,7 +381,7 @@ function doPost(e) {
       const numero = CONFIG.ANNO + '-' + Utilities.formatString('%03d', sh.getLastRow());
       const cognome = String(risposte.cognome || '').trim().toUpperCase();
       const nome = String(risposte.nome || '').trim();
-      const causale = ospite ? '' : causale_(cognome, nome, sigle);
+      const causale = totale > 0 ? causale_(cognome, nome, sigle, sigleAcc) : '';
 
       let fileNome = '', fileUrl = '';
       if (haFile) {
@@ -337,7 +399,8 @@ function doPost(e) {
           return val;
         })
       ).concat([
-        ospite ? 'SI' : '', totale, causale, haFile ? 'SI' : 'NO', fileNome, fileUrl,
+        ospite ? 'SI' : '', attivitaAcc.join('; '), quotaPart, quotaAcc,
+        totale, causale, haFile ? 'SI' : 'NO', fileNome, fileUrl,
         '', '', ''
       ]);
 
@@ -347,7 +410,10 @@ function doPost(e) {
 
       let emailEsito;
       try {
-        inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNome, ospite);
+        inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNome, ospite,
+                         { attivo: conAcc, quota: quotaAcc, quotaPart: quotaPart,
+                           cognome: String(risposte.accCognome || '').trim(),
+                           nome: String(risposte.accNome || '').trim() });
         emailEsito = 'SI ' + Utilities.formatDate(new Date(), CONFIG.FUSO, 'dd/MM/yyyy HH:mm');
       } catch (err) {
         emailEsito = 'NO — ' + err.message;
@@ -355,6 +421,8 @@ function doPost(e) {
       sh.getRange(rigaScritta, colEmail).setValue(emailEsito);
 
       esito = { ok: true, numero: numero, totale: totale, causale: causale,
+                quotaPartecipante: quotaPart, quotaAccompagnatore: quotaAcc,
+                accompagnatore: conAcc,
                 ospite: ospite, emailInviata: emailEsito.indexOf('SI') === 0 };
     } finally {
       lock.releaseLock();
@@ -391,7 +459,8 @@ function salvaContabile_(file, numero, cognome, nome) {
   return { nome: nomeFile, url: salvato.getUrl() };
 }
 
-function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNome, ospite) {
+function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNome, ospite, acc) {
+  acc = acc || { attivo: false, quota: 0, quotaPart: totale, cognome: '', nome: '' };
   const eur = function (n) { return '€ ' + Number(n).toFixed(2).replace('.', ','); };
   const esc = function (s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -401,12 +470,21 @@ function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNo
   let righeAttivita = '';
   voci.forEach(function (v) {
     if (v.tipo !== 'sino') return;
-    if (String(risposte[v.id]).toUpperCase() !== 'SI') return;
-    const costo = v.prezzo > 0 ? eur(v.prezzo) : 'nessun costo';
+    const siPart = String(risposte[v.id]).toUpperCase() === 'SI';
+    const siAcc = acc.attivo && !!v.accompagnatore &&
+                  (risposte['acc_' + v.id] === true ||
+                   String(risposte['acc_' + v.id] || '').toUpperCase() === 'SI');
+    if (!siPart && !siAcc) return;
+    const unitario = v.prezzo > 0 ? v.prezzo : 0;
+    const persone = (siPart ? 1 : 0) + (siAcc ? 1 : 0);
+    const costo = unitario > 0 ? eur(unitario * persone) : 'nessun costo';
+    const chi = siPart && siAcc ? 'partecipante e accompagnatore'
+              : (siAcc ? 'solo accompagnatore' : 'partecipante');
     righeAttivita +=
       '<tr><td style="padding:10px 12px;border-bottom:1px solid #e6e6e6">' +
         '<strong>' + esc(v.etichetta) + '</strong>' +
         (v.descrizione ? '<br><span style="color:#666;font-size:13px">' + esc(v.descrizione) + '</span>' : '') +
+        '<br><span style="color:#0056A0;font-size:12.5px;font-weight:700">' + chi + '</span>' +
       '</td>' +
       '<td style="padding:10px 12px;border-bottom:1px solid #e6e6e6;text-align:right;white-space:nowrap">' +
         costo + '</td></tr>';
@@ -421,6 +499,8 @@ function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNo
     if (['sino', 'file', 'consenso'].indexOf(v.tipo) !== -1) return;
     let val = risposte[v.id];
     if (Array.isArray(val)) val = val.join(', ');
+    if (val === true) val = 'Sì';
+    if (val === false) return;
     if (val === undefined || val === null || val === '') return;
     righeDati +=
       '<tr><td style="padding:6px 0;color:#666;width:40%">' + esc(v.etichetta) + '</td>' +
@@ -443,6 +523,13 @@ function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNo
         '<div style="font-size:16px;font-weight:700;color:#B03020;margin-bottom:10px">' +
         (fileNome ? 'Bonifico ' + eur(totale) : 'Importo da bonificare: ' + eur(totale)) + '</div>' +
         testoInformativa +
+        (acc.attivo && acc.quota > 0
+          ? '<div style="margin-top:8px;font-size:14px;color:#333">' +
+            'Quota del partecipante: <strong>' + eur(acc.quotaPart) + '</strong><br>' +
+            'Quota dell\'accompagnatore' +
+            (acc.cognome || acc.nome ? ' (' + esc((acc.nome + ' ' + acc.cognome).trim()) + ')' : '') +
+            ': <strong>' + eur(acc.quota) + '</strong></div>'
+          : '') +
         '<div style="margin-top:10px;font-size:14px;color:#333">Causale: <strong>' + esc(causale) + '</strong></div>' +
         (fileNome ? '<div style="margin-top:10px;font-size:13px;color:#1a5e1a">' +
                     'Contabile ricevuta correttamente (' + esc(fileNome) + ').</div>' : '') +
@@ -454,7 +541,9 @@ function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNo
     : (ospite
         ? '<div style="margin:22px 0;padding:16px 18px;background:#e8f5e9;border-left:4px solid #1b5e20;font-size:14px;color:#1b3a1e">' +
           '<strong style="font-size:15px">Partecipazione in qualità di ospite.</strong><br>' +
-          'Non è dovuto alcun importo per le attività prescelte e non è richiesto alcun bonifico.</div>'
+          'Non è dovuto alcun importo per le attività prescelte e non è richiesto alcun bonifico.' +
+          (acc.attivo ? '<br>Anche per l\'accompagnatore segnalato non risultano quote a pagamento.' : '') +
+          '</div>'
         : '<div style="margin:22px 0;padding:14px 18px;background:#eef6ff;border-left:4px solid #0077C0;font-size:14px;color:#333">' +
           'Le attività selezionate non prevedono alcun costo: non è richiesto alcun bonifico.</div>');
 
@@ -491,6 +580,79 @@ function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNo
     name: CONFIG.MITTENTE_NOME,
     replyTo: CONFIG.SEGRETERIA_EMAIL
   });
+}
+
+/* ==================== ALLINEAMENTO DELLE INTESTAZIONI ==================== */
+
+/**
+ * Allinea le intestazioni del foglio «Iscrizioni» alla configurazione corrente,
+ * inserendo le sole colonne mancanti nella posizione corretta.
+ * Le colonne già presenti e i dati delle iscrizioni registrate non sono toccati:
+ * l'inserimento sposta a destra l'intero contenuto, che resta quindi allineato
+ * alla propria intestazione.
+ *
+ * Da eseguire una sola volta, dopo aver aggiornato il foglio «Modulo».
+ */
+function chiaveTestata_(s) {
+  return String(s == null ? '' : s)
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[«»\u2018\u2019\u201c\u201d]/g, '')
+    .replace(/[\u2014\u2013]/g, '-')
+    .replace(/\s+/g, ' ')
+    .trim().toUpperCase();
+}
+
+function aggiornaIntestazioni() {
+  const voci = leggiConfigurazione_();
+  const attese = ['N. iscrizione', 'Data e ora invio']
+    .concat(campiDato_(voci).map(titoloColonna_))
+    .concat(COLONNE_FINALI);
+
+  const ss = SpreadsheetApp.openById(CONFIG.SHEET_ID);
+  const sh = ss.getSheetByName(CONFIG.FOGLIO_RISPOSTE);
+  if (!sh) throw new Error('Foglio «' + CONFIG.FOGLIO_RISPOSTE + '» non trovato.');
+
+  if (sh.getLastRow() === 0) {
+    sh.getRange(1, 1, 1, attese.length).setValues([attese])
+      .setFontWeight('bold').setBackground('#0056A0').setFontColor('#ffffff');
+    sh.setFrozenRows(1);
+    Logger.log('Intestazioni create ex novo: %s colonne.', attese.length);
+    return;
+  }
+
+  let correnti = sh.getRange(1, 1, 1, Math.max(sh.getLastColumn(), 1)).getValues()[0]
+                   .map(function (x) { return String(x || '').trim(); });
+  let chiavi = correnti.map(chiaveTestata_);
+  const inserite = [];
+
+  for (let i = 0; i < attese.length; i++) {
+    const k = chiaveTestata_(attese[i]);
+    /* il confronto ignora maiuscole, accenti, virgolette e spaziature difformi:
+       le intestazioni già presenti non sono mai duplicate */
+    if (chiavi[i] === k) continue;
+    if (chiavi.indexOf(k, i) !== -1) continue;
+    sh.insertColumnBefore(i + 1);
+    sh.getRange(1, i + 1).setValue(attese[i])
+      .setFontWeight('bold').setBackground('#0056A0').setFontColor('#ffffff');
+    correnti.splice(i, 0, attese[i]);
+    chiavi.splice(i, 0, k);
+    inserite.push('colonna ' + (i + 1) + ' → ' + attese[i]);
+  }
+
+  SpreadsheetApp.flush();
+  Logger.log('Colonne inserite: %s', inserite.length ? inserite.join(' | ') : 'nessuna');
+  Logger.log('Intestazioni attese: %s', attese.join(' | '));
+  const finali = sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0]
+                   .map(function (x) { return String(x || '').trim(); });
+  const disallineate = [];
+  for (let n = 0; n < attese.length; n++) {
+    if (chiaveTestata_(finali[n]) !== chiaveTestata_(attese[n])) {
+      disallineate.push((n + 1) + ': atteso «' + attese[n] + '», presente «' + (finali[n] || '') + '»');
+    }
+  }
+  Logger.log(disallineate.length
+    ? 'ATTENZIONE — verificare manualmente: ' + disallineate.join(' | ')
+    : 'Intestazioni allineate correttamente.');
 }
 
 function json_(obj) {
