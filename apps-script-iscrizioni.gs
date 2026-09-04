@@ -616,20 +616,39 @@ function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNo
   };
 
   /* Il messaggio parte dall'indirizzo di segreteria anziché da quello personale
-     dell'account che esegue lo script. Presuppone che CONFIG.SEGRETERIA_EMAIL sia
-     fra gli indirizzi verificati in Gmail alla voce «Invia messaggio come».
-     Qualora l'alias venisse rimosso, l'invio prosegue dall'indirizzo dell'account:
-     è preferibile un mittente inatteso a un promemoria non recapitato. */
-  try {
-    MailApp.sendEmail(Object.assign({ from: CONFIG.SEGRETERIA_EMAIL }, opzioni));
+     dell'account che esegue lo script. ATTENZIONE: soltanto GmailApp onora il
+     parametro «from»; MailApp lo ignora in silenzio, senza segnalare nulla.
+     L'indirizzo dev'essere fra quelli verificati in Gmail alla voce
+     «Invia messaggio come», che è quanto restituisce GmailApp.getAliases().
+     Se l'alias non fosse disponibile si ripiega su MailApp: è preferibile un
+     mittente inatteso a un promemoria non recapitato. */
+  if (aliasDisponibile_()) {
+    GmailApp.sendEmail(opzioni.to, opzioni.subject, '', {
+      htmlBody: opzioni.htmlBody,
+      name: opzioni.name,
+      replyTo: opzioni.replyTo,
+      from: CONFIG.SEGRETERIA_EMAIL
+    });
     return true;                     // partito dall'indirizzo di segreteria
-  } catch (err) {
-    MailApp.sendEmail(opzioni);
-    return false;                    // partito dall'indirizzo dell'account
   }
+  MailApp.sendEmail(opzioni);
+  return false;                      // partito dall'indirizzo dell'account
 }
 
 /* ========================= VERIFICA DEL MITTENTE ========================= */
+
+let ALIAS_ESITO = null;              // memorizzato per la durata dell'esecuzione
+
+/** Vero se l'indirizzo di segreteria è fra gli alias verificati dell'account. */
+function aliasDisponibile_() {
+  if (ALIAS_ESITO !== null) return ALIAS_ESITO;
+  try {
+    ALIAS_ESITO = GmailApp.getAliases().indexOf(CONFIG.SEGRETERIA_EMAIL) !== -1;
+  } catch (err) {
+    ALIAS_ESITO = false;             // permessi assenti o Gmail non raggiungibile
+  }
+  return ALIAS_ESITO;
+}
 
 /**
  * Accerta se l'indirizzo di segreteria è utilizzabile come mittente dall'account
@@ -639,25 +658,34 @@ function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNo
  * Da eseguire a mano dall'editor, non è richiamata dal modulo.
  */
 function provaMittente() {
-  const opzioni = {
-    to: CONFIG.SEGRETERIA_EMAIL,
-    subject: 'Prova del mittente — modulo iscrizioni',
-    htmlBody: '<p>Messaggio di prova: se il mittente di questo messaggio è ' +
-              CONFIG.SEGRETERIA_EMAIL + ', la configurazione è corretta.</p>',
-    name: CONFIG.MITTENTE_NOME,
-    replyTo: CONFIG.SEGRETERIA_EMAIL
-  };
+  let alias;
   try {
-    MailApp.sendEmail(Object.assign({ from: CONFIG.SEGRETERIA_EMAIL }, opzioni));
-    Logger.log('RIUSCITO — il messaggio è partito da %s. Controllare comunque ' +
-               'l\'intestazione del messaggio ricevuto.', CONFIG.SEGRETERIA_EMAIL);
+    alias = GmailApp.getAliases();
   } catch (err) {
-    Logger.log('NON RIUSCITO — l\'indirizzo %s non è utilizzabile come mittente ' +
-               'da questo account. Motivo riferito da Google: %s',
-               CONFIG.SEGRETERIA_EMAIL, err.message);
+    Logger.log('NON RIUSCITO — impossibile leggere gli alias: %s', err.message);
+    Logger.log('Eseguire nuovamente questa funzione e concedere l\'autorizzazione richiesta.');
+    return;
+  }
+
+  Logger.log('Indirizzi utilizzabili come mittente da questo account: %s',
+             alias.length ? alias.join(', ') : '(nessuno)');
+
+  if (alias.indexOf(CONFIG.SEGRETERIA_EMAIL) === -1) {
+    Logger.log('NON RIUSCITO — %s non figura fra gli alias verificati.', CONFIG.SEGRETERIA_EMAIL);
     Logger.log('Verificare che l\'indirizzo compaia, già verificato, in Gmail alla voce ' +
                'Impostazioni → Account e importazione → Invia messaggio come.');
+    return;
   }
+
+  GmailApp.sendEmail(CONFIG.SEGRETERIA_EMAIL, 'Prova del mittente — modulo iscrizioni', '', {
+    htmlBody: '<p>Messaggio di prova. Il mittente di questo messaggio deve risultare ' +
+              CONFIG.SEGRETERIA_EMAIL + '.</p>',
+    name: CONFIG.MITTENTE_NOME,
+    replyTo: CONFIG.SEGRETERIA_EMAIL,
+    from: CONFIG.SEGRETERIA_EMAIL
+  });
+  Logger.log('RIUSCITO — messaggio inviato con mittente %s. Verificarne l\'intestazione ' +
+             'nel messaggio ricevuto.', CONFIG.SEGRETERIA_EMAIL);
 }
 
 /* ==================== ALLINEAMENTO DELLE INTESTAZIONI ==================== */
