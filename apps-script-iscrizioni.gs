@@ -410,11 +410,13 @@ function doPost(e) {
 
       let emailEsito;
       try {
-        inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNome, ospite,
+        const daSegreteria = inviaPromemoria_(voci, campi, risposte, numero, causale, totale,
+                         fileNome, ospite,
                          { attivo: conAcc, quota: quotaAcc, quotaPart: quotaPart,
                            cognome: String(risposte.accCognome || '').trim(),
                            nome: String(risposte.accNome || '').trim() });
-        emailEsito = 'SI ' + Utilities.formatDate(new Date(), CONFIG.FUSO, 'dd/MM/yyyy HH:mm');
+        emailEsito = 'SI ' + Utilities.formatDate(new Date(), CONFIG.FUSO, 'dd/MM/yyyy HH:mm') +
+                     (daSegreteria ? '' : ' — mittente: indirizzo dell\'account');
       } catch (err) {
         emailEsito = 'NO — ' + err.message;
       }
@@ -620,8 +622,41 @@ function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNo
      è preferibile un mittente inatteso a un promemoria non recapitato. */
   try {
     MailApp.sendEmail(Object.assign({ from: CONFIG.SEGRETERIA_EMAIL }, opzioni));
+    return true;                     // partito dall'indirizzo di segreteria
   } catch (err) {
     MailApp.sendEmail(opzioni);
+    return false;                    // partito dall'indirizzo dell'account
+  }
+}
+
+/* ========================= VERIFICA DEL MITTENTE ========================= */
+
+/**
+ * Accerta se l'indirizzo di segreteria è utilizzabile come mittente dall'account
+ * che esegue lo script. Invia un messaggio di prova all'indirizzo stesso e
+ * riporta l'esito nel registro di esecuzione.
+ *
+ * Da eseguire a mano dall'editor, non è richiamata dal modulo.
+ */
+function provaMittente() {
+  const opzioni = {
+    to: CONFIG.SEGRETERIA_EMAIL,
+    subject: 'Prova del mittente — modulo iscrizioni',
+    htmlBody: '<p>Messaggio di prova: se il mittente di questo messaggio è ' +
+              CONFIG.SEGRETERIA_EMAIL + ', la configurazione è corretta.</p>',
+    name: CONFIG.MITTENTE_NOME,
+    replyTo: CONFIG.SEGRETERIA_EMAIL
+  };
+  try {
+    MailApp.sendEmail(Object.assign({ from: CONFIG.SEGRETERIA_EMAIL }, opzioni));
+    Logger.log('RIUSCITO — il messaggio è partito da %s. Controllare comunque ' +
+               'l\'intestazione del messaggio ricevuto.', CONFIG.SEGRETERIA_EMAIL);
+  } catch (err) {
+    Logger.log('NON RIUSCITO — l\'indirizzo %s non è utilizzabile come mittente ' +
+               'da questo account. Motivo riferito da Google: %s',
+               CONFIG.SEGRETERIA_EMAIL, err.message);
+    Logger.log('Verificare che l\'indirizzo compaia, già verificato, in Gmail alla voce ' +
+               'Impostazioni → Account e importazione → Invia messaggio come.');
   }
 }
 
