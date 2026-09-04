@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="it">
 <head>
   <meta charset="UTF-8">
@@ -1101,7 +1100,14 @@
     }
     .iscr-tit { font-size: 17px; font-weight: 700; color: #fff; line-height: 1.35; }
     .iscr-att-luogo { font-size: 14.5px; color: var(--w80); line-height: 1.5; }
-    .iscr-att-costo { justify-self: end; }
+    .iscr-att-costo {
+      justify-self: end;
+      display: flex; flex-direction: column; align-items: flex-end; gap: 5px;
+    }
+    /* in presenza dell'accompagnatore le scelte occupano una riga propria,
+       così il titolo dell'attività conserva la larghezza necessaria */
+    .iscr-attivita.con-acc { grid-template-columns: minmax(0,1fr) auto; }
+    .iscr-attivita.con-acc .iscr-scelte { grid-column: 1 / -1; flex-wrap: wrap; }
     .iscr-attivita .iscr-scelte { margin-top: 0; flex-wrap: nowrap; }
     .iscr-data-gruppo .iscr-attivita + .iscr-attivita {
       border-top: 1px solid rgba(255,255,255,0.16);
@@ -1118,8 +1124,8 @@
       .iscr-attivita .iscr-scelte { grid-column: 1 / -1; }
     }
     @media (max-width: 560px) {
-      .iscr-attivita { grid-template-columns: 1fr; }
-      .iscr-att-costo { justify-self: start; }
+      .iscr-attivita, .iscr-attivita.con-acc { grid-template-columns: 1fr; }
+      .iscr-att-costo { justify-self: start; align-items: flex-start; }
       .iscr-attivita .iscr-scelte { flex-wrap: wrap; }
     }
 
@@ -1185,6 +1191,53 @@
     .iscr-scelta.sel-no {
       background: rgba(255,255,255,0.20); border-color: rgba(255,255,255,0.45); font-weight: 800;
     }
+    /* ── adesione dell'accompagnatore ── */
+    .iscr-scelta-acc {
+      border-color: var(--gold-border, rgba(255,200,80,0.55));
+      background: rgba(255,200,80,0.12);
+    }
+    .iscr-scelta-acc .acc-badge {
+      font-size: 12.5px; font-weight: 800; letter-spacing: 0.9px;
+      text-transform: uppercase; color: #16283d; background: var(--gold);
+      border-radius: 100px; padding: 3px 11px;
+    }
+    .iscr-scelta-acc input { accent-color: var(--gold); }
+    .iscr-scelta-acc.sel-acc {
+      background: #8a5a12; border-color: var(--gold); font-weight: 800;
+      box-shadow: 0 0 0 1px rgba(255,200,80,0.5);
+    }
+    .iscr-acc-nota {
+      display: none; margin-top: 6px; font-size: 12.5px; font-weight: 700;
+      letter-spacing: 0.4px; text-transform: uppercase; color: #ffe08a;
+      text-align: right; white-space: nowrap;
+    }
+    /* blocchi visibili solo in presenza di accompagnatore */
+    .iscr-acc-only { display: none; }
+    .iscr-acc-only.attivo { display: block; }
+    /* casella di segnalazione dell'accompagnatore */
+    .iscr-flag {
+      border: 1px solid var(--gold-border, rgba(255,200,80,0.55));
+      background: rgba(255,200,80,0.10);
+      border-radius: var(--r8); padding: 0; margin-bottom: 18px;
+    }
+    .iscr-flag-lbl {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 15px 18px; cursor: pointer; min-height: 50px;
+    }
+    .iscr-flag-lbl input { accent-color: var(--gold); width: 20px; height: 20px; margin-top: 2px; flex-shrink: 0; }
+    .iscr-flag-txt strong { display: block; font-size: 17px; font-weight: 700; color: #fff; }
+    .iscr-flag-sub { display: block; font-size: 13.5px; color: var(--w80); line-height: 1.55; margin-top: 4px; }
+    .iscr-flag.attivo { background: rgba(255,200,80,0.18); border-color: var(--gold); }
+    /* dettaglio delle quote nel riepilogo */
+    .iscr-riepilogo-dett {
+      display: none; margin-top: 10px; padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.20);
+      font-size: 14.5px; color: var(--w80);
+    }
+    .iscr-riepilogo-dett .rd-riga {
+      display: flex; justify-content: space-between; gap: 12px; padding: 3px 0;
+    }
+    .iscr-riepilogo-dett .rd-riga strong { color: #fff; font-variant-numeric: tabular-nums; }
     /* costo dell'attività: testo bianco, ben visibile */
     .iscr-prezzo {
       display: inline-block; margin-left: 10px;
@@ -1733,12 +1786,22 @@
             <strong>Partecipazione in qualità di ospite</strong>
             Non è dovuto alcun importo per le attività prescelte: non occorre effettuare bonifici
             né allegare alcuna contabile.
+            <span id="iscr-ospite-acc" style="display:none">
+              <br><br>Resta invece dovuta la quota dell'accompagnatore segnalato, per la quale
+              sono richiesti il bonifico e la relativa contabile.
+            </span>
           </div>
 
           <div class="iscr-riepilogo" id="iscr-riepilogo">
             <div class="iscr-riepilogo-riga">
               <span>Totale da bonificare</span>
               <strong id="iscr-totale">€ 0,00</strong>
+            </div>
+            <div class="iscr-riepilogo-dett" id="iscr-riepilogo-dett">
+              <div class="rd-riga"><span>di cui quota del partecipante</span>
+                <strong id="rd-partecipante">€ 0,00</strong></div>
+              <div class="rd-riga"><span>di cui quota dell'accompagnatore</span>
+                <strong id="rd-accompagnatore">€ 0,00</strong></div>
             </div>
           </div>
 
@@ -2229,9 +2292,11 @@
     }
 
     /** Causale completa: chi paga, per quale evento e per quali attività. */
-    function causale_(cognome, nome, sigle) {
+    function causale_(cognome, nome, sigle, sigleAcc) {
       const chi = ((cognome || '') + ' ' + (nome || '')).trim().toUpperCase() || '[COGNOME] [NOME]';
-      return (chi + ' Convegno Area Nord OTT26' + (sigle.length ? ' ' + sigle.join(' ') : '')).trim();
+      const acc = (sigleAcc && sigleAcc.length) ? ' ACC ' + sigleAcc.join(' ') : '';
+      return (chi + ' Convegno Area Nord OTT26' +
+              (sigle.length ? ' ' + sigle.join(' ') : '') + acc).trim();
     }
 
     function costruisciModulo(voci) {
@@ -2260,16 +2325,17 @@
         const aiuto = v.descrizione ? `<div class="iscr-aiuto">${esc(v.descrizione)}</div>` : '';
         const lbl = `<label class="iscr-label" for="f-${v.id}">${esc(v.etichetta)}${req}</label>`;
 
+        let frag = '';
         switch (v.tipo) {
           case 'titolo':
-            h += `<div class="iscr-blocco-titolo">${esc(v.etichetta)}</div>`;
-            if (v.descrizione) h += `<div class="iscr-blocco-sub">${nl2br(v.descrizione)}</div>`;
+            frag += `<div class="iscr-blocco-titolo">${esc(v.etichetta)}</div>`;
+            if (v.descrizione) frag += `<div class="iscr-blocco-sub">${nl2br(v.descrizione)}</div>`;
             break;
           case 'sottotitolo':
-            h += `<div class="iscr-blocco-sub">${nl2br(v.descrizione || v.etichetta)}</div>`;
+            frag += `<div class="iscr-blocco-sub">${nl2br(v.descrizione || v.etichetta)}</div>`;
             break;
           case 'informativa':
-            h += `<div class="iscr-informativa">
+            frag += `<div class="iscr-informativa">
                     <div class="tit">${esc(v.etichetta)}</div>
                     <div class="txt">${nl2brLink(v.descrizione)}</div>
                   </div>`;
@@ -2277,7 +2343,7 @@
           case 'testo': case 'email': case 'tel': {
             const t = v.tipo === 'testo' ? 'text' : v.tipo;
             const auto = v.tipo === 'email' ? 'email' : (v.tipo === 'tel' ? 'tel' : 'on');
-            h += `<div class="iscr-campo" data-id="${v.id}">${lbl}${aiuto}
+            frag += `<div class="iscr-campo" data-id="${v.id}">${lbl}${aiuto}
                     <input type="${t}" id="f-${v.id}" name="${v.id}" autocomplete="${auto}"
                            ${v.obbligatoria ? 'required' : ''}></div>`;
             break;
@@ -2293,7 +2359,7 @@
             voci.forEach(o => { opts += `<option value="${esc(o)}">${esc(o)}</option>`; });
             const extra = (v.id === 'hotel')
               ? `<div class="iscr-hotel-link" id="iscr-hotel-link"></div>` : '';
-            h += `<div class="iscr-campo" data-id="${v.id}">${lbl}${aiuto}
+            frag += `<div class="iscr-campo" data-id="${v.id}">${lbl}${aiuto}
                     <select id="f-${v.id}" name="${v.id}"
                       ${v.id === 'hotel' ? 'onchange="mostraLinkHotel()"' : ''}>${opts}</select>
                     ${extra}</div>`;
@@ -2306,7 +2372,7 @@
                         value="${esc(o)}" onchange="aggiornaIscr()"> ${esc(o)}</label>`;
             });
             /* sezione richiudibile: si apre solo se il partecipante desidera compilarla */
-            h += `<div class="iscr-campo" data-id="${v.id}">
+            frag += `<div class="iscr-campo" data-id="${v.id}">
                     <details class="iscr-collassa">
                       <summary>${esc(v.etichetta)}${req}
                         <span class="iscr-collassa-hint">apri per indicarle</span></summary>
@@ -2323,6 +2389,11 @@
                In assenza del testo si desume dalla descrizione. */
             const pt = (v.prezzoTesto || '').trim();
             const inLoco = /sul\s+posto|in\s+loco/i.test(v.descrizione || '');
+            /* l'attività ammette l'accompagnatore secondo la colonna del foglio;
+               in sua assenza valgono le sole attività a pagamento */
+            const ammetteAcc = (v.accompagnatore !== undefined && v.accompagnatore !== null)
+              ? !!v.accompagnatore
+              : (v.prezzo > 0 || !!(pt && !/^[0-9.,]+$/.test(pt)));
             const costo = v.prezzo > 0
               ? `<span class="iscr-prezzo">${eur(v.prezzo)}</span>`
               : (pt && !/^[0-9.,]+$/.test(pt)
@@ -2335,7 +2406,7 @@
             const mo = nudo.match(/^ore\s+([\d.:]+)\s*[—–-]\s*(.+)$/i);
             const ora = mo ? mo[1] : '';
             const titolo = mo ? mo[2] : nudo;
-            h += `<div class="iscr-campo iscr-attivita" data-id="${v.id}">
+            frag += `<div class="iscr-campo iscr-attivita" data-id="${v.id}">
                     <div class="iscr-att-testo">
                       <div class="iscr-att-titolo">
                         ${ora ? `<span class="iscr-ora">${esc(ora)}</span>` : ''}
@@ -2343,18 +2414,23 @@
                       </div>
                       ${v.descrizione ? `<div class="iscr-att-luogo">${esc(v.descrizione)}</div>` : ''}
                     </div>
-                    <div class="iscr-att-costo">${costo}</div>
-                    <div class="iscr-scelte" role="radiogroup" aria-label="${esc(titolo)}">
+                    <div class="iscr-att-costo">${costo}${ammetteAcc
+                      ? `<div class="iscr-acc-nota" data-acc-nota="${v.id}">${
+                          v.prezzo > 0 ? 'quota doppia' : 'anche accompagnatore'}</div>` : ''}</div>
+                    <div class="iscr-scelte" role="group" aria-label="${esc(titolo)}">
                       <label class="iscr-scelta"><input type="radio" name="${v.id}" value="SI"
                               onchange="aggiornaIscr()"> Sì, partecipo</label>
                       <label class="iscr-scelta"><input type="radio" name="${v.id}" value="NO"
                               onchange="aggiornaIscr()"> No, non partecipo</label>
+                      ${ammetteAcc ? `<label class="iscr-scelta iscr-scelta-acc" data-acc-pill="${v.id}"
+                              style="display:none"><input type="checkbox" name="acc_${v.id}"
+                              onchange="aggiornaIscr()"> Sì, <span class="acc-badge">accompagnatore</span></label>` : ''}
                     </div></div>`;
             break;
           }
           case 'file':
             /* riquadro con importo e causale, immediatamente prima della distinta */
-            h += `<div class="iscr-bonifico-box" id="iscr-bonifico-box" style="display:none">
+            frag += `<div class="iscr-bonifico-box" id="iscr-bonifico-box" style="display:none">
                     <div class="bb-riga">
                       <span>Importo da bonificare</span>
                       <strong id="bb-totale">€ 0,00</strong>
@@ -2369,14 +2445,27 @@
                     <input type="file" id="f-${v.id}" name="${v.id}"
                            accept=".pdf,.jpg,.jpeg,.png" onchange="aggiornaIscr()"></div>`;
             break;
+          case 'flag':
+            frag += `<div class="iscr-campo iscr-flag" id="campo-${v.id}" data-id="${v.id}">
+                    <label class="iscr-flag-lbl">
+                      <input type="checkbox" name="${v.id}" onchange="aggiornaIscr()">
+                      <span class="iscr-flag-txt"><strong>${esc(v.etichetta)}</strong>${v.descrizione
+                        ? `<span class="iscr-flag-sub">${esc(v.descrizione)}</span>` : ''}</span>
+                    </label>
+                  </div>`;
+            break;
           case 'consenso':
-            h += `<label class="iscr-consenso" id="campo-${v.id}">
+            frag += `<label class="iscr-consenso" id="campo-${v.id}">
                     <input type="checkbox" name="${v.id}" onchange="aggiornaIscr()">
                     <span>${esc(v.etichetta)}${req}${v.descrizione
                       ? `<br><span style="opacity:.75;font-size:12.5px">${esc(v.descrizione)}</span>` : ''}</span>
                   </label>`;
             break;
         }
+        /* i blocchi riferiti all'accompagnatore restano celati finché non è segnalato */
+        if (/^acc[A-Z]/.test(v.id || '')) {
+          h += `<div class="iscr-acc-only" data-acc-blocco="${v.id}">${frag}</div>`;
+        } else { h += frag; }
       });
       if (gruppoAperto) h += '</div>';
       box.innerHTML = h;
@@ -2397,7 +2486,43 @@
         return el ? (el.type === 'checkbox' ? el.checked : el.value) : '';
       };
 
-      let totale = 0; const sigle = [];
+      /* presenza di un accompagnatore: comanda la visibilità dei relativi blocchi */
+      const flagAcc = document.querySelector('[name="accompagnatore"]');
+      const conAcc = !!(flagAcc && flagAcc.checked);
+      const boxFlag = document.getElementById('campo-accompagnatore');
+      if (boxFlag) boxFlag.classList.toggle('attivo', conAcc);
+      document.querySelectorAll('.iscr-acc-only').forEach(el => el.classList.toggle('attivo', conAcc));
+      document.querySelectorAll('[data-acc-pill]').forEach(el => {
+        el.style.display = conAcc ? 'inline-flex' : 'none';
+        if (!conAcc) { const c = el.querySelector('input'); if (c) c.checked = false; }
+        const riga = el.closest('.iscr-attivita');
+        if (riga) riga.classList.toggle('con-acc', conAcc);
+      });
+      document.querySelectorAll('[data-acc-nota]').forEach(el => {
+        const c = document.querySelector(`[name="acc_${el.dataset.accNota}"]`);
+        el.style.display = (conAcc && c && c.checked) ? 'block' : 'none';
+      });
+      /* i campi dell'accompagnatore sono dovuti soltanto se questi è segnalato */
+      ['accCognome', 'accNome'].forEach(id => {
+        const campo = document.querySelector(`.iscr-campo[data-id="${id}"]`);
+        if (!campo) return;
+        campo.dataset.obbligatorio = conAcc ? '1' : '';
+        const segno = campo.querySelector('.iscr-label .req');
+        if (segno) segno.style.display = conAcc ? 'inline' : 'none';
+        if (!conAcc) {
+          const inp = campo.querySelector('input');
+          if (inp) inp.value = '';
+          campo.classList.remove('errore');
+        }
+      });
+      if (!conAcc) {
+        document.querySelectorAll('[name="accAlimentari"]:checked').forEach(c => { c.checked = false; });
+        const ia = document.querySelector('.iscr-campo[data-id="accAlimentariAltro"] input');
+        if (ia) ia.value = '';
+      }
+
+      let quotaPart = 0, quotaAcc = 0;
+      const sigle = [], sigleAcc = [];
       iscrVoci.forEach(v => {
         if (v.tipo !== 'sino') return;
         const sel = document.querySelector(`[name="${v.id}"]:checked`);
@@ -2406,20 +2531,42 @@
           if (w) w.classList.toggle('sel-si', r.checked && r.value === 'SI'),
                  w.classList.toggle('sel-no', r.checked && r.value === 'NO');
         });
-        if (sel && sel.value === 'SI' && v.prezzo > 0) { totale += v.prezzo; sigle.push(sigla_(v)); }
+        if (sel && sel.value === 'SI' && v.prezzo > 0) { quotaPart += v.prezzo; sigle.push(sigla_(v)); }
+        /* quota dell'accompagnatore: pari a quella del partecipante e sempre dovuta */
+        const cAcc = document.querySelector(`[name="acc_${v.id}"]`);
+        if (cAcc) {
+          const p = cAcc.closest('.iscr-scelta');
+          if (p) p.classList.toggle('sel-acc', cAcc.checked);
+          if (conAcc && cAcc.checked && v.prezzo > 0) { quotaAcc += v.prezzo; sigleAcc.push(sigla_(v)); }
+        }
       });
 
-      /* ospiti: nessun importo dovuto (l'esenzione è comunque riverificata dal servizio) */
-      if (iscrOspite) { totale = 0; sigle.length = 0; }
+      /* ospiti: è azzerata la sola quota del partecipante;
+         quella dell'eventuale accompagnatore resta comunque dovuta */
+      if (iscrOspite) { quotaPart = 0; sigle.length = 0; }
+      const totale = quotaPart + quotaAcc;
       const avviso = document.getElementById('iscr-ospite');
-      if (avviso) avviso.style.display = iscrOspite ? 'block' : 'none';
+      if (avviso) {
+        avviso.style.display = iscrOspite ? 'block' : 'none';
+        const nota = document.getElementById('iscr-ospite-acc');
+        if (nota) nota.style.display = (iscrOspite && quotaAcc > 0) ? 'block' : 'none';
+      }
 
       document.getElementById('iscr-totale').textContent = eur(totale);
+      /* dettaglio delle quote, esposto solo in presenza di accompagnatore */
+      const dett = document.getElementById('iscr-riepilogo-dett');
+      if (dett) {
+        dett.style.display = (conAcc && (quotaPart > 0 || quotaAcc > 0)) ? 'block' : 'none';
+        const dp = document.getElementById('rd-partecipante');
+        const da = document.getElementById('rd-accompagnatore');
+        if (dp) dp.textContent = eur(quotaPart);
+        if (da) da.textContent = eur(quotaAcc);
+      }
 
       /* causale generata da cognome, nome e attività pagate */
       const cognome = (document.querySelector('[name="cognome"]') || {}).value || '';
       const nome = (document.querySelector('[name="nome"]') || {}).value || '';
-      const testoCausale = causale_(cognome, nome, sigle);
+      const testoCausale = causale_(cognome, nome, sigle, sigleAcc);
 
       const wrap = document.getElementById('iscr-causale-wrap');
       if (wrap) {
@@ -2446,7 +2593,8 @@
       }
 
       /* il consenso alimentare compare solo se sono indicate esigenze */
-      const alim = document.querySelectorAll('[name="alimentari"]:checked').length > 0;
+      const alim = document.querySelectorAll('[name="alimentari"]:checked').length > 0 ||
+                   (conAcc && document.querySelectorAll('[name="accAlimentari"]:checked').length > 0);
       const cAlim = document.getElementById('campo-consensoAlimentari');
       if (cAlim) cAlim.style.display = alim ? 'flex' : 'none';
 
@@ -2462,6 +2610,19 @@
         const inp = campoAltro.querySelector('input');
         if (inp) { inp.required = altroSel; if (!altroSel) inp.value = ''; }
         if (!altroSel) campoAltro.classList.remove('errore');
+      }
+
+      const accAltroSel = conAcc && [...document.querySelectorAll('[name="accAlimentari"]:checked')]
+        .some(c => /altro/i.test(c.value));
+      const campoAccAltro = document.querySelector('.iscr-campo[data-id="accAlimentariAltro"]');
+      if (campoAccAltro) {
+        campoAccAltro.style.display = accAltroSel ? 'block' : 'none';
+        campoAccAltro.dataset.obbligatorio = accAltroSel ? '1' : '';
+        const segno = campoAccAltro.querySelector('.iscr-label .req');
+        if (segno) segno.style.display = accAltroSel ? 'inline' : 'none';
+        const inp = campoAccAltro.querySelector('input');
+        if (inp) { inp.required = accAltroSel; if (!accAltroSel) inp.value = ''; }
+        if (!accAltroSel) campoAccAltro.classList.remove('errore');
       }
 
       return totale;
@@ -2535,14 +2696,16 @@
         if (!v.id || ['titolo', 'sottotitolo', 'informativa'].includes(v.tipo)) return;
         const campo = document.querySelector(`.iscr-campo[data-id="${v.id}"]`) ||
                       document.getElementById('campo-' + v.id);
-        const nascosto = campo && campo.style.display === 'none';
+        const contenitoreAcc = campo && campo.closest('.iscr-acc-only');
+        const nascosto = !!(campo && (campo.style.display === 'none' ||
+                            (contenitoreAcc && !contenitoreAcc.classList.contains('attivo'))));
 
         if (v.tipo === 'checkbox') {
           risposte[v.id] = [...document.querySelectorAll(`[name="${v.id}"]:checked`)].map(c => c.value);
         } else if (v.tipo === 'sino') {
           const s = document.querySelector(`[name="${v.id}"]:checked`);
           risposte[v.id] = s ? s.value : '';
-        } else if (v.tipo === 'consenso') {
+        } else if (v.tipo === 'consenso' || v.tipo === 'flag') {
           const c = document.querySelector(`[name="${v.id}"]`);
           risposte[v.id] = !!(c && c.checked);
         } else if (v.tipo !== 'file') {
@@ -2560,8 +2723,24 @@
         }
       });
 
+      /* accompagnatore: nominativo e almeno un'attività */
+      const conAcc = risposte.accompagnatore === true;
+      let attivitaAcc = 0;
+      iscrVoci.forEach(v => {
+        if (v.tipo !== 'sino') return;
+        const c = document.querySelector(`[name="acc_${v.id}"]`);
+        const scelto = !!(conAcc && c && c.checked);
+        risposte['acc_' + v.id] = scelto ? 'SI' : '';
+        if (scelto) attivitaAcc++;
+      });
+      if (conAcc && !attivitaAcc) {
+        mancanti.push("Attività cui prenderà parte l'accompagnatore (almeno una)");
+      }
+
       /* consenso alimentare obbligatorio solo se sono indicate esigenze */
-      if ((risposte.alimentari || []).length && !risposte.consensoAlimentari) {
+      const esigenzeIndicate = (risposte.alimentari || []).length ||
+                               (conAcc && (risposte.accAlimentari || []).length);
+      if (esigenzeIndicate && !risposte.consensoAlimentari) {
         mancanti.push('Consenso al trattamento delle esigenze alimentari');
       }
 
@@ -2604,9 +2783,16 @@
     function mostraEsito(j, risposte) {
       document.getElementById('iscr-form').style.display = 'none';
       const box = document.getElementById('iscr-esito');
+      const dettaglioQuote = (j.accompagnatore && j.quotaAccompagnatore > 0)
+        ? `<div style="margin:6px 0 8px;font-size:14px">
+             Quota del partecipante: <strong>${eur(j.quotaPartecipante)}</strong><br>
+             Quota dell'accompagnatore: <strong>${eur(j.quotaAccompagnatore)}</strong>
+           </div>`
+        : '';
       const bonifico = j.totale > 0
         ? `<div class="box">
              <div style="font-weight:800;color:#0056A0;margin-bottom:6px">Bonifico ${eur(j.totale)}</div>
+             ${dettaglioQuote}
              Causale: <strong>${esc(j.causale)}</strong><br>
              La contabile trasmessa è stata registrata.
            </div>`
