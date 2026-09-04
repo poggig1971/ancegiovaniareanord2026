@@ -605,13 +605,24 @@ function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNo
         CONFIG.MITTENTE_NOME + '</p>' +
       '</div></div>';
 
-  MailApp.sendEmail({
+  const opzioni = {
     to: String(risposte.email).trim(),
     subject: 'Iscrizione ' + numero + ' — XVI Convegno Area Nord GIE ANCE',
     htmlBody: html,
     name: CONFIG.MITTENTE_NOME,
     replyTo: CONFIG.SEGRETERIA_EMAIL
-  });
+  };
+
+  /* Il messaggio parte dall'indirizzo di segreteria anziché da quello personale
+     dell'account che esegue lo script. Presuppone che CONFIG.SEGRETERIA_EMAIL sia
+     fra gli indirizzi verificati in Gmail alla voce «Invia messaggio come».
+     Qualora l'alias venisse rimosso, l'invio prosegue dall'indirizzo dell'account:
+     è preferibile un mittente inatteso a un promemoria non recapitato. */
+  try {
+    MailApp.sendEmail(Object.assign({ from: CONFIG.SEGRETERIA_EMAIL }, opzioni));
+  } catch (err) {
+    MailApp.sendEmail(opzioni);
+  }
 }
 
 /* ==================== ALLINEAMENTO DELLE INTESTAZIONI ==================== */
