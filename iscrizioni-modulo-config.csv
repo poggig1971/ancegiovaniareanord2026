@@ -1,39 +1,45 @@
-﻿Ordine,ID,Tipo,Etichetta,Descrizione,Opzioni,Prezzo,Obbligatoria,Attiva,Accompagnatore
-10,,sottotitolo,,Le adesioni dovranno pervenire entro il 10 settembre 2026,,,,SI,
-20,,titolo,Dati del partecipante,,,,,SI,
-30,cognome,testo,Cognome,,,,SI,SI,
-40,nome,testo,Nome,,,,SI,SI,
-50,associazione,testo,Associazione Territoriale di appartenenza,Indicare la sola AT ad esempio: ANCE Roma,,,SI,SI,
-60,cellulare,tel,Cellulare,,,,SI,SI,
-70,email,email,E-mail,Sarà utilizzata per l'invio del promemoria di iscrizione,,,SI,SI,
-72,accompagnatore,flag,Partecipa un accompagnatore,"Da selezionare in presenza di un accompagnatore. La quota dell'accompagnatore è sempre dovuta, anche qualora il partecipante sia ospite.",,,NO,SI,
-74,accCognome,testo,Cognome dell'accompagnatore,,,,NO,SI,
-76,accNome,testo,Nome dell'accompagnatore,,,,NO,SI,
-80,,titolo,Esigenze alimentari,Sezione facoltativa: compilare solo in presenza di specifiche esigenze,,,,SI,
-90,alimentari,checkbox,Esigenze alimentari,,Vegetariano|Vegano|Celiaco|Intolleranza al lattosio|Altro,,NO,SI,
-100,alimentariAltro,testo,"Se «Altro», specificare",,,,NO,SI,
-102,accBloccoAlimentari,titolo,Esigenze alimentari dell'accompagnatore,Sezione facoltativa: compilare solo in presenza di specifiche esigenze,,,,SI,
-104,accAlimentari,checkbox,Esigenze alimentari dell'accompagnatore,,Vegetariano|Vegano|Celiaco|Intolleranza al lattosio|Altro,,NO,SI,
-106,accAlimentariAltro,testo,"Se «Altro», specificare — accompagnatore",,,,NO,SI,
-110,,titolo,Adesione alle attività,"Indicare per ciascuna attività la propria partecipazione. Ove sia stato segnalato un accompagnatore, indicare anche le attività cui questi prenderà parte.",,,,SI,
-120,cena22,sino,"22 ottobre 2026, ore 20:00 — Cena al Ristorante Arcadia","Ristorante Arcadia — Galleria Subalpina 16, 10123 Torino",,60,SI,SI,SI
-130,consiglio,sino,"23 ottobre 2026, ore 10:00 — Consiglio Nazionale Giovani GIE ANCE","Polo del '900, Via del Carmine 14, Torino",,0,SI,SI,NO
-140,lunch,sino,"23 ottobre 2026, ore 13:00 — Light Lunch","Polo del '900, Via del Carmine 14, Torino",,0,SI,SI,SI
-150,convegno,sino,"23 ottobre 2026, ore 14:00 — XVI Convegno Area Nord GIE ANCE","Polo del '900, Via del Carmine 14, Torino",,0,SI,SI,SI
-160,serata23,sino,"23 ottobre 2026, ore 19:00 — Aperitivo e Cena, a seguire serata al Centralino Club","NH Carlina, P.za Carlo Emanuele II 15 — Centralino Club, Via delle Rosine 16, Torino",,100,SI,SI,SI
-170,museo24,sino,"24 ottobre 2026, ore 11:00 — Visita al Museo (facoltativa)",Sede da definire,,18,SI,SI,SI
-180,pranzo24,sino,24 ottobre 2026 — Pranzo (facoltativo),"Sede da definire — da saldare sul posto, non compreso nel bonifico",,Pagamento in Loco,SI,SI,SI
+﻿Ordine,ID,Tipo,Etichetta,Descrizione,Opzioni,Prezzo,Obbligatoria,Attiva,Accompagnatore,Ospiti
+10,,sottotitolo,,Le adesioni dovranno pervenire entro il 10 settembre 2026,,,,SI,,
+20,,titolo,Dati del partecipante,,,,,SI,,
+30,cognome,testo,Cognome,,,,SI,SI,,
+40,nome,testo,Nome,,,,SI,SI,,
+50,associazione,testo,Associazione Territoriale di appartenenza,Indicare la sola AT ad esempio: ANCE Roma,,,SI,SI,,
+60,cellulare,tel,Cellulare,,,,SI,SI,,
+70,email,email,E-mail,Sarà utilizzata per l'invio del promemoria di iscrizione,,,SI,SI,,
+72,accompagnatore,flag,Partecipa un accompagnatore,"Da selezionare in presenza di un accompagnatore. La quota dell'accompagnatore è sempre dovuta, anche qualora il partecipante sia ospite.",,,NO,SI,,
+74,accCognome,testo,Cognome dell'accompagnatore,,,,NO,SI,,
+76,accNome,testo,Nome dell'accompagnatore,,,,NO,SI,,
+80,,titolo,Esigenze alimentari,Sezione facoltativa: compilare solo in presenza di specifiche esigenze,,,,SI,,
+90,alimentari,checkbox,Esigenze alimentari,,Vegetariano|Vegano|Celiaco|Intolleranza al lattosio|Altro,,NO,SI,,
+100,alimentariAltro,testo,"Se «Altro», specificare",,,,NO,SI,,
+102,accBloccoAlimentari,titolo,Esigenze alimentari dell'accompagnatore,Sezione facoltativa: compilare solo in presenza di specifiche esigenze,,,,SI,,
+104,accAlimentari,checkbox,Esigenze alimentari dell'accompagnatore,,Vegetariano|Vegano|Celiaco|Intolleranza al lattosio|Altro,,NO,SI,,
+106,accAlimentariAltro,testo,"Se «Altro», specificare — accompagnatore",,,,NO,SI,,
+110,,titolo,Adesione alle attività,"Indicare per ciascuna attività la propria partecipazione. Ove sia stato segnalato un accompagnatore, indicare anche le attività cui questi prenderà parte.",,,,SI,,
+120,cena22,sino,"22 ottobre 2026, ore 20:00 — Cena al Ristorante Arcadia","Ristorante Arcadia — Galleria Subalpina 16, 10123 Torino",,60,SI,SI,SI,
+130,consiglio,sino,"23 ottobre 2026, ore 10:00 — Consiglio Nazionale Giovani GIE ANCE","Polo del '900, Via del Carmine 14, Torino",,0,SI,SI,NO,
+140,lunch,sino,"23 ottobre 2026, ore 13:00 — Light Lunch","Polo del '900, Via del Carmine 14, Torino",,0,SI,SI,SI,
+150,convegno,sino,"23 ottobre 2026, ore 14:00 — XVI Convegno Area Nord GIE ANCE","Polo del '900, Via del Carmine 14, Torino",,0,SI,SI,SI,
+160,serata23,sino,"23 ottobre 2026, ore 19:00 — Aperitivo e Cena, a seguire serata al Centralino Club","NH Carlina, P.za Carlo Emanuele II 15 — Centralino Club, Via delle Rosine 16, Torino",,100,SI,SI,SI,
+170,museo24,sino,"24 ottobre 2026, ore 11:00 — Visita al Museo (facoltativa)",Sede da definire,,18,SI,SI,SI,
+180,pranzo24,sino,24 ottobre 2026 — Pranzo (facoltativo),"Sede da definire — da saldare sul posto, non compreso nel bonifico",,Pagamento in Loco,SI,SI,SI,
 210,,informativa,Dati per il bonifico delle sole attività,"Il bonifico riguarda esclusivamente le attività a pagamento selezionate, comprese quelle dell'eventuale accompagnatore. Il soggiorno alberghiero non vi è compreso.
 Beneficiario: Ance Veneto Progetti Srl
 Banca: Monte dei Paschi di Siena
-IBAN: IT89O0103012190000061547884 (il quinto carattere è la lettera «O», non la cifra zero)",,,,SI,
-220,contabile,file,Distinta del bonifico,"Obbligatoria in presenza di attività a pagamento. Formati ammessi: PDF, JPG, PNG — dimensione massima 5 MB",,,NO,SI,
-230,,titolo,Pernottamento,La prenotazione alberghiera è a carico del singolo partecipante e va effettuata direttamente presso la struttura. Il soggiorno si salda alla struttura e NON è compreso nel bonifico richiesto da questo modulo.,,,,SI,
+IBAN: IT89O0103012190000061547884 (il quinto carattere è la lettera «O», non la cifra zero)",,,,SI,,
+220,contabile,file,Distinta del bonifico,"Obbligatoria in presenza di attività a pagamento. Formati ammessi: PDF, JPG, PNG — dimensione massima 5 MB",,,NO,SI,,
+230,,titolo,Pernottamento,La prenotazione alberghiera è a carico del singolo partecipante e va effettuata direttamente presso la struttura. Il soggiorno si salda alla struttura e NON è compreso nel bonifico richiesto da questo modulo.,,,,SI,,NO
 235,,informativa,Come prenotare,"Selezionando la struttura qui sotto comparirà il collegamento diretto per prenotare.
 Tariffe, recapiti e moduli sono riportati nella sezione Hotel del sito: https://ancegiovaniareanord2026.vercel.app/#hotel
 Le convenzioni scadono fra il 23 agosto e il 7 settembre 2026: si raccomanda di prenotare per tempo.
-Per i componenti del Consiglio di Presidenza nessun adempimento è richiesto.",,,,SI,
-240,hotel,select,Struttura prescelta per il pernottamento,Indicare la struttura presso cui si è prenotato o si intende prenotare. Dato richiesto ai soli fini organizzativi.,NH Collection Santo Stefano|Best Western Hotel Genio|Best Western Hotel Piemontese|Hotel CX Turin Marconi|Altra struttura|Non pernotto a Torino,,SI,SI,
-250,,titolo,Informativa e consensi,,,,,SI,
-260,privacy,consenso,Dichiaro di aver preso visione dell'informativa sul trattamento dei dati personali,,,,SI,SI,
-270,consensoAlimentari,consenso,Acconsento al trattamento delle informazioni relative alle esigenze alimentari indicate,"Da confermare soltanto se sono state segnalate esigenze alimentari, proprie o dell'accompagnatore",,,NO,SI,
+Per i componenti del Consiglio di Presidenza nessun adempimento è richiesto.",,,,SI,,NO
+236,pernottamentoOspiti,informativa,Pernottamento,"Il pernottamento è offerto ai componenti del Consiglio di Presidenza e agli ospiti del Convegno presso la seguente struttura, presso la quale nulla è dovuto:
+NH Collection Santo Stefano ★★★★
+Via Porta Palatina 19, 10122 Torino — https://maps.app.goo.gl/VYBPXuNwPWq1UA3cA
+Telefono 011 522 3311 — groupsales.it@minor-hotels.com
+Non occorre effettuare alcuna prenotazione: vi provvede la Segreteria organizzativa. L'ospitalità è estesa all'eventuale accompagnatore, in camera doppia.
+Per ogni necessità: giovani@ancepiemonte.it",,,,SI,,SOLO
+240,hotel,select,Struttura prescelta per il pernottamento,Indicare la struttura presso cui si è prenotato o si intende prenotare. Dato richiesto ai soli fini organizzativi.,NH Collection Santo Stefano|Best Western Hotel Genio|Best Western Hotel Piemontese|Hotel CX Turin Marconi|Altra struttura|Non pernotto a Torino,,SI,SI,,NO
+250,,titolo,Informativa e consensi,,,,,SI,,
+260,privacy,consenso,Dichiaro di aver preso visione dell'informativa sul trattamento dei dati personali,,,,SI,SI,,
+270,consensoAlimentari,consenso,Acconsento al trattamento delle informazioni relative alle esigenze alimentari indicate,"Da confermare soltanto se sono state segnalate esigenze alimentari, proprie o dell'accompagnatore",,,NO,SI,,

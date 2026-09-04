@@ -2464,8 +2464,17 @@
         }
         /* i blocchi riferiti all'accompagnatore restano celati finché non è segnalato */
         if (/^acc[A-Z]/.test(v.id || '')) {
-          h += `<div class="iscr-acc-only" data-acc-blocco="${v.id}">${frag}</div>`;
-        } else { h += frag; }
+          frag = `<div class="iscr-acc-only" data-acc-blocco="${v.id}">${frag}</div>`;
+        }
+        /* colonna «Ospiti» del foglio: NO = celato agli ospiti, SOLO = a loro riservato.
+           Il pernottamento degli ospiti è organizzato dalla Segreteria: a costoro non
+           è chiesto né di indicare la struttura né di prenotare. */
+        const regolaOspiti = String(v.ospiti || '').trim().toUpperCase();
+        if (regolaOspiti === 'NO' || regolaOspiti === 'SOLO') {
+          frag = `<div class="iscr-ospiti-blocco" data-ospiti="${regolaOspiti}"` +
+                 `${regolaOspiti === 'SOLO' ? ' style="display:none"' : ''}>${frag}</div>`;
+        }
+        h += frag;
       });
       if (gruppoAperto) h += '</div>';
       box.innerHTML = h;
@@ -2550,6 +2559,19 @@
         avviso.style.display = iscrOspite ? 'block' : 'none';
         const nota = document.getElementById('iscr-ospite-acc');
         if (nota) nota.style.display = (iscrOspite && quotaAcc > 0) ? 'block' : 'none';
+      }
+
+      /* pernottamento: agli ospiti sono precluse le voci sulla prenotazione,
+         in luogo delle quali compare l'informativa a loro riservata */
+      document.querySelectorAll('[data-ospiti]').forEach(el => {
+        const riservato = el.dataset.ospiti === 'SOLO';
+        el.style.display = (riservato === iscrOspite) ? 'block' : 'none';
+      });
+      if (iscrOspite) {
+        const selHotel = document.querySelector('[name="hotel"]');
+        if (selHotel && selHotel.value) selHotel.value = '';
+        const boxLink = document.getElementById('iscr-hotel-link');
+        if (boxLink) { boxLink.innerHTML = ''; boxLink.style.display = 'none'; }
       }
 
       document.getElementById('iscr-totale').textContent = eur(totale);
@@ -2697,8 +2719,10 @@
         const campo = document.querySelector(`.iscr-campo[data-id="${v.id}"]`) ||
                       document.getElementById('campo-' + v.id);
         const contenitoreAcc = campo && campo.closest('.iscr-acc-only');
+        const contenitoreOsp = campo && campo.closest('[data-ospiti]');
         const nascosto = !!(campo && (campo.style.display === 'none' ||
-                            (contenitoreAcc && !contenitoreAcc.classList.contains('attivo'))));
+                            (contenitoreAcc && !contenitoreAcc.classList.contains('attivo')) ||
+                            (contenitoreOsp && contenitoreOsp.style.display === 'none')));
 
         if (v.tipo === 'checkbox') {
           risposte[v.id] = [...document.querySelectorAll(`[name="${v.id}"]:checked`)].map(c => c.value);

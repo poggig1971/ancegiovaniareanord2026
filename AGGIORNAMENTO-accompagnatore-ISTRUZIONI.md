@@ -118,3 +118,35 @@ L'URL `/exec` non cambia: nessun intervento su `index.html` è richiesto per que
 4. Nominativo presente nel foglio **Ospiti** con accompagnatore alla sola visita al
    museo → totale € 18,00, contabile richiesta
 5. Invio di prova → controllo della riga scritta nel foglio e del promemoria ricevuto
+
+
+---
+
+## Aggiornamento del 4 settembre 2026 — pernottamento degli ospiti
+
+Agli ospiti il pernottamento è offerto presso **NH Collection Santo Stefano ★★★★**,
+Via Porta Palatina 19, Torino: non devono indicare la struttura né prenotare.
+
+Il foglio «Modulo» ha una nuova colonna **K «Ospiti»**:
+
+| Valore | Effetto |
+|---|---|
+| *(vuoto)* | la voce è mostrata a tutti |
+| `NO` | la voce è celata agli ospiti |
+| `SOLO` | la voce è riservata ai soli ospiti |
+
+Sono impostate a `NO` le righe 230 (titolo «Pernottamento»), 235 («Come prenotare»)
+e 240 (elenco delle strutture). La nuova riga 236 `pernottamentoOspiti`, con valore
+`SOLO`, contiene l'informativa riservata: nome della struttura, indirizzo, mappa,
+recapiti e precisazione che l'ospitalità è estesa all'accompagnatore in camera doppia.
+Il testo si modifica dal foglio, senza toccare il codice.
+
+Il servizio riconosce l'ospite prima di ogni altra verifica: non esige da lui la
+struttura e registra d'ufficio nella relativa colonna del foglio «Iscrizioni» il
+valore indicato in `CONFIG.STRUTTURA_OSPITI`, così che l'elenco delle camere resti
+completo in un'unica colonna. Il promemoria dell'ospite espone l'informativa
+riservata al posto dei dati sulla prenotazione.
+
+Occorre quindi reimportare `iscrizioni-modulo-config.csv` nella scheda `Modulo`
+(«Sostituisci foglio corrente»), incollare il nuovo `apps-script-iscrizioni.gs` e
+creare una nuova versione della distribuzione.

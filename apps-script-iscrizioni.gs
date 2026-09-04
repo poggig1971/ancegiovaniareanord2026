@@ -31,6 +31,9 @@ const CONFIG = {
   FOGLIO_OSPITI:    'Ospiti',
   DRIVE_FOLDER_ID:  '14HeVzp_Bp7gWnvBQW9cQ7gFO72VMS73S',
   MITTENTE_NOME:    'ANCE Giovani Area Nord',
+  /* struttura riservata agli ospiti: riportata d'ufficio nel foglio,
+     giacché a costoro non è chiesto di indicarla */
+  STRUTTURA_OSPITI: 'NH Collection Santo Stefano (ospite)',
   SEGRETERIA_EMAIL: 'giovani@ancepiemonte.it',
   ANNO:             '2026',
   MAX_FILE_MB:      5,
@@ -40,7 +43,7 @@ const CONFIG = {
 /** Colonne attese nel foglio «Modulo». */
 const COL = { ORDINE: 0, ID: 1, TIPO: 2, ETICHETTA: 3, DESCRIZIONE: 4,
               OPZIONI: 5, PREZZO: 6, OBBLIGATORIA: 7, ATTIVA: 8,
-              ACCOMPAGNATORE: 9 };
+              ACCOMPAGNATORE: 9, OSPITI: 10 };
 
 /** Colonne di servizio aggiunte in coda al foglio «Iscrizioni». */
 const COLONNE_FINALI = ['Ospite', 'Attività accompagnatore',
@@ -78,7 +81,10 @@ function leggiConfigurazione_() {
       obbligatoria: String(r[COL.OBBLIGATORIA] || 'NO').trim().toUpperCase() === 'SI',
       /* la colonna «Accompagnatore» indica se l'attivita ammette l'accompagnatore;
          in sua assenza si desume dal prezzo (attivita a pagamento o da saldare in loco) */
-      accompagnatore: ammetteAcc_(r)
+      accompagnatore: ammetteAcc_(r),
+      /* colonna «Ospiti»: vuoto = visibile a tutti, NO = celato agli ospiti,
+         SOLO = riservato agli ospiti */
+      ospiti: String(r[COL.OSPITI] == null ? '' : r[COL.OSPITI]).trim().toUpperCase()
     });
   }
   voci.sort(function (a, b) { return a.ordine - b.ordine; });
@@ -101,6 +107,17 @@ function ammetteAcc_(r) {
   const importo = Number(testo.replace(',', '.')) || 0;
   if (importo > 0) return true;
   return !!(testo && !/^[0-9.,]+$/.test(testo));   // es. «Pagamento in Loco»
+}
+
+/**
+ * Stabilisce se la voce compete a chi si sta iscrivendo.
+ * Gli ospiti non indicano la struttura alberghiera né effettuano prenotazioni:
+ * le voci relative sono loro precluse, e in luogo di esse ne vedono una propria.
+ */
+function visibileA_(v, ospite) {
+  if (v.ospiti === 'NO') return !ospite;
+  if (v.ospiti === 'SOLO') return !!ospite;
+  return true;
 }
 
 /** Sole voci che raccolgono un dato (escluse quelle puramente descrittive). */
@@ -300,9 +317,17 @@ function doPost(e) {
     const voci = leggiConfigurazione_();
     const campi = campiDato_(voci);
 
+    /* la qualità di ospite condiziona i campi dovuti: va accertata per prima */
+    const ospite = eOspite_(risposte.cognome, risposte.nome);
+    if (ospite) {
+      /* agli ospiti non è chiesto di indicare la struttura: vi si provvede d'ufficio */
+      risposte.hotel = CONFIG.STRUTTURA_OSPITI;
+    }
+
     /* ---------- validazione lato server ---------- */
     campi.forEach(function (v) {
       if (!v.obbligatoria) return;
+      if (!visibileA_(v, ospite)) return;
       const val = risposte[v.id];
       const vuoto = (val === undefined || val === null || val === '' ||
                      (Array.isArray(val) && !val.length) || val === false);
@@ -362,7 +387,6 @@ function doPost(e) {
 
     /* ospiti: la sola quota del partecipante è azzerata;
        quella dell'eventuale accompagnatore resta comunque dovuta */
-    const ospite = eOspite_(risposte.cognome, risposte.nome);
     if (ospite) { quotaPart = 0; sigle.length = 0; }
     const totale = quotaPart + quotaAcc;
 
@@ -524,6 +548,7 @@ function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNo
   let righeDati = '';
   campi.forEach(function (v) {
     if (['sino', 'file', 'consenso'].indexOf(v.tipo) !== -1) return;
+    if (!visibileA_(v, ospite)) return;
     let val = risposte[v.id];
     if (Array.isArray(val)) val = val.join(', ');
     if (val === true) val = 'Sì';
@@ -543,7 +568,7 @@ function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNo
   let limite = voci.length;
   for (let i = 0; i < voci.length; i++) { if (voci[i].tipo === 'file') { limite = i; break; } }
   voci.slice(0, limite).forEach(function (v) {
-    if (v.tipo === 'informativa') {
+    if (v.tipo === 'informativa' && visibileA_(v, ospite)) {
       testoInformativa += '<div style="font-weight:700;color:#0056A0;margin-bottom:6px">' +
                           esc(v.etichetta) + '</div>' +
                           '<div style="font-size:14px;line-height:1.8;color:#333">' +
@@ -581,6 +606,23 @@ function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNo
         : '<div style="margin:22px 0;padding:14px 18px;background:#eef6ff;border-left:4px solid #0077C0;font-size:14px;color:#333">' +
           'Le attività selezionate non prevedono alcun costo: non è richiesto alcun bonifico.</div>');
 
+  /* Informative riservate agli ospiti (nel foglio: colonna «Ospiti» = SOLO):
+     è qui che compare il pernottamento offerto, con recapiti della struttura. */
+  let riservateOspiti = '';
+  if (ospite) {
+    voci.forEach(function (v) {
+      if (v.tipo !== 'informativa' || v.ospiti !== 'SOLO') return;
+      riservateOspiti +=
+        '<div style="margin:22px 0;padding:16px 18px;background:#e8f5e9;' +
+             'border-left:4px solid #1b5e20">' +
+          '<div style="font-size:16px;font-weight:700;color:#1b5e20;margin-bottom:8px">' +
+            esc(v.etichetta) + '</div>' +
+          '<div style="font-size:14px;line-height:1.8;color:#1b3a1e">' +
+            collegaUrl_(esc(v.descrizione)).replace(/\n/g, '<br>') + '</div>' +
+        '</div>';
+    });
+  }
+
   const html =
     '<div style="font-family:Arial,Helvetica,sans-serif;max-width:640px;margin:0 auto;color:#222">' +
       '<div style="background:#0056A0;padding:22px 24px;color:#fff">' +
@@ -600,6 +642,7 @@ function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNo
         '<table style="width:100%;border-collapse:collapse;font-size:14px;border-top:2px solid #0056A0">' +
           righeAttivita + '</table>' +
         bonifico +
+        riservateOspiti +
         '<p style="font-size:13px;color:#666;line-height:1.7;margin-top:24px;padding-top:16px;border-top:1px solid #e6e6e6">' +
           'Per qualsiasi variazione si prega di scrivere a ' +
           '<a href="mailto:' + CONFIG.SEGRETERIA_EMAIL + '" style="color:#0056A0">' + CONFIG.SEGRETERIA_EMAIL + '</a>.</p>' +
@@ -759,6 +802,15 @@ function aggiornaIntestazioni() {
   Logger.log(disallineate.length
     ? 'ATTENZIONE — verificare manualmente: ' + disallineate.join(' | ')
     : 'Intestazioni allineate correttamente.');
+}
+
+/** Rende cliccabili indirizzi web e di posta in un testo già reso sicuro. */
+function collegaUrl_(testo) {
+  return String(testo)
+    .replace(/(https?:\/\/[^\s<]+)/g,
+             '<a href="$1" style="color:#1b5e20">$1</a>')
+    .replace(/([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})/g,
+             '<a href="mailto:$1" style="color:#1b5e20">$1</a>');
 }
 
 function json_(obj) {
