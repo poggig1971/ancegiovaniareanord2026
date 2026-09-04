@@ -509,7 +509,12 @@ function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNo
 
   /* riquadro bonifico: i dati sono presi dalle voci «informativa» del foglio */
   let testoInformativa = '';
-  voci.forEach(function (v) {
+  /* soltanto le informative che precedono la distinta del bonifico:
+     quelle successive (es. le modalità di prenotazione alberghiera) non
+     attengono al pagamento e non vanno riprodotte nel relativo riquadro */
+  let limite = voci.length;
+  for (let i = 0; i < voci.length; i++) { if (voci[i].tipo === 'file') { limite = i; break; } }
+  voci.slice(0, limite).forEach(function (v) {
     if (v.tipo === 'informativa') {
       testoInformativa += '<div style="font-weight:700;color:#0056A0;margin-bottom:6px">' +
                           esc(v.etichetta) + '</div>' +
@@ -522,14 +527,15 @@ function inviaPromemoria_(voci, campi, risposte, numero, causale, totale, fileNo
     ? '<div style="margin:22px 0;padding:16px 18px;background:#FFF8E0;border-left:4px solid #FF8C00">' +
         '<div style="font-size:16px;font-weight:700;color:#B03020;margin-bottom:10px">' +
         (fileNome ? 'Bonifico ' + eur(totale) : 'Importo da bonificare: ' + eur(totale)) + '</div>' +
-        testoInformativa +
         (acc.attivo && acc.quota > 0
-          ? '<div style="margin-top:8px;font-size:14px;color:#333">' +
-            'Quota del partecipante: <strong>' + eur(acc.quotaPart) + '</strong><br>' +
-            'Quota dell\'accompagnatore' +
+          ? '<div style="margin:0 0 12px;font-size:14px;color:#333">' +
+            'Quota del partecipante: <strong>' + eur(acc.quotaPart) + '</strong>' +
+            (ospite ? ' <span style="color:#1b5e20">(partecipazione in qualità di ospite: nulla è dovuto)</span>' : '') +
+            '<br>Quota dell\'accompagnatore' +
             (acc.cognome || acc.nome ? ' (' + esc((acc.nome + ' ' + acc.cognome).trim()) + ')' : '') +
             ': <strong>' + eur(acc.quota) + '</strong></div>'
           : '') +
+        testoInformativa +
         '<div style="margin-top:10px;font-size:14px;color:#333">Causale: <strong>' + esc(causale) + '</strong></div>' +
         (fileNome ? '<div style="margin-top:10px;font-size:13px;color:#1a5e1a">' +
                     'Contabile ricevuta correttamente (' + esc(fileNome) + ').</div>' : '') +
