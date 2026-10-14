@@ -1887,7 +1887,7 @@
       /* indirizzo diretto alla sezione: …/#iscrizioni */
       if (history.replaceState) history.replaceState(null, '', '#' + name);
       if (!silenzioso) window.scrollTo({ top: 0, behavior: 'smooth' });
-      if (name === 'programma') loadDay1();
+      if (name === 'programma') switchDay(giornoCorrente_());
       if (name === 'hotel') loadHotel();
       if (name === 'iscrizioni') initIscrizioni();
     }
@@ -1900,9 +1900,22 @@
     }
     window.addEventListener('hashchange', apriDaIndirizzo);
 
+    /* giornata da mostrare all'apertura dell'Agenda, secondo la data odierna (ora italiana):
+       fino al 22 ottobre giovedì, il 23 venerdì, dal 24 in poi sabato */
+    function giornoCorrente_() {
+      const oggi = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Rome' }).format(new Date()); // AAAA-MM-GG
+      if (oggi >= '2026-10-24') return 2;
+      if (oggi === '2026-10-23') return 1;
+      return 0;
+    }
+
     function switchDay(idx) {
-      document.querySelectorAll('.day-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+      document.querySelectorAll('.day-btn').forEach((b, i) => {
+        b.classList.toggle('active', i === idx);
+        b.setAttribute('aria-selected', i === idx ? 'true' : 'false');
+      });
       document.querySelectorAll('.day-content').forEach((c, i) => c.classList.toggle('active', i === idx));
+      if (idx === 0) loadDay1();
       if (idx === 1) loadDay2();
       if (idx === 2) loadDay3();
     }
