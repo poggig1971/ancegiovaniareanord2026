@@ -2250,6 +2250,9 @@
         const j = await r.json();
         if (!j.ok) throw new Error(j.errore || 'configurazione non disponibile');
         iscrVoci = j.voci || [];
+        /* iscrizioni chiuse: riga di tipo «chiusura» attiva nel foglio «Modulo» */
+        const chiusura = iscrVoci.find(v => v.tipo === 'chiusura');
+        if (chiusura) { mostraChiusura_(chiusura); return; }
         await caricaElencoHotel_();      /* facoltativo: se fallisce si usano le opzioni del foglio */
         costruisciModulo(iscrVoci);
         load.style.display = 'none';
@@ -2258,6 +2261,18 @@
         load.style.display = 'none';
         errInit.style.display = 'block';
       }
+    }
+
+    /* messaggio mostrato al posto del modulo quando le iscrizioni sono chiuse */
+    function mostraChiusura_(v) {
+      document.getElementById('iscr-loading').style.display = 'none';
+      document.getElementById('iscr-form').style.display = 'none';
+      const titolo = esc(v.etichetta || 'Registrazioni concluse');
+      const testo = esc(v.descrizione || '')
+        .replace(/([\w.+-]+@[\w-]+\.[\w.-]+)/g, '<a href="mailto:$1" style="color:inherit">$1</a>');
+      const box = document.getElementById('iscr-esito');
+      box.innerHTML = `<h3>${titolo}</h3>` + (testo ? `<p>${testo}</p>` : '');
+      box.style.display = 'block';
     }
 
     /* estrae la data iniziale dall'etichetta, es. «23 ottobre 2026, ore 10:00 — …» */
@@ -3011,9 +3026,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
